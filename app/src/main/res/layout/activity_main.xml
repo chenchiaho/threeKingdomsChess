@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/gridLayout"
         android:layout_width="match_parent"
@@ -24,8 +25,9 @@
             android:id="@+id/tile1"
             android:layout_width="68dp"
             android:layout_height="55dp"
-            android:src="@drawable/covered_piece"
             android:onClick="flipPiece"
+            android:src="@drawable/covered_piece"
+            android:tag="0"
             app:layout_column="0"
             app:layout_row="0" />
 
@@ -33,11 +35,11 @@
             android:id="@+id/tile2"
             android:layout_width="68dp"
             android:layout_height="55dp"
-            app:layout_column="1"
-            app:layout_row="0"
-            android:src="@drawable/covered_piece"
             android:onClick="flipPiece"
-            />
+            android:src="@drawable/covered_piece"
+            android:tag="1"
+            app:layout_column="1"
+            app:layout_row="0" />
 
         <ImageView
             android:id="@+id/tile3"
@@ -105,10 +107,11 @@
             android:id="@+id/tile10"
             android:layout_width="68dp"
             android:layout_height="55dp"
+            android:onClick="flipPiece"
+            android:src="@drawable/covered_piece"
+            android:tag="9"
             app:layout_column="0"
-            app:layout_row="1"
-            android:src="@drawable/covered_piece" android:onClick="flipPiece"
-            />
+            app:layout_row="1" />
 
         <ImageView
             android:id="@+id/tile11"

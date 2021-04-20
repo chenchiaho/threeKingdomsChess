@@ -1,4 +1,4 @@
-package com.example.android.a3kingdomschess
+package com.example.android.threekingdomschess
 
 import org.junit.Test
 

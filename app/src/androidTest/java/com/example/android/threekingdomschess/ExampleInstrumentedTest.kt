@@ -1,4 +1,4 @@
-package com.example.android.a3kingdomschess
+package com.example.android.threekingdomschess
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
