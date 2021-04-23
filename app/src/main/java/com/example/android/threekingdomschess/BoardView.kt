@@ -23,18 +23,40 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     val bitmaps = mutableMapOf<Int, Bitmap>()
     val paint = Paint()
 
+    init {
+        decodeBitmap()
+    }
 
     override fun onDraw(canvas: Canvas?) {
         drawBoard(canvas)
-
-        val kingABitmap = bitmaps[R.drawable.chess_k1]
-        canvas?.drawBitmap(kingABitmap!!, null, Rect(0, 0, 600, 600), paint)
-            }
+        drawPieces(canvas)
+    }
 
     private fun decodeBitmap() {
         imageId.forEach {
             bitmaps[it] = BitmapFactory.decodeResource(resources, it)
         }
+    }
+
+    private fun drawPieces(canvas: Canvas?) {
+        val chessModel = ChessModel()
+        chessModel.reset()
+
+        for (row in 0..4) {
+            for (col in 0..8) {
+                // let = skip null, run non-null
+                chessModel.piecePosition(col, row)?.let { drawPiecesAt(canvas, col, row, it.resId) }
+            }
+        }
+    }
+
+    private fun drawPiecesAt(canvas: Canvas?, col: Int, row: Int, resId: Int) {
+        val bitmap = bitmaps[resId]!!
+        canvas?.drawBitmap(bitmap, null, RectF(
+                originalX + col * rectDimen,
+                originalY + (row) * rectDimen,
+                originalX + (col +1) * rectDimen,
+                originalY + (row + 1) * rectDimen), paint)
     }
 
     private fun drawBoard(canvas: Canvas?) {
