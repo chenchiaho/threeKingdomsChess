@@ -5,7 +5,6 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 
-
 class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private val originalY = 150f
@@ -23,6 +22,8 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     val bitmaps = mutableMapOf<Int, Bitmap>()
     val paint = Paint()
 
+    var chessDelegate: ChessDelegate? = null
+
     init {
         decodeBitmap()
     }
@@ -39,13 +40,12 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     }
 
     private fun drawPieces(canvas: Canvas?) {
-        val chessModel = ChessModel()
-        chessModel.reset()
+
 
         for (row in 0..4) {
             for (col in 0..8) {
                 // let = skip null, run non-null
-                chessModel.piecePosition(col, row)?.let { drawPiecesAt(canvas, col, row, it.resId) }
+                chessDelegate?.piecePosition(col, row)?.let { drawPiecesAt(canvas, col, row, it.resId) }
             }
         }
     }

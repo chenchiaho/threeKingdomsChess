@@ -4,6 +4,10 @@ class ChessModel() {
 
     var pieceSet = mutableSetOf<ChessPiece>()
 
+    init {
+        reset()
+    }
+
     fun reset() {
         pieceSet.add(ChessPiece(0,4, ChessPlayer.GREEN, ChessType.KING1, R.drawable.chess_k1))
         pieceSet.add(ChessPiece(1,4, ChessPlayer.GREEN, ChessType.KING2, R.drawable.chess_k2))

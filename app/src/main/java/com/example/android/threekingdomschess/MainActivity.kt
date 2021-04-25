@@ -9,7 +9,7 @@ import com.example.android.threekingdomschess.databinding.ActivityMainBinding
 
 private const val TAG = "MainActivity"
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ChessDelegate {
 
     var chessModel = ChessModel()
 
@@ -19,6 +19,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         Log.d(TAG, "$chessModel")
+        val boardView = findViewById<BoardView>(R.id.board_view)
+        boardView.chessDelegate = this
+    }
+
+    override fun piecePosition(col: Int, row: Int): ChessPiece? {
+        return chessModel.piecePosition(col, row)
     }
 }
 
