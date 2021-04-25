@@ -3,6 +3,8 @@ package com.example.android.threekingdomschess
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 
 class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
@@ -19,8 +21,12 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             R.drawable.chess_h1, R.drawable.chess_h2,
             R.drawable.chess_c1, R.drawable.chess_c2
     )
-    val bitmaps = mutableMapOf<Int, Bitmap>()
-    val paint = Paint()
+    private val bitmaps = mutableMapOf<Int, Bitmap>()
+    private val paint = Paint()
+    private var fromCol: Int = -1
+    private var fromRow: Int = -1
+    private var movingPieceX = -1f
+    private var movingPieceY = -1f
 
     var chessDelegate: ChessDelegate? = null
 
@@ -33,6 +39,31 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         drawPieces(canvas)
     }
 
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        event ?: return false
+
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                fromCol = ((event.x - originalX) / rectDimen).toInt()
+                fromRow =  ((event.y - originalY) / rectDimen).toInt()
+            }
+
+            MotionEvent.ACTION_MOVE -> {
+                movingPieceX = event.x
+                movingPieceY = event.y
+                invalidate()
+            }
+
+            MotionEvent.ACTION_UP -> {
+                val col = ((event.x - originalX) / rectDimen).toInt()
+                val row = ((event.y - originalY) / rectDimen).toInt()
+                Log.d(TAG, "from ($fromCol, $fromRow) to ($col, $row)")
+                chessDelegate?.movePiece(fromCol, fromRow, col, row)
+            }
+        }
+        return true
+    }
+
     private fun decodeBitmap() {
         imageId.forEach {
             bitmaps[it] = BitmapFactory.decodeResource(resources, it)
@@ -41,13 +72,22 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
     private fun drawPieces(canvas: Canvas?) {
 
-
         for (row in 0..4) {
             for (col in 0..8) {
-                // let = skip null, run non-null
-                chessDelegate?.piecePosition(col, row)?.let { drawPiecesAt(canvas, col, row, it.resId) }
+                if (row != fromRow || col !=fromCol) {
+                    chessDelegate?.piecePosition(col, row)?.let { drawPiecesAt(canvas, col, row, it.resId) }
+                }
             }
         }
+
+        chessDelegate?.piecePosition(fromCol, fromRow)?.let {
+            val bitmap = bitmaps[it.resId]!!
+            canvas?.drawBitmap(bitmap, null, RectF(
+                    movingPieceX - rectDimen*0.8f,
+                    movingPieceY - (rectDimen*1.5f),
+                    movingPieceX + (rectDimen*0.8f),
+                    movingPieceY + rectDimen*0.1f), paint)
+             }
     }
 
     private fun drawPiecesAt(canvas: Canvas?, col: Int, row: Int, resId: Int) {

@@ -6,6 +6,20 @@ class ChessModel() {
 
     init {
         reset()
+        }
+
+    fun movePiece (fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+        //?: = if operand1 is null, run operand2
+        val movingPiece = piecePosition(fromCol, fromRow) ?: return
+
+        piecePosition(toCol, toRow)?.let {
+            if (it.player == movingPiece.player) {
+                return
+            }
+            pieceSet.remove(it)
+        }
+        pieceSet.remove(movingPiece)
+        pieceSet.add(ChessPiece(toCol, toRow, movingPiece.player, movingPiece.cType, movingPiece.resId))
     }
 
     fun reset() {
@@ -57,7 +71,7 @@ class ChessModel() {
     override fun toString(): String {
         var board = " "
 
-        for (row in 4 downTo 0) {
+        for (row in 0..4) {
             board += "$row"
             for (col in 0..8) {
                 var piece = piecePosition(col, row)
