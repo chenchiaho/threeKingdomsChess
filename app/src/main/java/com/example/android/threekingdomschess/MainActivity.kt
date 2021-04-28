@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.android.threekingdomschess.databinding.ActivityMainBinding
 
-const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity(), ChessDelegate {
 

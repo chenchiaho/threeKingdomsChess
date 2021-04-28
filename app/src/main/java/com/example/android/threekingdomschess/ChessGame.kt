@@ -1,15 +1,51 @@
 package com.example.android.threekingdomschess
 
+import kotlin.math.abs
+
 object ChessGame {
 
-    var pieceSet = mutableSetOf<ChessPiece>()
+    private var pieceSet = mutableSetOf<ChessPiece>()
 
     init {
         reset()
         }
 
+    fun clear() {
+        pieceSet.clear()
+    }
+
+    fun addPiece(piece: ChessPiece) {
+        pieceSet.add(piece)
+    }
+
+    fun horseLegal(from: Square, to: Square): Boolean {
+        return abs(from.col - to.col) == 2 && abs(from.row - to.row) == 1 ||
+                abs(from.col - to.col) == 1 && abs(from.row - to.row) == 2
+    }
+
+    fun rookLegal(from: Square, to: Square): Boolean {
+        if (from.col == to.col || from.row == to.row) {
+            return true
+        }
+        return false
+    }
+
+    fun canMove(from: Square, to: Square): Boolean {
+        if (from.col == to.col && from.row == to.row){
+            return false
+        }
+        val legalMove = piecePosition(from) ?: return false
+        when(legalMove.cType) {
+            ChessType.HORSE -> return horseLegal(from, to)
+            ChessType.ROOK -> return rookLegal(from, to)
+        }
+        return true
+    }
+
     fun movePiece (from: Square, to: Square) {
+        if (canMove(from, to)) {
         movePiece(from.col, from.row, to.col, to.row)
+        }
     }
 
     private fun movePiece (fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
@@ -24,44 +60,45 @@ object ChessGame {
             pieceSet.remove(it)
         }
         pieceSet.remove(movingPiece)
-        pieceSet.add(movingPiece.copy(col = toCol, row = toRow))
+        addPiece(movingPiece.copy(col = toCol, row = toRow))
     }
 
     private fun reset() {
-        pieceSet.add(ChessPiece(0,4, ChessPlayer.GREEN, ChessType.KING1, R.drawable.chess_k1))
-        pieceSet.add(ChessPiece(1,4, ChessPlayer.GREEN, ChessType.KING2, R.drawable.chess_k2))
-        pieceSet.add(ChessPiece(2, 4, ChessPlayer.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
-        pieceSet.add(ChessPiece(3, 4, ChessPlayer.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
-        pieceSet.add(ChessPiece(5, 4, ChessPlayer.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
-        pieceSet.add(ChessPiece(6, 4, ChessPlayer.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
-        pieceSet.add(ChessPiece(7, 4, ChessPlayer.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
-        pieceSet.add(ChessPiece(8, 4, ChessPlayer.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
-        pieceSet.add(ChessPiece(0, 3, ChessPlayer.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
-        pieceSet.add(ChessPiece(1, 3, ChessPlayer.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
-        pieceSet.add(ChessPiece(2, 3, ChessPlayer.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
-        pieceSet.add(ChessPiece(3, 3, ChessPlayer.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
+        clear()
+        addPiece(ChessPiece(0,4, Player.GREEN, ChessType.KING1, R.drawable.chess_k1))
+        addPiece(ChessPiece(1,4, Player.GREEN, ChessType.KING2, R.drawable.chess_k2))
+        addPiece(ChessPiece(2, 4, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
+        addPiece(ChessPiece(3, 4, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
+        addPiece(ChessPiece(5, 4, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
+        addPiece(ChessPiece(6, 4, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
+        addPiece(ChessPiece(7, 4, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
+        addPiece(ChessPiece(8, 4, Player.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
+        addPiece(ChessPiece(0, 3, Player.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
+        addPiece(ChessPiece(1, 3, Player.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
+        addPiece(ChessPiece(2, 3, Player.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
+        addPiece(ChessPiece(3, 3, Player.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
 
-        pieceSet.add(ChessPiece(5, 3, ChessPlayer.BLACK, ChessType.GUARD, R.drawable.chess_g1))
-        pieceSet.add(ChessPiece(6, 3, ChessPlayer.BLACK, ChessType.GUARD, R.drawable.chess_g1))
-        pieceSet.add(ChessPiece(7, 3, ChessPlayer.BLACK, ChessType.ADVISER, R.drawable.chess_b1))
-        pieceSet.add(ChessPiece(8, 3, ChessPlayer.BLACK, ChessType.ADVISER, R.drawable.chess_b1))
-        pieceSet.add(ChessPiece(0, 1, ChessPlayer.BLACK, ChessType.HORSE, R.drawable.chess_h1))
-        pieceSet.add(ChessPiece(1, 1, ChessPlayer.BLACK, ChessType.HORSE, R.drawable.chess_h1))
-        pieceSet.add(ChessPiece(2, 1, ChessPlayer.BLACK, ChessType.ROOK, R.drawable.chess_r1))
-        pieceSet.add(ChessPiece(3, 1, ChessPlayer.BLACK, ChessType.ROOK, R.drawable.chess_r1))
-        pieceSet.add(ChessPiece(5, 1, ChessPlayer.BLACK, ChessType.CANNON, R.drawable.chess_c1))
-        pieceSet.add(ChessPiece(6, 1, ChessPlayer.BLACK, ChessType.CANNON, R.drawable.chess_c1))
+        addPiece(ChessPiece(5, 3, Player.BLACK, ChessType.GUARD, R.drawable.chess_g1))
+        addPiece(ChessPiece(6, 3, Player.BLACK, ChessType.GUARD, R.drawable.chess_g1))
+        addPiece(ChessPiece(7, 3, Player.BLACK, ChessType.ADVISER, R.drawable.chess_b1))
+        addPiece(ChessPiece(8, 3, Player.BLACK, ChessType.ADVISER, R.drawable.chess_b1))
+        addPiece(ChessPiece(0, 1, Player.BLACK, ChessType.HORSE, R.drawable.chess_h1))
+        addPiece(ChessPiece(1, 1, Player.BLACK, ChessType.HORSE, R.drawable.chess_h1))
+        addPiece(ChessPiece(2, 1, Player.BLACK, ChessType.ROOK, R.drawable.chess_r1))
+        addPiece(ChessPiece(3, 1, Player.BLACK, ChessType.ROOK, R.drawable.chess_r1))
+        addPiece(ChessPiece(5, 1, Player.BLACK, ChessType.CANNON, R.drawable.chess_c1))
+        addPiece(ChessPiece(6, 1, Player.BLACK, ChessType.CANNON, R.drawable.chess_c1))
 
-        pieceSet.add(ChessPiece(7, 1, ChessPlayer.RED, ChessType.GUARD, R.drawable.chess_g2))
-        pieceSet.add(ChessPiece(8, 1, ChessPlayer.RED, ChessType.GUARD, R.drawable.chess_g2))
-        pieceSet.add(ChessPiece(0, 0, ChessPlayer.RED, ChessType.ADVISER, R.drawable.chess_b2))
-        pieceSet.add(ChessPiece(1, 0, ChessPlayer.RED, ChessType.ADVISER, R.drawable.chess_b2))
-        pieceSet.add(ChessPiece(2, 0, ChessPlayer.RED, ChessType.HORSE, R.drawable.chess_h2))
-        pieceSet.add(ChessPiece(3, 0, ChessPlayer.RED, ChessType.HORSE, R.drawable.chess_h2))
-        pieceSet.add(ChessPiece(5, 0, ChessPlayer.RED, ChessType.ROOK, R.drawable.chess_r2))
-        pieceSet.add(ChessPiece(6, 0, ChessPlayer.RED, ChessType.ROOK, R.drawable.chess_r2))
-        pieceSet.add(ChessPiece(7, 0, ChessPlayer.RED, ChessType.CANNON, R.drawable.chess_c2))
-        pieceSet.add(ChessPiece(8, 0, ChessPlayer.RED, ChessType.CANNON, R.drawable.chess_c2))
+        addPiece(ChessPiece(7, 1, Player.RED, ChessType.GUARD, R.drawable.chess_g2))
+        addPiece(ChessPiece(8, 1, Player.RED, ChessType.GUARD, R.drawable.chess_g2))
+        addPiece(ChessPiece(0, 0, Player.RED, ChessType.ADVISER, R.drawable.chess_b2))
+        addPiece(ChessPiece(1, 0, Player.RED, ChessType.ADVISER, R.drawable.chess_b2))
+        addPiece(ChessPiece(2, 0, Player.RED, ChessType.HORSE, R.drawable.chess_h2))
+        addPiece(ChessPiece(3, 0, Player.RED, ChessType.HORSE, R.drawable.chess_h2))
+        addPiece(ChessPiece(5, 0, Player.RED, ChessType.ROOK, R.drawable.chess_r2))
+        addPiece(ChessPiece(6, 0, Player.RED, ChessType.ROOK, R.drawable.chess_r2))
+        addPiece(ChessPiece(7, 0, Player.RED, ChessType.CANNON, R.drawable.chess_c2))
+        addPiece(ChessPiece(8, 0, Player.RED, ChessType.CANNON, R.drawable.chess_c2))
     }
 
     fun piecePosition(square: Square): ChessPiece? {
@@ -83,11 +120,11 @@ object ChessGame {
         for (row in 0..4) {
             board += "$row"
             for (col in 0..8) {
-                var piece = piecePosition(col, row)
+                val piece = piecePosition(col, row)
                 if (piece == null) {
                     board += " ."
                 } else {
-                    val black = piece.player == ChessPlayer.BLACK
+                    val black = piece.player == Player.BLACK
                     board += " " + when(piece.cType) {
                         ChessType.KING1 -> "K"
                         ChessType.KING2 -> "k"

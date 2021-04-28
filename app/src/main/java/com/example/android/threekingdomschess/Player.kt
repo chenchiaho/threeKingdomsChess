@@ -1,6 +1,6 @@
 package com.example.android.threekingdomschess
 
-enum class ChessPlayer {
+enum class Player {
     GREEN,
     BLACK,
     RED
