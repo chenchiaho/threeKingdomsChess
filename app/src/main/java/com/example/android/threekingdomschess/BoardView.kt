@@ -23,6 +23,8 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     )
     private val bitmaps = mutableMapOf<Int, Bitmap>()
     private val paint = Paint()
+    private var movingPieveBitmap: Bitmap? = null
+    private var movingPiece: ChessPiece? = null
     private var fromCol: Int = -1
     private var fromRow: Int = -1
     private var movingPieceX = -1f
@@ -46,6 +48,10 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             MotionEvent.ACTION_DOWN -> {
                 fromCol = ((event.x - originalX) / rectDimen).toInt()
                 fromRow =  ((event.y - originalY) / rectDimen).toInt()
+                chessDelegate?.piecePosition(Square(fromCol, fromRow))?.let {
+                    movingPiece = it
+                    movingPieveBitmap = bitmaps[it.resId]
+                }
             }
 
             MotionEvent.ACTION_MOVE -> {
@@ -57,8 +63,12 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             MotionEvent.ACTION_UP -> {
                 val col = ((event.x - originalX) / rectDimen).toInt()
                 val row = ((event.y - originalY) / rectDimen).toInt()
-                Log.d(TAG, "from ($fromCol, $fromRow) to ($col, $row)")
-                chessDelegate?.movePiece(fromCol, fromRow, col, row)
+                if (fromCol != col || fromRow != row) {
+                    chessDelegate?.movePiece(Square(fromCol, fromRow), Square(col, row))
+                }
+                movingPiece = null
+                movingPieveBitmap = null
+                invalidate()
             }
         }
         return true
@@ -74,20 +84,24 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
         for (row in 0..4) {
             for (col in 0..8) {
-                if (row != fromRow || col !=fromCol) {
-                    chessDelegate?.piecePosition(col, row)?.let { drawPiecesAt(canvas, col, row, it.resId) }
+//                if (row != fromRow || col !=fromCol) {
+//                    chessDelegate?.piecePosition(col, row)?.let { drawPiecesAt(canvas, col, row, it.resId) }
+
+                    chessDelegate?.piecePosition(Square(col, row))?.let {
+                        if (it != movingPiece) {
+                            drawPiecesAt(canvas, col, row, it.resId)
+                    }
                 }
             }
         }
 
-        chessDelegate?.piecePosition(fromCol, fromRow)?.let {
-            val bitmap = bitmaps[it.resId]!!
-            canvas?.drawBitmap(bitmap, null, RectF(
+        movingPieveBitmap?.let {
+            canvas?.drawBitmap(it, null, RectF(
                     movingPieceX - rectDimen*0.8f,
                     movingPieceY - (rectDimen*1.5f),
                     movingPieceX + (rectDimen*0.8f),
                     movingPieceY + rectDimen*0.1f), paint)
-             }
+        }
     }
 
     private fun drawPiecesAt(canvas: Canvas?, col: Int, row: Int, resId: Int) {

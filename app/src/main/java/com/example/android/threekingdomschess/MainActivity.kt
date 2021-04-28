@@ -2,16 +2,11 @@ package com.example.android.threekingdomschess
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.ImageView
 import com.example.android.threekingdomschess.databinding.ActivityMainBinding
 
 const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity(), ChessDelegate {
-
-    var chessModel = ChessModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,12 +16,15 @@ class MainActivity : AppCompatActivity(), ChessDelegate {
         findViewById<BoardView>(R.id.board_view).chessDelegate = this
     }
 
-    override fun piecePosition(col: Int, row: Int): ChessPiece? {
-        return chessModel.piecePosition(col, row)
+    override fun piecePosition(square: Square): ChessPiece? {
+        return ChessGame.piecePosition(square)
     }
 
-    override fun movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
-        chessModel.movePiece(fromCol, fromRow, toCol, toRow)
+    override fun movePiece(from: Square, to: Square) {
+//        if (fromCol == toCol && fromRow == toRow) {
+//            return
+//        }
+        ChessGame.movePiece(from, to)
         findViewById<BoardView>(R.id.board_view).invalidate()
     }
 }

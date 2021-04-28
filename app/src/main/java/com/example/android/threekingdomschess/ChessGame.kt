@@ -1,6 +1,6 @@
 package com.example.android.threekingdomschess
 
-class ChessModel() {
+object ChessGame {
 
     var pieceSet = mutableSetOf<ChessPiece>()
 
@@ -8,10 +8,15 @@ class ChessModel() {
         reset()
         }
 
-    fun movePiece (fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
-        //?: = if operand1 is null, run operand2
-        val movingPiece = piecePosition(fromCol, fromRow) ?: return
+    fun movePiece (from: Square, to: Square) {
+        movePiece(from.col, from.row, to.col, to.row)
+    }
 
+    private fun movePiece (fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+        //?: = if operand1 is null, run operand2
+        if (fromCol == toCol && fromRow == toRow) return
+
+        val movingPiece = piecePosition(fromCol, fromRow) ?: return
         piecePosition(toCol, toRow)?.let {
             if (it.player == movingPiece.player) {
                 return
@@ -19,10 +24,10 @@ class ChessModel() {
             pieceSet.remove(it)
         }
         pieceSet.remove(movingPiece)
-        pieceSet.add(ChessPiece(toCol, toRow, movingPiece.player, movingPiece.cType, movingPiece.resId))
+        pieceSet.add(movingPiece.copy(col = toCol, row = toRow))
     }
 
-    fun reset() {
+    private fun reset() {
         pieceSet.add(ChessPiece(0,4, ChessPlayer.GREEN, ChessType.KING1, R.drawable.chess_k1))
         pieceSet.add(ChessPiece(1,4, ChessPlayer.GREEN, ChessType.KING2, R.drawable.chess_k2))
         pieceSet.add(ChessPiece(2, 4, ChessPlayer.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
@@ -59,7 +64,11 @@ class ChessModel() {
         pieceSet.add(ChessPiece(8, 0, ChessPlayer.RED, ChessType.CANNON, R.drawable.chess_c2))
     }
 
-    fun piecePosition(col: Int, row: Int): ChessPiece? {
+    fun piecePosition(square: Square): ChessPiece? {
+        return piecePosition(square.col, square.row)
+    }
+
+    private fun piecePosition(col: Int, row: Int): ChessPiece? {
         for (piece in pieceSet) {
             if (col == piece.col && row == piece.row) {
                 return piece
@@ -84,21 +93,11 @@ class ChessModel() {
                         ChessType.KING2 -> "k"
                         ChessType.PAWN1 -> "P"
                         ChessType.PAWN2 -> "p"
-                        ChessType.GUARD -> {
-                            if (black) "G" else "g"
-                        }
-                        ChessType.ADVISER -> {
-                            if (black) "A" else "a"
-                        }
-                        ChessType.HORSE -> {
-                            if (black) "H" else "h"
-                        }
-                        ChessType.ROOK -> {
-                            if (black) "R" else "r"
-                        }
-                        ChessType.CANNON -> {
-                            if (black) "C" else "c"
-                        }
+                        ChessType.GUARD -> if (black) "G" else "g"
+                        ChessType.ADVISER -> if (black) "A" else "a"
+                        ChessType.HORSE -> if (black) "H" else "h"
+                        ChessType.ROOK -> if (black) "R" else "r"
+                        ChessType.CANNON -> if (black) "C" else "c"
                     }
                 }
             }
