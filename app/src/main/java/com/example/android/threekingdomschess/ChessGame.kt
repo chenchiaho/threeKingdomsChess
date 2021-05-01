@@ -32,10 +32,10 @@ object ChessGame {
     }
 
     private fun adviserLegal(from: Square, to: Square): Boolean {
-        if (abs(from.col - to.col ) == 2 &&
+        if (abs(from.col - to.col) == 2 &&
             abs(to.row - from.row) == 2) {
             return true
-        } else if (abs(from.col - to.col ) == 1 &&
+        } else if (abs(from.col - to.col) == 1 &&
                    abs(to.row - from.row) == 1) {
             return true
         }
@@ -68,6 +68,33 @@ object ChessGame {
         return true
     }
 
+    private fun pawnLegal(from: Square, to: Square): Boolean {
+        if (abs(from.col - to.col) == 1 &&
+                abs(to.row - from.row) == 0) {
+            return true
+        } else if (abs(from.col - to.col) == 0 &&
+                abs(to.row - from.row) == 1) {
+            return true
+        }
+        return false
+    }
+
+    private fun guardLegal(from: Square, to: Square): Boolean {
+        if (abs(from.col - to.col) == 1 &&
+                abs(to.row - from.row) == 1) {
+            return true
+        }
+        return false
+    }
+
+    private fun canonLegal(from: Square, to: Square): Boolean {
+        if (from.col == to.col && rookVerticalPath(from, to) ||
+                from.row == to.row && rookHorizontalPath(from, to)) {
+            return true
+        }
+        return false
+    }
+
     private fun legalMove(from: Square, to: Square): Boolean {
         if (from.col == to.col && from.row == to.row){
             return false
@@ -76,18 +103,24 @@ object ChessGame {
         when(legalMove.cType) {
             ChessType.HORSE -> return horseLegal(from, to)
             ChessType.ROOK -> return rookLegal(from, to)
+            ChessType.KING1 -> return rookLegal(from, to)
+            ChessType.KING2 -> return rookLegal(from, to)
             ChessType.ADVISER -> return adviserLegal(from, to)
+            ChessType.PAWN1 -> return pawnLegal(from, to)
+            ChessType.PAWN2 -> return pawnLegal(from, to)
+            ChessType.GUARD -> return guardLegal(from, to)
+            ChessType.CANNON -> return canonLegal(from, to)
         }
         return true
     }
 
-    fun movePiece (from: Square, to: Square) {
+    fun movePiece(from: Square, to: Square) {
         if (legalMove(from, to)) {
         movePiece(from.col, from.row, to.col, to.row)
         }
     }
 
-    private fun movePiece (fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+    private fun movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         //?: = if operand1 is null, run operand2
         if (fromCol == toCol && fromRow == toRow) return
 
@@ -104,8 +137,8 @@ object ChessGame {
 
     private fun reset() {
         clear()
-        addPiece(ChessPiece(0,4, Player.GREEN, ChessType.KING1, R.drawable.chess_k1))
-        addPiece(ChessPiece(1,4, Player.GREEN, ChessType.KING2, R.drawable.chess_k2))
+        addPiece(ChessPiece(0, 4, Player.GREEN, ChessType.KING1, R.drawable.chess_k1))
+        addPiece(ChessPiece(1, 4, Player.GREEN, ChessType.KING2, R.drawable.chess_k2))
         addPiece(ChessPiece(2, 4, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
         addPiece(ChessPiece(3, 4, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
         addPiece(ChessPiece(5, 4, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
