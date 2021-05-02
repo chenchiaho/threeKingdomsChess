@@ -87,9 +87,35 @@ object ChessGame {
         return false
     }
 
+    private fun canonVerticalPath(from: Square, to: Square): Boolean {
+        if (from.col != to.col) return false
+        val gap = abs(from.row - to.row) -1
+        if (gap == 0) return true
+        for (i in 1..gap) {
+            val nextRow = if (to.row > from.row) from.row + i +1 else from.row -i -1
+            if (piecePosition(Square(from.col, nextRow)) !=null) {
+                return false
+            }
+        }
+        return true
+    }
+
+    private fun canonHorizontalPath(from: Square, to: Square): Boolean {
+        if (from.row != to.row) return false
+        val gap = abs(from.col - to.col) -1
+        if (gap == 0) return true
+        for (i in 1..gap) {
+            val nextCol = if (to.col > from.col) from.col + i +1 else from.col -i -1
+            if (piecePosition(Square(nextCol, from.row)) !=null) {
+                return false
+            }
+        }
+        return true
+    }
+
     private fun canonLegal(from: Square, to: Square): Boolean {
-        if (from.col == to.col && rookVerticalPath(from, to) ||
-                from.row == to.row && rookHorizontalPath(from, to)) {
+        if (from.col == to.col && canonVerticalPath(from, to) ||
+                from.row == to.row && canonHorizontalPath(from, to)) {
             return true
         }
         return false
