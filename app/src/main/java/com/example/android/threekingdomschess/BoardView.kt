@@ -3,7 +3,6 @@ package com.example.android.threekingdomschess
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 
@@ -23,7 +22,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     )
     private val bitmaps = mutableMapOf<Int, Bitmap>()
     private val paint = Paint()
-    private var movingPieveBitmap: Bitmap? = null
+    private var movingPieceBitmap: Bitmap? = null
     private var movingPiece: ChessPiece? = null
     private var fromCol: Int = -1
     private var fromRow: Int = -1
@@ -50,7 +49,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 fromRow =  ((event.y - originalY) / rectDimen).toInt()
                 chessDelegate?.piecePosition(Square(fromCol, fromRow))?.let {
                     movingPiece = it
-                    movingPieveBitmap = bitmaps[it.resId]
+                    movingPieceBitmap = bitmaps[it.resId]
                 }
             }
 
@@ -67,7 +66,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                     chessDelegate?.movePiece(Square(fromCol, fromRow), Square(col, row))
                 }
                 movingPiece = null
-                movingPieveBitmap = null
+                movingPieceBitmap = null
                 invalidate()
             }
         }
@@ -84,8 +83,6 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
         for (row in 0..4) {
             for (col in 0..8) {
-//                if (row != fromRow || col !=fromCol) {
-//                    chessDelegate?.piecePosition(col, row)?.let { drawPiecesAt(canvas, col, row, it.resId) }
 
                     chessDelegate?.piecePosition(Square(col, row))?.let {
                         if (it != movingPiece) {
@@ -95,7 +92,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             }
         }
 
-        movingPieveBitmap?.let {
+        movingPieceBitmap?.let {
             canvas?.drawBitmap(it, null, RectF(
                     movingPieceX - rectDimen*0.8f,
                     movingPieceY - (rectDimen*1.5f),

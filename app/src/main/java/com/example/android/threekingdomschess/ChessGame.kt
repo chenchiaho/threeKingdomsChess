@@ -1,8 +1,12 @@
 package com.example.android.threekingdomschess
 
+import android.util.Log
+import java.util.*
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
+
+private const val TAG = "ChessGame"
 
 object ChessGame {
 
@@ -10,6 +14,7 @@ object ChessGame {
 
     init {
         reset()
+        initPosition()
         }
 
     private fun clear() {
@@ -158,6 +163,7 @@ object ChessGame {
 
     private fun reset() {
         clear()
+
         addPiece(ChessPiece(0, 4, Player.GREEN, ChessType.KING1, R.drawable.chess_k1))
         addPiece(ChessPiece(1, 4, Player.GREEN, ChessType.KING2, R.drawable.chess_k2))
         addPiece(ChessPiece(2, 4, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
@@ -192,6 +198,47 @@ object ChessGame {
         addPiece(ChessPiece(6, 0, Player.RED, ChessType.ROOK, R.drawable.chess_r2))
         addPiece(ChessPiece(7, 0, Player.RED, ChessType.CANNON, R.drawable.chess_c2))
         addPiece(ChessPiece(8, 0, Player.RED, ChessType.CANNON, R.drawable.chess_c2))
+    }
+
+    fun initPosition() {
+
+        var randomPiece = mutableListOf<Square>()
+        randomPiece.add(Square(0, 4))
+        randomPiece.add(Square(1, 4))
+        randomPiece.add(Square(2, 4))
+        randomPiece.add(Square(3, 4))
+        randomPiece.add(Square(5, 4))
+        randomPiece.add(Square(6, 4))
+        randomPiece.add(Square(7, 4))
+        randomPiece.add(Square(8, 4))
+        randomPiece.add(Square(0, 3))
+        randomPiece.add(Square(1, 3))
+        randomPiece.add(Square(2, 3))
+        randomPiece.add(Square(3, 3))
+        randomPiece.add(Square(5, 3))
+        randomPiece.add(Square(6, 3))
+        randomPiece.add(Square(7, 3))
+        randomPiece.add(Square(8, 3))
+        randomPiece.add(Square(0, 1))
+        randomPiece.add(Square(1, 1))
+        randomPiece.add(Square(2, 1))
+        randomPiece.add(Square(3, 1))
+        randomPiece.add(Square(5, 1))
+        randomPiece.add(Square(6, 1))
+        randomPiece.add(Square(7, 1))
+        randomPiece.add(Square(8, 1))
+        randomPiece.add(Square(0, 0))
+        randomPiece.add(Square(1, 0))
+        randomPiece.add(Square(2, 0))
+        randomPiece.add(Square(3, 0))
+        randomPiece.add(Square(5, 0))
+        randomPiece.add(Square(6, 0))
+        randomPiece.add(Square(7, 0))
+        randomPiece.add(Square(8, 0))
+        Collections.shuffle(randomPiece)
+        Log.d(TAG, "The random set is ${mutableListOf(randomPiece[0])}")
+        return
+
     }
 
     fun piecePosition(square: Square): ChessPiece? {
