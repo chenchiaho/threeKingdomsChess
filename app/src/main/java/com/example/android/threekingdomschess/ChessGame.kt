@@ -13,8 +13,8 @@ object ChessGame {
     private var pieceSet = mutableSetOf<ChessPiece>()
 
     init {
-        reset()
         initPosition()
+        reset()
         }
 
     private fun clear() {
@@ -162,45 +162,46 @@ object ChessGame {
     }
 
     private fun reset() {
+        var position = initPosition()
         clear()
 
-        addPiece(ChessPiece(0, 4, Player.GREEN, ChessType.KING1, R.drawable.chess_k1))
-        addPiece(ChessPiece(1, 4, Player.GREEN, ChessType.KING2, R.drawable.chess_k2))
-        addPiece(ChessPiece(2, 4, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
-        addPiece(ChessPiece(3, 4, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
-        addPiece(ChessPiece(5, 4, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
-        addPiece(ChessPiece(6, 4, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
-        addPiece(ChessPiece(7, 4, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
-        addPiece(ChessPiece(8, 4, Player.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
-        addPiece(ChessPiece(0, 3, Player.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
-        addPiece(ChessPiece(1, 3, Player.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
-        addPiece(ChessPiece(2, 3, Player.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
-        addPiece(ChessPiece(3, 3, Player.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
+        addPiece(ChessPiece(position[0].col, position[0].row, Player.GREEN, ChessType.KING1, R.drawable.chess_k1))
+        addPiece(ChessPiece(position[1].col, position[1].row, Player.GREEN, ChessType.KING2, R.drawable.chess_k2))
+        addPiece(ChessPiece(position[2].col, position[2].row, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
+        addPiece(ChessPiece(position[3].col, position[3].row, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
+        addPiece(ChessPiece(position[4].col, position[4].row, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
+        addPiece(ChessPiece(position[5].col, position[5].row, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
+        addPiece(ChessPiece(position[6].col, position[6].row, Player.GREEN, ChessType.PAWN1, R.drawable.chess_p1))
+        addPiece(ChessPiece(position[7].col, position[7].row, Player.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
+        addPiece(ChessPiece(position[8].col, position[8].row, Player.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
+        addPiece(ChessPiece(position[9].col, position[9].row, Player.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
+        addPiece(ChessPiece(position[10].col, position[10].row, Player.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
+        addPiece(ChessPiece(position[11].col, position[11].row, Player.GREEN, ChessType.PAWN2, R.drawable.chess_p2))
 
-        addPiece(ChessPiece(5, 3, Player.BLACK, ChessType.GUARD, R.drawable.chess_g1))
-        addPiece(ChessPiece(6, 3, Player.BLACK, ChessType.GUARD, R.drawable.chess_g1))
-        addPiece(ChessPiece(7, 3, Player.BLACK, ChessType.ADVISER, R.drawable.chess_b1))
-        addPiece(ChessPiece(8, 3, Player.BLACK, ChessType.ADVISER, R.drawable.chess_b1))
-        addPiece(ChessPiece(0, 1, Player.BLACK, ChessType.HORSE, R.drawable.chess_h1))
-        addPiece(ChessPiece(1, 1, Player.BLACK, ChessType.HORSE, R.drawable.chess_h1))
-        addPiece(ChessPiece(2, 1, Player.BLACK, ChessType.ROOK, R.drawable.chess_r1))
-        addPiece(ChessPiece(3, 1, Player.BLACK, ChessType.ROOK, R.drawable.chess_r1))
-        addPiece(ChessPiece(5, 1, Player.BLACK, ChessType.CANNON, R.drawable.chess_c1))
-        addPiece(ChessPiece(6, 1, Player.BLACK, ChessType.CANNON, R.drawable.chess_c1))
+        addPiece(ChessPiece(position[12].col, position[12].row, Player.BLACK, ChessType.GUARD, R.drawable.chess_g1))
+        addPiece(ChessPiece(position[13].col, position[13].row, Player.BLACK, ChessType.GUARD, R.drawable.chess_g1))
+        addPiece(ChessPiece(position[14].col, position[14].row, Player.BLACK, ChessType.ADVISER, R.drawable.chess_b1))
+        addPiece(ChessPiece(position[15].col, position[15].row, Player.BLACK, ChessType.ADVISER, R.drawable.chess_b1))
+        addPiece(ChessPiece(position[16].col, position[16].row, Player.BLACK, ChessType.HORSE, R.drawable.chess_h1))
+        addPiece(ChessPiece(position[17].col, position[17].row, Player.BLACK, ChessType.HORSE, R.drawable.chess_h1))
+        addPiece(ChessPiece(position[18].col, position[18].row, Player.BLACK, ChessType.ROOK, R.drawable.chess_r1))
+        addPiece(ChessPiece(position[19].col, position[19].row, Player.BLACK, ChessType.ROOK, R.drawable.chess_r1))
+        addPiece(ChessPiece(position[20].col, position[20].row, Player.BLACK, ChessType.CANNON, R.drawable.chess_c1))
+        addPiece(ChessPiece(position[21].col, position[21].row, Player.BLACK, ChessType.CANNON, R.drawable.chess_c1))
 
-        addPiece(ChessPiece(7, 1, Player.RED, ChessType.GUARD, R.drawable.chess_g2))
-        addPiece(ChessPiece(8, 1, Player.RED, ChessType.GUARD, R.drawable.chess_g2))
-        addPiece(ChessPiece(0, 0, Player.RED, ChessType.ADVISER, R.drawable.chess_b2))
-        addPiece(ChessPiece(1, 0, Player.RED, ChessType.ADVISER, R.drawable.chess_b2))
-        addPiece(ChessPiece(2, 0, Player.RED, ChessType.HORSE, R.drawable.chess_h2))
-        addPiece(ChessPiece(3, 0, Player.RED, ChessType.HORSE, R.drawable.chess_h2))
-        addPiece(ChessPiece(5, 0, Player.RED, ChessType.ROOK, R.drawable.chess_r2))
-        addPiece(ChessPiece(6, 0, Player.RED, ChessType.ROOK, R.drawable.chess_r2))
-        addPiece(ChessPiece(7, 0, Player.RED, ChessType.CANNON, R.drawable.chess_c2))
-        addPiece(ChessPiece(8, 0, Player.RED, ChessType.CANNON, R.drawable.chess_c2))
+        addPiece(ChessPiece(position[22].col, position[22].row, Player.RED, ChessType.GUARD, R.drawable.chess_g2))
+        addPiece(ChessPiece(position[23].col, position[23].row, Player.RED, ChessType.GUARD, R.drawable.chess_g2))
+        addPiece(ChessPiece(position[24].col, position[24].row, Player.RED, ChessType.ADVISER, R.drawable.chess_b2))
+        addPiece(ChessPiece(position[25].col, position[25].row, Player.RED, ChessType.ADVISER, R.drawable.chess_b2))
+        addPiece(ChessPiece(position[26].col, position[26].row, Player.RED, ChessType.HORSE, R.drawable.chess_h2))
+        addPiece(ChessPiece(position[27].col, position[27].row, Player.RED, ChessType.HORSE, R.drawable.chess_h2))
+        addPiece(ChessPiece(position[28].col, position[28].row, Player.RED, ChessType.ROOK, R.drawable.chess_r2))
+        addPiece(ChessPiece(position[29].col, position[29].row, Player.RED, ChessType.ROOK, R.drawable.chess_r2))
+        addPiece(ChessPiece(position[30].col, position[30].row, Player.RED, ChessType.CANNON, R.drawable.chess_c2))
+        addPiece(ChessPiece(position[31].col, position[31].row, Player.RED, ChessType.CANNON, R.drawable.chess_c2))
     }
 
-    fun initPosition() {
+    fun initPosition(): MutableList<Square> {
 
         var randomPiece = mutableListOf<Square>()
         randomPiece.add(Square(0, 4))
@@ -236,9 +237,9 @@ object ChessGame {
         randomPiece.add(Square(7, 0))
         randomPiece.add(Square(8, 0))
         Collections.shuffle(randomPiece)
-        Log.d(TAG, "The random set is ${mutableListOf(randomPiece[0])}")
-        return
 
+        Log.d(TAG, "The random set is ${mutableListOf(randomPiece[0])}")
+        return randomPiece
     }
 
     fun piecePosition(square: Square): ChessPiece? {
