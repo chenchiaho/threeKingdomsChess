@@ -121,10 +121,12 @@ object ChessGame {
         } else piecesBetween(from.col, from.row, to.col, to.row) == 1
     }
 
+
     private fun legalMove(from: Square, to: Square): Boolean {
         if (from.col == to.col && from.row == to.row){
             return false
-        }
+        } else if (to.col < 0 || to.col > 8 || to.row < 0 || to.row > 4)
+            return false
         val legalMove = piecePosition(from) ?: return false
         return when(legalMove.cType) {
             ChessType.HORSE -> horseLegal(from, to)
@@ -139,6 +141,7 @@ object ChessGame {
         }
         return true
     }
+
 
     fun movePiece(from: Square, to: Square) {
         if (legalMove(from, to)) {
@@ -201,7 +204,7 @@ object ChessGame {
         addPiece(ChessPiece(position[31].col, position[31].row, Player.RED, ChessType.CANNON, R.drawable.chess_c2))
     }
 
-    fun initPosition(): MutableList<Square> {
+    private fun initPosition(): MutableList<Square> {
 
         var randomPiece = mutableListOf<Square>()
         randomPiece.add(Square(0, 4))
@@ -236,9 +239,7 @@ object ChessGame {
         randomPiece.add(Square(6, 0))
         randomPiece.add(Square(7, 0))
         randomPiece.add(Square(8, 0))
-        Collections.shuffle(randomPiece)
-
-        Log.d(TAG, "The random set is ${mutableListOf(randomPiece[0])}")
+        randomPiece.shuffle()
         return randomPiece
     }
 
