@@ -5,48 +5,21 @@ import android.os.Bundle
 import android.text.Layout
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.android.threekingdomschess.databinding.ActivityMainBinding
 
 
-private val TAG = "onClick"
-class MainActivity : AppCompatActivity(), ChessDelegate {
+class MainActivity : AppCompatActivity() {
+
+    lateinit var activityMainBinding: ActivityMainBinding
+    lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        navController = findNavController(R.id.nav_host_fragment)
 
-        findViewById<BoardView>(R.id.board_view).chessDelegate = this
-
-        binding.restart.setOnClickListener {
-            onGameClicked()
-        }
-        binding.intro.setOnClickListener { v: View ->
-
-        }
-    }
-
-    private fun onGameClicked() {
-        ChessGame.reset()
-        findViewById<BoardView>(R.id.board_view).invalidate()
-    }
-
-    private fun navToInfo() {
-
-    }
-
-    override fun piecePosition(square: Square): ChessPiece? {
-        return ChessGame.piecePosition(square)
-    }
-
-    override fun movePiece(from: Square, to: Square) {
-//        if (fromCol == toCol && fromRow == toRow) {
-//            return
-//        }
-        ChessGame.movePiece(from, to)
-        findViewById<BoardView>(R.id.board_view).invalidate()
     }
 }
-
