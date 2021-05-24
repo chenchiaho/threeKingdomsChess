@@ -1,11 +1,16 @@
 package com.example.android.threekingdomschess
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.*
+import android.media.Image
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 
+
+private val TAG = "onTouchEvent"
 class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private val originalY = 150f
@@ -18,7 +23,8 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             R.drawable.chess_b1, R.drawable.chess_b2,
             R.drawable.chess_r1, R.drawable.chess_r2,
             R.drawable.chess_h1, R.drawable.chess_h2,
-            R.drawable.chess_c1, R.drawable.chess_c2
+            R.drawable.chess_c1, R.drawable.chess_c2,
+            R.drawable.select_square
     )
     private val bitmaps = mutableMapOf<Int, Bitmap>()
     private val paint = Paint()
@@ -28,6 +34,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     private var fromRow: Int = -1
     private var movingPieceX = -1f
     private var movingPieceY = -1f
+    private var selectAndMove = false
 
     var chessDelegate: ChessDelegate? = null
 
@@ -43,35 +50,59 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         event ?: return false
 
-        when (event.action) {
-            MotionEvent.ACTION_DOWN -> {
-                fromCol = ((event.x - originalX) / rectDimen).toInt()
-                fromRow =  ((event.y - originalY) / rectDimen).toInt()
-                chessDelegate?.piecePosition(Square(fromCol, fromRow))?.let {
-                    movingPiece = it
-                    movingPieceBitmap = bitmaps[it.resId]
-                }
+        if (!selectAndMove && event.action == MotionEvent.ACTION_UP) {
+
+            fromCol = ((event.x - originalX) / rectDimen).toInt()
+            fromRow = ((event.y - originalY) / rectDimen).toInt()
+            chessDelegate?.piecePosition(Square(fromCol, fromRow))?.let {
+                movingPiece = it
+                movingPieceBitmap = bitmaps[it.resId]
+
             }
 
-            MotionEvent.ACTION_MOVE -> {
-                movingPieceX = event.x
-                movingPieceY = event.y
-                invalidate()
-            }
+            movingPieceBitmap = bitmaps[setBackgroundResource(R.drawable.select_square)]
 
-            MotionEvent.ACTION_UP -> {
-                val col = ((event.x - originalX) / rectDimen).toInt()
-                val row = ((event.y - originalY) / rectDimen).toInt()
-                if (fromCol != col || fromRow != row) {
-                    chessDelegate?.movePiece(Square(fromCol, fromRow), Square(col, row))
-                }
-                movingPiece = null
-                movingPieceBitmap = null
-                invalidate()
-            }
+            selectAndMove = true
+            Log.d(TAG, "Button Press activated")
+            return true
+
         }
+
+        if (selectAndMove && event.action == MotionEvent.ACTION_UP) {
+//            when (event.action) {
+//                MotionEvent.ACTION_DOWN -> {
+//                    fromCol = ((event.x - originalX) / rectDimen).toInt()
+//                    fromRow = ((event.y - originalY) / rectDimen).toInt()
+//                    chessDelegate?.piecePosition(Square(fromCol, fromRow))?.let {
+//                        movingPiece = it
+//                        movingPieceBitmap = bitmaps[it.resId]
+//                    }
+//                }
+//
+//                MotionEvent.ACTION_MOVE -> {
+//                    movingPieceX = event.x
+//                    movingPieceY = event.y
+//                    invalidate()
+//                }
+
+            val col = ((event.x - originalX) / rectDimen).toInt()
+            val row = ((event.y - originalY) / rectDimen).toInt()
+            if (fromCol != col || fromRow != row) {
+
+                chessDelegate?.movePiece(Square(fromCol, fromRow),Square(col, row))
+                invalidate()
+            }
+            movingPiece = null
+            movingPieceBitmap = null
+            movingPieceBitmap = bitmaps[setBackgroundColor(0)]
+
+            selectAndMove = false
+
+            return true
+         }
         return true
     }
+
 
     private fun decodeBitmap() {
         imageId.forEach {
@@ -94,10 +125,10 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
         movingPieceBitmap?.let {
             canvas?.drawBitmap(it, null, RectF(
-                    movingPieceX - rectDimen*0.8f,
-                    movingPieceY - (rectDimen*1.5f),
-                    movingPieceX + (rectDimen*0.8f),
-                    movingPieceY + rectDimen*0.1f), paint)
+                    movingPieceX - rectDimen * 0.8f,
+                    movingPieceY - (rectDimen * 1.5f),
+                    movingPieceX + (rectDimen * 0.8f),
+                    movingPieceY + rectDimen * 0.1f), paint)
         }
     }
 
@@ -106,7 +137,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         canvas?.drawBitmap(bitmap, null, RectF(
                 originalX + col * rectDimen,
                 originalY + (row) * rectDimen,
-                originalX + (col +1) * rectDimen,
+                originalX + (col + 1) * rectDimen,
                 originalY + (row + 1) * rectDimen), paint)
     }
 

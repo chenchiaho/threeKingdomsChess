@@ -1,6 +1,12 @@
 package com.example.android.threekingdomschess
 
+import android.animation.ObjectAnimator
+import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
+import android.view.animation.TranslateAnimation
+import android.widget.ImageView
 import java.util.*
 import kotlin.math.abs
 import kotlin.math.max
@@ -142,7 +148,6 @@ object ChessGame {
         return true
     }
 
-
     fun movePiece(from: Square, to: Square) {
         if (legalMove(from, to)) {
         movePiece(from.col, from.row, to.col, to.row)
@@ -154,17 +159,24 @@ object ChessGame {
         if (fromCol == toCol && fromRow == toRow) return
 
         val movingPiece = piecePosition(fromCol, fromRow) ?: return
+
         piecePosition(toCol, toRow)?.let {
             if (it.player == movingPiece.player) {
                 return
             }
             pieceSet.remove(it)
         }
+
+
+//        val animate = TranslateAnimation(R.drawable.chess_k1.getX, toCol-fromCol.toFloat(), movingPiece.row.toFloat(), toRow-fromRow.toFloat())
+//        animate.duration = 1000
+//        animate.start()
+
         pieceSet.remove(movingPiece)
         addPiece(movingPiece.copy(col = toCol, row = toRow))
     }
 
-    private fun reset() {
+    fun reset() {
         var position = initPosition()
         clear()
 
@@ -255,6 +267,7 @@ object ChessGame {
         }
         return null
     }
+
 
     override fun toString(): String {
         var board = " "
