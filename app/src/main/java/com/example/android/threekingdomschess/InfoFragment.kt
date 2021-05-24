@@ -13,8 +13,8 @@ class InfoFragment : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
-        val binding: FragmentInfoBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_info, container, false)
+        val binding = FragmentInfoBinding.inflate(inflater)
+        binding.textView
 
         return binding.root
     }
