@@ -1,6 +1,7 @@
 package com.example.android.threekingdomschess
 
-import com.example.android.threekingdomschess.databinding.FragmentMainBinding
+import com.example.android.threekingdomschess.model.Square
+import com.example.android.threekingdomschess.pieces.ChessPiece
 
 //Interface defines a function without its body
 interface ChessDelegate {

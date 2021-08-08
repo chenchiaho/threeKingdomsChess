@@ -1,13 +1,9 @@
 package com.example.android.threekingdomschess
 
-import android.animation.ObjectAnimator
-import android.content.res.Resources
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.util.Log
-import android.view.animation.TranslateAnimation
-import android.widget.ImageView
-import java.util.*
+import com.example.android.threekingdomschess.model.Player
+import com.example.android.threekingdomschess.model.Square
+import com.example.android.threekingdomschess.pieces.ChessPiece
+import com.example.android.threekingdomschess.pieces.ChessType
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -177,7 +173,7 @@ object ChessGame {
     }
 
     fun reset() {
-        var position = initPosition()
+        val position = initPosition()
         clear()
 
         addPiece(ChessPiece(position[0].col, position[0].row, Player.GREEN, ChessType.KING1, R.drawable.chess_k1))

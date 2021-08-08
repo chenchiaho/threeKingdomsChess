@@ -1,21 +1,20 @@
 package com.example.android.threekingdomschess
 
-import android.R
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.android.threekingdomschess.databinding.FragmentMainBinding
+import com.example.android.threekingdomschess.model.Square
+import com.example.android.threekingdomschess.pieces.ChessPiece
 
 
 class MainFragment : Fragment(), ChessDelegate {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle? ): View? {
+        savedInstanceState: Bundle? ): View {
 
         val binding = FragmentMainBinding.inflate(inflater)
         binding.lifecycleOwner = this
@@ -24,8 +23,8 @@ class MainFragment : Fragment(), ChessDelegate {
         binding.restart.setOnClickListener {
             onGameClicked(binding)
         }
-        binding.intro.setOnClickListener { view: View ->
-            view.findNavController().navigate(MainFragmentDirections.actionMainFragmentToInfoFragment())
+        binding.intro.setOnClickListener {
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToInfoFragment())
         }
         return binding.root
     }

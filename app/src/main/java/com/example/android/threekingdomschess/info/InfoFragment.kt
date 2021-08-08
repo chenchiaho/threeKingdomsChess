@@ -1,4 +1,4 @@
-package com.example.android.threekingdomschess
+package com.example.android.threekingdomschess.info
 
 import android.os.Bundle
 import android.view.LayoutInflater

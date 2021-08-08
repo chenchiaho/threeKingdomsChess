@@ -1,4 +1,4 @@
-package com.example.android.threekingdomschess
+package com.example.android.threekingdomschess.pieces
 
 enum class ChessType {
     KING1,
