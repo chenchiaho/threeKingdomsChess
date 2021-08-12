@@ -1,5 +1,6 @@
 package com.example.android.threekingdomschess
 
+import android.util.Log
 import com.example.android.threekingdomschess.model.Player
 import com.example.android.threekingdomschess.model.Square
 import com.example.android.threekingdomschess.pieces.ChessPiece
@@ -8,7 +9,6 @@ import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
-private const val TAG = "ChessGame"
 
 object ChessGame {
 
@@ -214,39 +214,17 @@ object ChessGame {
 
     private fun initPosition(): MutableList<Square> {
 
-        var randomPiece = mutableListOf<Square>()
-        randomPiece.add(Square(0, 4))
-        randomPiece.add(Square(1, 4))
-        randomPiece.add(Square(2, 4))
-        randomPiece.add(Square(3, 4))
-        randomPiece.add(Square(5, 4))
-        randomPiece.add(Square(6, 4))
-        randomPiece.add(Square(7, 4))
-        randomPiece.add(Square(8, 4))
-        randomPiece.add(Square(0, 3))
-        randomPiece.add(Square(1, 3))
-        randomPiece.add(Square(2, 3))
-        randomPiece.add(Square(3, 3))
-        randomPiece.add(Square(5, 3))
-        randomPiece.add(Square(6, 3))
-        randomPiece.add(Square(7, 3))
-        randomPiece.add(Square(8, 3))
-        randomPiece.add(Square(0, 1))
-        randomPiece.add(Square(1, 1))
-        randomPiece.add(Square(2, 1))
-        randomPiece.add(Square(3, 1))
-        randomPiece.add(Square(5, 1))
-        randomPiece.add(Square(6, 1))
-        randomPiece.add(Square(7, 1))
-        randomPiece.add(Square(8, 1))
-        randomPiece.add(Square(0, 0))
-        randomPiece.add(Square(1, 0))
-        randomPiece.add(Square(2, 0))
-        randomPiece.add(Square(3, 0))
-        randomPiece.add(Square(5, 0))
-        randomPiece.add(Square(6, 0))
-        randomPiece.add(Square(7, 0))
-        randomPiece.add(Square(8, 0))
+        val randomPiece = mutableListOf<Square>()
+
+        (0..4).filter { it !=2 }.forEach { row ->
+            (0..8).filter { it != 4 }.forEach { col ->
+
+                randomPiece.add(Square(col, row))
+
+                Log.d("TAG", "$randomPiece")
+            }
+        }
+
         randomPiece.shuffle()
         return randomPiece
     }
