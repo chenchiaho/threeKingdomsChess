@@ -7,4 +7,5 @@ data class ChessPiece(
     val row: Int,
     val player: Player,
     val cType: ChessType,
-    val resId: Int)
+    val resId: Int
+    )
