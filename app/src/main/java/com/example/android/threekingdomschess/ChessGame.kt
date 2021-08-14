@@ -11,6 +11,7 @@ object ChessGame {
 
     private val pieceLogic = PieceLogic()
     private var pieceSet = mutableSetOf<ChessPiece>()
+    var currentPlayer = Player.GREEN
 
     init {
         initPosition()
@@ -43,7 +44,7 @@ object ChessGame {
     }
 
     fun movePiece(from: Square, to: Square) {
-        if (legalMove(from, to)) {
+        if (legalMove(from, to) && piecePositionSquare(from)?.player == currentPlayer) {
         movePieceLogic(from.col, from.row, to.col, to.row)
         }
     }
@@ -63,9 +64,21 @@ object ChessGame {
         pieceSet.remove(movingPiece)
         addPiece(movingPiece.copy(col = toCol, row = toRow))
 
+        currentPlayer = nextPlayer(movingPiece)
+
 //        val animate = TranslateAnimation(R.drawable.chess_k1.getX, toCol-fromCol.toFloat(), movingPiece.row.toFloat(), toRow-fromRow.toFloat())
 //        animate.duration = 1000
 //        animate.start()
+    }
+
+    fun nextPlayer(piece: ChessPiece): Player {
+
+        return when (piece.player) {
+            Player.GREEN -> Player.BLACK
+            Player.BLACK -> Player.RED
+            Player.RED -> Player.GREEN
+        }
+
     }
 
     fun reset() {
@@ -93,6 +106,7 @@ object ChessGame {
 
             }
         }
+        currentPlayer = Player.GREEN
     }
 
     private fun initPosition(): MutableList<Square> {
