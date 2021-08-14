@@ -34,8 +34,8 @@ class MainFragment : Fragment(), ChessDelegate {
         binding.boardView.invalidate()
     }
 
-    override fun piecePosition(square: Square): ChessPiece? {
-        return ChessGame.piecePosition(square)
+    override fun assignPiecePosition(square: Square): ChessPiece? {
+        return ChessGame.piecePositionSquare(square)
     }
 
     override fun movePiece(from: Square, to: Square) {

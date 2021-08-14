@@ -1,9 +1,9 @@
 package com.example.android.threekingdomschess
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import com.example.android.threekingdomschess.model.Square
@@ -46,6 +46,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         drawPieces(canvas)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         event ?: return false
 
@@ -53,7 +54,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
             fromCol = ((event.x - originalX) / rectDimen).toInt()
             fromRow = ((event.y - originalY) / rectDimen).toInt()
-            chessDelegate?.piecePosition(Square(fromCol, fromRow))?.let {
+            chessDelegate?.assignPiecePosition(Square(fromCol, fromRow))?.let {
                 movingPiece = it
 
 //                Not sure what this code does, made comment for now
@@ -118,7 +119,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         for (row in 0..4) {
             for (col in 0..8) {
 
-                    chessDelegate?.piecePosition(Square(col, row))?.let {
+                    chessDelegate?.assignPiecePosition(Square(col, row))?.let {
                         if (it != movingPiece) {
                             drawPiecesAt(canvas, col, row, it.resId)
                     }
@@ -126,13 +127,13 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             }
         }
 
-        movingPieceBitmap?.let {
-            canvas?.drawBitmap(it, null, RectF(
-                    movingPieceX - rectDimen * 0.8f,
-                    movingPieceY - (rectDimen * 1.5f),
-                    movingPieceX + (rectDimen * 0.8f),
-                    movingPieceY + rectDimen * 0.1f), paint)
-        }
+//        movingPieceBitmap?.let {
+//            canvas?.drawBitmap(it, null, RectF(
+//                    movingPieceX - rectDimen * 0.8f,
+//                    movingPieceY - (rectDimen * 1.5f),
+//                    movingPieceX + (rectDimen * 0.8f),
+//                    movingPieceY + rectDimen * 0.1f), paint)
+//        }
     }
 
     private fun drawPiecesAt(canvas: Canvas?, col: Int, row: Int, resId: Int) {

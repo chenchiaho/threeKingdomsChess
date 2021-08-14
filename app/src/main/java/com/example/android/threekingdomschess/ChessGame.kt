@@ -1,14 +1,10 @@
 package com.example.android.threekingdomschess
 
-import android.util.Log
 import com.example.android.threekingdomschess.model.Player
 import com.example.android.threekingdomschess.model.Square
 import com.example.android.threekingdomschess.pieces.ChessPiece
 import com.example.android.threekingdomschess.pieces.ChessType
 import com.example.android.threekingdomschess.pieces.PieceLogic
-import kotlin.math.abs
-import kotlin.math.max
-import kotlin.math.min
 
 
 object ChessGame {
@@ -34,8 +30,8 @@ object ChessGame {
             return false
         } else if (to.col < 0 || to.col > 8 || to.row < 0 || to.row > 4)
             return false
-        val legalMove = piecePosition(from) ?: return false
-        return when(legalMove.cType) {
+        val assignLegalMove = piecePositionSquare(from) ?: return false
+        return when(assignLegalMove.cType) {
             ChessType.HORSE -> pieceLogic.horseLegal(from, to)
             ChessType.ROOK -> pieceLogic.rookLegal(from, to)
             ChessType.KING -> pieceLogic.rookLegal(from, to)
@@ -48,30 +44,28 @@ object ChessGame {
 
     fun movePiece(from: Square, to: Square) {
         if (legalMove(from, to)) {
-        movePiece(from.col, from.row, to.col, to.row)
+        movePieceLogic(from.col, from.row, to.col, to.row)
         }
     }
 
-    private fun movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
-        //?: = if operand1 is null, run operand2
+    private fun movePieceLogic(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+
         if (fromCol == toCol && fromRow == toRow) return
 
-        val movingPiece = piecePosition(fromCol, fromRow) ?: return
+        val movingPiece = checkPiecePosition(fromCol, fromRow) ?: return
 
-        piecePosition(toCol, toRow)?.let {
+        checkPiecePosition(toCol, toRow)?.let {
             if (it.player == movingPiece.player) {
                 return
             }
             pieceSet.remove(it)
         }
-
+        pieceSet.remove(movingPiece)
+        addPiece(movingPiece.copy(col = toCol, row = toRow))
 
 //        val animate = TranslateAnimation(R.drawable.chess_k1.getX, toCol-fromCol.toFloat(), movingPiece.row.toFloat(), toRow-fromRow.toFloat())
 //        animate.duration = 1000
 //        animate.start()
-
-        pieceSet.remove(movingPiece)
-        addPiece(movingPiece.copy(col = toCol, row = toRow))
     }
 
     fun reset() {
@@ -116,11 +110,11 @@ object ChessGame {
         return randomPiece
     }
 
-    fun piecePosition(square: Square): ChessPiece? {
-        return piecePosition(square.col, square.row)
+    fun piecePositionSquare(square: Square): ChessPiece? {
+        return checkPiecePosition(square.col, square.row)
     }
 
-    fun piecePosition(col: Int, row: Int): ChessPiece? {
+    fun checkPiecePosition(col: Int, row: Int): ChessPiece? {
         for (piece in pieceSet) {
             if (col == piece.col && row == piece.row) {
                 return piece
