@@ -1,17 +1,27 @@
 package com.example.android.threekingdomschess
 
+import android.app.Application
+import android.app.Dialog
+import android.content.Context
+import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import com.example.android.threekingdomschess.model.Player
 import com.example.android.threekingdomschess.model.Square
 import com.example.android.threekingdomschess.pieces.ChessPiece
 import com.example.android.threekingdomschess.pieces.ChessType
 import com.example.android.threekingdomschess.pieces.PieceLogic
+import kotlin.math.log
 
 
 object ChessGame {
 
     private val pieceLogic = PieceLogic()
     private var pieceSet = mutableSetOf<ChessPiece>()
-    var currentPlayer = Player.GREEN
+    private var greenScore = 12
+    private var blackScore = 10
+    private var redScore = 10
+
+    private var currentPlayer = Player.GREEN
 
     init {
         initPosition()
@@ -46,38 +56,75 @@ object ChessGame {
     fun movePiece(from: Square, to: Square) {
         if (legalMove(from, to) && piecePositionSquare(from)?.player == currentPlayer) {
         movePieceLogic(from.col, from.row, to.col, to.row)
+        onGameEnd()
         }
     }
 
     private fun movePieceLogic(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
 
         if (fromCol == toCol && fromRow == toRow) return
-
         val movingPiece = checkPiecePosition(fromCol, fromRow) ?: return
 
         checkPiecePosition(toCol, toRow)?.let {
             if (it.player == movingPiece.player) {
                 return
+            } else {
+                when (it.player) {
+                    Player.GREEN -> greenScore - 1
+                    Player.BLACK -> blackScore - 1
+                    Player.RED -> redScore - 1
+                }
+                pieceSet.remove(it)
             }
-            pieceSet.remove(it)
         }
         pieceSet.remove(movingPiece)
         addPiece(movingPiece.copy(col = toCol, row = toRow))
-
         currentPlayer = nextPlayer(movingPiece)
+        Log.d("currentPlayer", "$currentPlayer green: $greenScore, black: $blackScore, red: $redScore")
+
 
 //        val animate = TranslateAnimation(R.drawable.chess_k1.getX, toCol-fromCol.toFloat(), movingPiece.row.toFloat(), toRow-fromRow.toFloat())
 //        animate.duration = 1000
 //        animate.start()
     }
 
-    fun nextPlayer(piece: ChessPiece): Player {
+    private fun nextPlayer(piece: ChessPiece): Player {
 
         return when (piece.player) {
-            Player.GREEN -> Player.BLACK
-            Player.BLACK -> Player.RED
-            Player.RED -> Player.GREEN
+            Player.GREEN -> if (blackScore == 0) {Player.RED} else Player.BLACK
+            Player.BLACK -> if (redScore == 0) {Player.GREEN} else Player.RED
+            Player.RED -> if (greenScore == 0) {Player.BLACK} else Player.GREEN
         }
+
+//        when {
+//            redScore == 0 -> {
+//                return when (piece.player) {
+//                    Player.GREEN -> Player.BLACK
+//                    Player.BLACK -> Player.GREEN
+//                    Player.RED -> Player.GREEN
+//                }
+//            }
+//            blackScore == 0 -> {
+//                return when (piece.player) {
+//                    Player.GREEN -> Player.RED
+//                    Player.BLACK -> Player.RED
+//                    Player.RED -> Player.GREEN
+//                }
+//            }
+//            greenScore == 0 -> {
+//                return when (piece.player) {
+//                    Player.GREEN -> Player.BLACK
+//                    Player.BLACK -> Player.RED
+//                    Player.RED -> Player.BLACK
+//                }
+//            }
+//            else -> return when (piece.player) {
+//                Player.GREEN -> Player.BLACK
+//                Player.BLACK -> Player.RED
+//                Player.RED -> Player.GREEN
+//            }
+//        }
+
 
     }
 
@@ -106,6 +153,9 @@ object ChessGame {
 
             }
         }
+        greenScore = 12
+        blackScore = 10
+        redScore = 10
         currentPlayer = Player.GREEN
     }
 
@@ -136,6 +186,17 @@ object ChessGame {
         }
         return null
     }
+
+    fun onGameEnd() {
+        if (greenScore == 0 && blackScore == 0) {
+            MainFragment().gameEndDialog("RED")
+        } else if (blackScore == 0 && redScore == 0) {
+            MainFragment().gameEndDialog("GREEN")
+        } else if (redScore == 0 && greenScore == 0) {
+            MainFragment().gameEndDialog("BLACK")
+        }
+    }
+
 
 }
 
