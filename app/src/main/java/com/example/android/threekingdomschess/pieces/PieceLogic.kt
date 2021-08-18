@@ -75,10 +75,12 @@ class PieceLogic {
     }
 
     fun cannonLegal(from: Square, to: Square): Boolean {
-        if (ChessGame.checkPiecePosition(to.col, to.row) == null) {
-            rookLegal(from, to)
+        if (ChessGame.checkPiecePosition(to.col, to.row) == null &&
+                rookLegal(from, to)) {
             return true
-        } else if( (from.col == to.col || from.row == to.row) &&
+
+        } else if(ChessGame.checkPiecePosition(to.col, to.row) != null &&
+                (from.col == to.col || from.row == to.row) &&
                 piecesBetween(from.col, from.row, to.col, to.row)) {
             return true
         }

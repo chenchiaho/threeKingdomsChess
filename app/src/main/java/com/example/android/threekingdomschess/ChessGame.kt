@@ -134,22 +134,22 @@ object ChessGame {
 
         for (i in 0..31) {
             when(i) {
-                0 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.KING, R.drawable.chess_k1))
-                1 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.KING, R.drawable.chess_k2))
-                in 2..6 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.PAWN, R.drawable.chess_p1))
-                in 7..11 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.PAWN, R.drawable.chess_p2))
+                0 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.KING, R.drawable.g_general_w))
+                1 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.KING, R.drawable.g_general_w))
+                in 2..6 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.PAWN, R.drawable.g_pawn_w))
+                in 7..11 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.PAWN, R.drawable.g_pawn_w))
 
-                12, 13 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.GUARD, R.drawable.chess_g1))
-                14, 15 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.ADVISER, R.drawable.chess_b1))
-                16, 17 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.HORSE, R.drawable.chess_h1))
-                18, 19 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.ROOK, R.drawable.chess_r1))
-                20, 21 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.CANNON, R.drawable.chess_c1))
+                12, 13 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.GUARD, R.drawable.b_guard_w))
+                14, 15 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.ADVISER, R.drawable.b_elephant_w))
+                16, 17 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.HORSE, R.drawable.b_horse_w))
+                18, 19 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.ROOK, R.drawable.b_rook_w))
+                20, 21 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.CANNON, R.drawable.b_cannon_w))
 
-                22, 23 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.GUARD, R.drawable.chess_g2))
-                24, 25 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.ADVISER, R.drawable.chess_b2))
-                26, 27 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.HORSE, R.drawable.chess_h2))
-                28, 29 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.ROOK, R.drawable.chess_r2))
-                30, 31 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.CANNON, R.drawable.chess_c2))
+                22, 23 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.GUARD, R.drawable.r_guard_w))
+                24, 25 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.ADVISER, R.drawable.r_elephant_w))
+                26, 27 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.HORSE, R.drawable.r_horse_w))
+                28, 29 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.ROOK, R.drawable.r_rook_w))
+                30, 31 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.CANNON, R.drawable.r_cannon_w))
 
             }
         }

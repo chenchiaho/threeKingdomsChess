@@ -16,14 +16,14 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     private val originalX = 200f
     private val rectDimen = 170f
     private val imageId = setOf(
-            R.drawable.chess_k1, R.drawable.chess_k2,
-            R.drawable.chess_p1, R.drawable.chess_p2,
-            R.drawable.chess_g1, R.drawable.chess_g2,
-            R.drawable.chess_b1, R.drawable.chess_b2,
-            R.drawable.chess_r1, R.drawable.chess_r2,
-            R.drawable.chess_h1, R.drawable.chess_h2,
-            R.drawable.chess_c1, R.drawable.chess_c2,
-            R.drawable.select_square, R.drawable.chess_back
+            R.drawable.g_general_w,
+            R.drawable.g_pawn_w,
+            R.drawable.b_guard_w, R.drawable.r_guard_w,
+            R.drawable.b_horse_w, R.drawable.r_horse_w,
+            R.drawable.b_rook_w, R.drawable.r_rook_w,
+            R.drawable.b_cannon_w, R.drawable.r_cannon_w,
+            R.drawable.b_elephant_w, R.drawable.r_elephant_w,
+//            R.drawable.select_square, R.drawable.chess_back
     )
     private val bitmaps = mutableMapOf<Int, Bitmap>()
     private val paint = Paint()
