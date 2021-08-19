@@ -12,9 +12,9 @@ import com.example.android.threekingdomschess.pieces.ChessPiece
 
 class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
-    private val originalY = 150f
-    private val originalX = 200f
-    private val rectDimen = 170f
+    private val originalY = 60f
+    private val originalX = 250f
+    private val rectDimen = 160f
     private val imageId = setOf(
             R.drawable.g_general_w,
             R.drawable.g_pawn_w,

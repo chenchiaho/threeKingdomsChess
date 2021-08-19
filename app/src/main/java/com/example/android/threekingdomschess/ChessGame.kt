@@ -23,6 +23,8 @@ object ChessGame {
 
     private var currentPlayer = Player.GREEN
 
+//    var king =
+
     init {
         initPosition()
         reset()
@@ -80,6 +82,7 @@ object ChessGame {
         pieceSet.remove(movingPiece)
         addPiece(movingPiece.copy(col = toCol, row = toRow))
         currentPlayer = nextPlayer(movingPiece)
+        nextColor(movingPiece)
         Log.d("currentPlayer", "$currentPlayer green: $greenScore, black: $blackScore, red: $redScore")
 
 
@@ -95,37 +98,15 @@ object ChessGame {
             Player.BLACK -> if (redScore == 0) {Player.GREEN} else Player.RED
             Player.RED -> if (greenScore == 0) {Player.BLACK} else Player.GREEN
         }
+    }
 
-//        when {
-//            redScore == 0 -> {
-//                return when (piece.player) {
-//                    Player.GREEN -> Player.BLACK
-//                    Player.BLACK -> Player.GREEN
-//                    Player.RED -> Player.GREEN
-//                }
-//            }
-//            blackScore == 0 -> {
-//                return when (piece.player) {
-//                    Player.GREEN -> Player.RED
-//                    Player.BLACK -> Player.RED
-//                    Player.RED -> Player.GREEN
-//                }
-//            }
-//            greenScore == 0 -> {
-//                return when (piece.player) {
-//                    Player.GREEN -> Player.BLACK
-//                    Player.BLACK -> Player.RED
-//                    Player.RED -> Player.BLACK
-//                }
-//            }
-//            else -> return when (piece.player) {
-//                Player.GREEN -> Player.BLACK
-//                Player.BLACK -> Player.RED
-//                Player.RED -> Player.GREEN
-//            }
-//        }
+    fun nextColor(piece: ChessPiece) {
+        when (piece.player) {
 
-
+            Player.RED -> MainFragment().xiang?.setColorFilter(R.color.red)
+            Player.BLACK -> MainFragment().xiang?.setColorFilter(R.color.black)
+            Player.GREEN -> MainFragment().xiang?.colorFilter = null
+        }
     }
 
     fun reset() {
