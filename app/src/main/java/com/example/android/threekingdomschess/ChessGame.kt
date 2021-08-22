@@ -1,16 +1,11 @@
 package com.example.android.threekingdomschess
 
-import android.app.Application
-import android.app.Dialog
-import android.content.Context
 import android.util.Log
-import androidx.appcompat.app.AlertDialog
 import com.example.android.threekingdomschess.model.Player
 import com.example.android.threekingdomschess.model.Square
 import com.example.android.threekingdomschess.pieces.ChessPiece
 import com.example.android.threekingdomschess.pieces.ChessType
 import com.example.android.threekingdomschess.pieces.PieceLogic
-import kotlin.math.log
 
 
 object ChessGame {
@@ -20,6 +15,7 @@ object ChessGame {
     private var greenScore = 12
     private var blackScore = 10
     private var redScore = 10
+    var isWestern = true
 
     private var currentPlayer = Player.GREEN
 
@@ -47,9 +43,11 @@ object ChessGame {
         return when(assignLegalMove.cType) {
             ChessType.HORSE -> pieceLogic.horseLegal(from, to)
             ChessType.ROOK -> pieceLogic.rookLegal(from, to)
-            ChessType.KING -> pieceLogic.rookLegal(from, to)
+            ChessType.KING1 -> pieceLogic.rookLegal(from, to)
+            ChessType.KING2 -> pieceLogic.rookLegal(from, to)
             ChessType.ADVISER -> pieceLogic.adviserLegal(from, to)
-            ChessType.PAWN -> pieceLogic.pawnLegal(from, to)
+            ChessType.PAWN1 -> pieceLogic.pawnLegal(from, to)
+            ChessType.PAWN2 -> pieceLogic.pawnLegal(from, to)
             ChessType.GUARD -> pieceLogic.guardLegal(from, to)
             ChessType.CANNON -> pieceLogic.cannonLegal(from, to)
         }
@@ -91,6 +89,7 @@ object ChessGame {
 //        animate.start()
     }
 
+
     private fun nextPlayer(piece: ChessPiece): Player {
 
         return when (piece.player) {
@@ -103,9 +102,9 @@ object ChessGame {
     fun nextColor(piece: ChessPiece) {
         when (piece.player) {
 
-            Player.RED -> MainFragment().xiang?.setColorFilter(R.color.red)
-            Player.BLACK -> MainFragment().xiang?.setColorFilter(R.color.black)
-            Player.GREEN -> MainFragment().xiang?.colorFilter = null
+            Player.RED -> MainFragment().playerIndicator?.setColorFilter(R.color.red)
+            Player.BLACK -> MainFragment().playerIndicator?.setColorFilter(R.color.black)
+            Player.GREEN -> MainFragment().playerIndicator?.colorFilter = null
         }
     }
 
@@ -114,23 +113,80 @@ object ChessGame {
         clear()
 
         for (i in 0..31) {
+
             when(i) {
-                0 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.KING, R.drawable.g_general_w))
-                1 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.KING, R.drawable.g_general_w))
-                in 2..6 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.PAWN, R.drawable.g_pawn_w))
-                in 7..11 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.PAWN, R.drawable.g_pawn_w))
+                0 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.KING1,
+                        if (isWestern) {
+                            R.drawable.g_general_w
+                        } else R.drawable.g_general_c1
+                ))
+                1 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.KING2,
+                        if (isWestern) {
+                            R.drawable.g_general_w
+                        } else R.drawable.g_general_c2
+                ))
+                in 2..6 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.PAWN1,
+                        if (isWestern) {
+                            R.drawable.g_pawn_w
+                        } else R.drawable.g_pawn_c1
+                ))
+                in 7..11 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.PAWN2,
+                        if (isWestern) {
+                            R.drawable.g_pawn_w
+                        } else R.drawable.g_pawn_c2
+                        ))
 
-                12, 13 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.GUARD, R.drawable.b_guard_w))
-                14, 15 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.ADVISER, R.drawable.b_elephant_w))
-                16, 17 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.HORSE, R.drawable.b_horse_w))
-                18, 19 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.ROOK, R.drawable.b_rook_w))
-                20, 21 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.CANNON, R.drawable.b_cannon_w))
+                12, 13 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.GUARD,
+                        if (isWestern) {
+                            R.drawable.b_guard_w
+                        } else R.drawable.b_guard_c
+                ))
+                14, 15 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.ADVISER,
+                        if (isWestern) {
+                            R.drawable.b_elephant_w
+                        } else R.drawable.b_elephant_c
+                ))
+                16, 17 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.HORSE,
+                        if (isWestern) {
+                            R.drawable.b_horse_w
+                        } else R.drawable.b_horse_c
+                ))
+                18, 19 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.ROOK,
+                        if (isWestern) {
+                            R.drawable.b_rook_w
+                        } else R.drawable.b_rook_c
+                ))
+                20, 21 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.CANNON,
+                        if (isWestern) {
+                            R.drawable.b_cannon_w
+                        } else R.drawable.b_cannon_c
+                ))
 
-                22, 23 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.GUARD, R.drawable.r_guard_w))
-                24, 25 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.ADVISER, R.drawable.r_elephant_w))
-                26, 27 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.HORSE, R.drawable.r_horse_w))
-                28, 29 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.ROOK, R.drawable.r_rook_w))
-                30, 31 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.CANNON, R.drawable.r_cannon_w))
+                22, 23 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.GUARD,
+                        if (isWestern) {
+                            R.drawable.r_guard_w
+                        } else R.drawable.r_guard_c
+                ))
+                24, 25 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.ADVISER,
+                        if (isWestern) {
+                            R.drawable.r_elephant_w
+                        } else R.drawable.r_elephant_c
+                ))
+                26, 27 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.HORSE,
+                        if (isWestern) {
+                            R.drawable.r_horse_w
+                        } else R.drawable.r_horse_w
+                ))
+                28, 29 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.ROOK,
+                        if (isWestern) {
+                            R.drawable.r_rook_w
+                        } else R.drawable.r_rook_c
+                ))
+                30, 31 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.CANNON,
+                        if (isWestern) {
+                            R.drawable.r_cannon_w
+                        } else R.drawable.r_cannon_c
+                ))
 
             }
         }
@@ -139,6 +195,76 @@ object ChessGame {
         redScore = 10
         currentPlayer = Player.GREEN
     }
+
+    fun switchStyle() {
+
+        if (isWestern) {
+
+            Log.d("isWestern", "$isWestern")
+            for (piece in pieceSet) {
+
+                when (piece.cType) {
+                    ChessType.KING1 -> piece.resId = R.drawable.g_general_c1
+                    ChessType.KING2 -> piece.resId = R.drawable.g_general_c2
+                    ChessType.PAWN1 -> piece.resId = R.drawable.g_pawn_c1
+                    ChessType.PAWN2 -> piece.resId = R.drawable.g_pawn_c2
+                    ChessType.GUARD -> when (piece.player) {
+                        Player.BLACK -> piece.resId = R.drawable.b_guard_c
+                        else -> piece.resId = R.drawable.r_guard_c
+                    }
+                    ChessType.ADVISER -> when (piece.player) {
+                        Player.BLACK -> piece.resId = R.drawable.b_elephant_c
+                        else -> piece.resId = R.drawable.r_elephant_c
+                    }
+                    ChessType.HORSE -> when (piece.player) {
+                        Player.BLACK -> piece.resId = R.drawable.b_horse_c
+                        else -> piece.resId = R.drawable.r_horse_c
+                    }
+                    ChessType.ROOK -> when (piece.player) {
+                        Player.BLACK -> piece.resId = R.drawable.b_rook_c
+                        else -> piece.resId = R.drawable.r_rook_c
+                    }
+                    ChessType.CANNON -> when (piece.player) {
+                        Player.BLACK -> piece.resId = R.drawable.b_cannon_c
+                        else -> piece.resId = R.drawable.r_cannon_c
+                    }
+                }
+            }
+        } else  {
+
+            Log.d("isWestern", "$isWestern")
+            for (piece in pieceSet) {
+                when (piece.cType) {
+                    ChessType.KING1 -> piece.resId = R.drawable.g_general_w
+                    ChessType.KING2 -> piece.resId = R.drawable.g_general_w
+                    ChessType.PAWN1 -> piece.resId = R.drawable.g_pawn_w
+                    ChessType.PAWN2 -> piece.resId = R.drawable.g_pawn_w
+                    ChessType.GUARD -> when (piece.player) {
+                        Player.BLACK -> piece.resId = R.drawable.b_guard_w
+                        else -> piece.resId = R.drawable.r_guard_w
+                    }
+                    ChessType.ADVISER -> when (piece.player) {
+                        Player.BLACK -> piece.resId = R.drawable.b_elephant_w
+                        else -> piece.resId = R.drawable.r_elephant_w
+                    }
+                    ChessType.HORSE -> when (piece.player) {
+                        Player.BLACK -> piece.resId = R.drawable.b_horse_w
+                        else -> piece.resId = R.drawable.r_horse_w
+                    }
+                    ChessType.ROOK -> when (piece.player) {
+                        Player.BLACK -> piece.resId = R.drawable.b_rook_w
+                        else -> piece.resId = R.drawable.r_rook_w
+                    }
+                    ChessType.CANNON -> when (piece.player) {
+                        Player.BLACK -> piece.resId = R.drawable.b_cannon_w
+                        else -> piece.resId = R.drawable.r_cannon_w
+                    }
+                }
+            }
+        }
+        isWestern = !isWestern
+    }
+
 
     private fun initPosition(): MutableList<Square> {
 
