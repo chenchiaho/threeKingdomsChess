@@ -1,5 +1,7 @@
 # threeKingdomsChess
-
+This is a 3-player board game variated from the Chinese chess. 
+It is to be published on Google Play uopn completion
+The screenshots show the current design.
 
 ## Screenshots
 
