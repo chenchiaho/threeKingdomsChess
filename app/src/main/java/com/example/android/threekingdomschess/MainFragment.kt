@@ -1,35 +1,83 @@
 package com.example.android.threekingdomschess
 
+import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.example.android.threekingdomschess.databinding.FragmentMainBinding
+import com.example.android.threekingdomschess.model.Player
 import com.example.android.threekingdomschess.model.Square
 import com.example.android.threekingdomschess.pieces.ChessPiece
+import kotlinx.android.synthetic.main.fragment_main.*
+import java.util.*
+import kotlin.properties.Delegates
 
 
 class MainFragment : Fragment(), ChessDelegate {
 
-    var playerIndicator : ImageView? = null
 
+    private var pieceSelected = false
+
+
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle? ): View {
+                              savedInstanceState: Bundle? ): View {
 
-        val binding = FragmentMainBinding.inflate(inflater)
-        binding.lifecycleOwner = this
+        val binding: FragmentMainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
+
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.boardView.chessDelegate = this
 
-        playerIndicator = binding.zhou
-        playerIndicator?.alpha = 0.55f
 
+
+        binding.boardView.setOnTouchListener( object: View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                event ?: return false
+
+                if (!pieceSelected && event.action == MotionEvent.ACTION_UP) {
+                    binding.boardView.onFirstTouchEvent(event)
+                    pieceSelected = true
+                    return true
+                }
+
+                if (pieceSelected && event.action == MotionEvent.ACTION_UP) {
+
+                    binding.boardView.onSecondTouchEvent(event)
+
+                    val number = ChessGame.nextTurn()
+                    when (number) {
+                        1 -> {binding.zhou1.isVisible = true
+                            zhou3.isVisible = false
+                        }
+                        2 -> {binding.zhou2.isVisible = true
+                            zhou1.isVisible = false}
+                        3 -> {binding.zhou3.isVisible = true
+                            zhou2.isVisible = false}
+                    }
+
+                    pieceSelected = false
+                    Log.d("PlayerColor", "$pieceSelected")
+                    return true
+                }
+
+                return true
+            }
+        }
+
+        )
 
         binding.toggle.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
             styleSwap(binding)
@@ -41,6 +89,8 @@ class MainFragment : Fragment(), ChessDelegate {
         binding.intro.setOnClickListener {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToInfoFragment())
         }
+
+
         return binding.root
     }
 
@@ -60,9 +110,19 @@ class MainFragment : Fragment(), ChessDelegate {
 
     override fun movePiece(from: Square, to: Square) {
         ChessGame.movePiece(from, to)
+    }
 
-        }
-
+//    fun nextColor() {
+//
+//        val player = ChessGame.nextTurn()
+//
+//        when (player) {
+//            Player.GREEN -> Log.d("playerColor", "$player")
+//            Player.BLACK -> Log.d("playerColor", "$player")
+//            Player.RED -> Log.d("playerColor", "$player")
+//        }
+//        Log.d("playerColor", "$player, ${R.drawable.zhou1}, ${R.drawable.zhou2}, ${R.drawable.zhou3}")
+//    }
 
 
     fun gameEndDialog(winner: String) {

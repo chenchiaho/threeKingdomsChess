@@ -1,11 +1,16 @@
 package com.example.android.threekingdomschess
 
 import android.util.Log
+import android.view.View
+import android.widget.ImageView
+import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
 import com.example.android.threekingdomschess.model.Player
 import com.example.android.threekingdomschess.model.Square
 import com.example.android.threekingdomschess.pieces.ChessPiece
 import com.example.android.threekingdomschess.pieces.ChessType
 import com.example.android.threekingdomschess.pieces.PieceLogic
+import kotlinx.android.synthetic.main.fragment_main.*
 
 
 object ChessGame {
@@ -18,8 +23,6 @@ object ChessGame {
     var isWestern = true
 
     private var currentPlayer = Player.GREEN
-
-//    var king =
 
     init {
         initPosition()
@@ -80,8 +83,7 @@ object ChessGame {
         pieceSet.remove(movingPiece)
         addPiece(movingPiece.copy(col = toCol, row = toRow))
         currentPlayer = nextPlayer(movingPiece)
-        nextColor(movingPiece)
-        Log.d("currentPlayer", "$currentPlayer green: $greenScore, black: $blackScore, red: $redScore")
+
 
 
 //        val animate = TranslateAnimation(R.drawable.chess_k1.getX, toCol-fromCol.toFloat(), movingPiece.row.toFloat(), toRow-fromRow.toFloat())
@@ -99,14 +101,16 @@ object ChessGame {
         }
     }
 
-    fun nextColor(piece: ChessPiece) {
-        when (piece.player) {
+    fun nextTurn(): Int {
 
-            Player.RED -> MainFragment().playerIndicator?.setColorFilter(R.color.red)
-            Player.BLACK -> MainFragment().playerIndicator?.setColorFilter(R.color.black)
-            Player.GREEN -> MainFragment().playerIndicator?.colorFilter = null
+        return when (currentPlayer) {
+
+            Player.GREEN -> 1
+            Player.BLACK -> 2
+            Player.RED ->  3
         }
     }
+
 
     fun reset() {
         val position = initPosition()

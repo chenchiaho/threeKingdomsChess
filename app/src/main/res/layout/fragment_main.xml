@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="main"
+            type="com.example.android.threekingdomschess.MainFragment" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,13 +23,47 @@
             android:alpha="0.4"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/zhou"
+            app:layout_constraintEnd_toStartOf="@+id/zhou1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/background2" />
 
         <ImageView
-            android:id="@+id/zhou"
+            android:id="@+id/zhou1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/player_indicator"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.2"
+            app:srcCompat="@drawable/zhou1"
+            app:tint="#4D9561"
+            android:alpha="0.55"
+            android:visibility="visible"
+            />
+
+        <ImageView
+            android:id="@+id/zhou2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/player_indicator"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.2"
+            app:srcCompat="@drawable/zhou2"
+            app:tint="#191919"
+            android:alpha="0.55"
+            android:visibility="invisible"
+            />
+
+        <ImageView
+            android:id="@+id/zhou3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/player_indicator"
@@ -34,7 +74,11 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.2"
             app:srcCompat="@drawable/zhou3"
-            app:tint="#4D9561" />
+            app:tint="#c82f21"
+            android:alpha="0.55"
+            android:visibility="invisible"
+            />
+
 
         <Button
             android:id="@+id/restart"
@@ -80,7 +124,7 @@
             android:layout_marginBottom="16dp"
             android:foregroundGravity="center_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/zhou"
+            app:layout_constraintEnd_toStartOf="@+id/zhou1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
