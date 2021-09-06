@@ -42,15 +42,7 @@ class MainFragment : Fragment(), ChessDelegate {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.boardView.chessDelegate = this
 
-        val builder = AlertDialog.Builder(requireContext())
-                .setTitle("")
-                .setMessage("$winner WON!")
-                .setPositiveButton("GG") { dialogInterface: DialogInterface, i: Int ->
-                    ChessGame.reset()
-                }
-                .setNegativeButton("Dismiss") { dialogInterface: DialogInterface, i: Int ->
 
-                }.create()
 
         binding.boardView.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
@@ -86,6 +78,15 @@ class MainFragment : Fragment(), ChessDelegate {
 
                     if (ChessGame.onGameEnd() != null) {
                         winner = ChessGame.onGameEnd()
+                        val builder = AlertDialog.Builder(requireContext())
+                                .setTitle("")
+                                .setMessage("$winner WON!")
+                                .setPositiveButton("GG") { dialogInterface: DialogInterface, i: Int ->
+                                    ChessGame.reset()
+                                }
+                                .setNegativeButton("Dismiss") { dialogInterface: DialogInterface, i: Int ->
+
+                                }.create()
                         builder.show()
                     }
 

@@ -77,41 +77,6 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
     }
 
-//    @SuppressLint("ClickableViewAccessibility")
-//    override fun onTouchEvent(event: MotionEvent?): Boolean {
-//        event ?: return false
-//
-//        if (!pieceSelected && event.action == MotionEvent.ACTION_UP) {
-//
-//            fromCol = ((event.x - originalX) / rectDimen).toInt()
-//            fromRow = ((event.y - originalY) / rectDimen).toInt()
-//            chessDelegate?.assignPiecePosition(Square(fromCol, fromRow))?.let {
-//                movingPiece = it
-//            }
-//            pieceSelected = true
-//            return true
-//
-//        }
-//
-//        if (pieceSelected && event.action == MotionEvent.ACTION_UP) {
-//
-//            val col = ((event.x - originalX) / rectDimen).toInt()
-//            val row = ((event.y - originalY) / rectDimen).toInt()
-//            if (fromCol != col || fromRow != row) {
-//
-//                chessDelegate?.movePiece(Square(fromCol, fromRow), Square(col, row))
-//                invalidate()
-//            }
-//            movingPiece = null
-//            pieceSelected = false
-//
-//
-//            return true
-//         }
-//        return true
-//    }
-
-
 
 
     private fun decodeBitmap() {
