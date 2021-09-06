@@ -30,20 +30,29 @@ class MainFragment : Fragment(), ChessDelegate {
 
 
     private var pieceSelected = false
+    var winner: String? = null
 
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle? ): View {
+                              savedInstanceState: Bundle?): View {
 
         val binding: FragmentMainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.boardView.chessDelegate = this
 
+        val builder = AlertDialog.Builder(requireContext())
+                .setTitle("")
+                .setMessage("$winner WON!")
+                .setPositiveButton("GG") { dialogInterface: DialogInterface, i: Int ->
+                    ChessGame.reset()
+                }
+                .setNegativeButton("Dismiss") { dialogInterface: DialogInterface, i: Int ->
 
+                }.create()
 
-        binding.boardView.setOnTouchListener( object: View.OnTouchListener {
+        binding.boardView.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 event ?: return false
 
@@ -59,23 +68,35 @@ class MainFragment : Fragment(), ChessDelegate {
 
                     val number = ChessGame.nextTurn()
                     when (number) {
-                        1 -> {binding.zhou1.isVisible = true
+                        1 -> {
+                            binding.zhou1.isVisible = true
                             zhou3.isVisible = false
                         }
-                        2 -> {binding.zhou2.isVisible = true
-                            zhou1.isVisible = false}
-                        3 -> {binding.zhou3.isVisible = true
-                            zhou2.isVisible = false}
+                        2 -> {
+                            binding.zhou2.isVisible = true
+                            zhou1.isVisible = false
+                        }
+                        3 -> {
+                            binding.zhou3.isVisible = true
+                            zhou2.isVisible = false
+                        }
                     }
 
                     pieceSelected = false
-                    Log.d("PlayerColor", "$pieceSelected")
+
+                    if (ChessGame.onGameEnd() != null) {
+                        winner = ChessGame.onGameEnd()
+                        builder.show()
+                    }
+
                     return true
                 }
-
                 return true
+
             }
+
         }
+
 
         )
 
@@ -112,50 +133,5 @@ class MainFragment : Fragment(), ChessDelegate {
         ChessGame.movePiece(from, to)
     }
 
-//    fun nextColor() {
-//
-//        val player = ChessGame.nextTurn()
-//
-//        when (player) {
-//            Player.GREEN -> Log.d("playerColor", "$player")
-//            Player.BLACK -> Log.d("playerColor", "$player")
-//            Player.RED -> Log.d("playerColor", "$player")
-//        }
-//        Log.d("playerColor", "$player, ${R.drawable.zhou1}, ${R.drawable.zhou2}, ${R.drawable.zhou3}")
-//    }
-
-
-    fun gameEndDialog(winner: String) {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("")
-        builder.setMessage("$winner WON!")
-        builder.setPositiveButton("GG") { dialogInterface: DialogInterface, i: Int ->
-            ChessGame.reset()
-        }
-        builder.setNegativeButton("Dismiss") { dialogInterface: DialogInterface, i: Int ->
-
-        }
-        builder.show()
-    }
 }
-
-
-
-
-//    private fun gameEndDialog() {
-//        val dialog = Dialog(requireContext())
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-//        dialog.setCancelable(true)
-//        dialog.setContentView(R.layout.custom_layout)
-//        val body = dialog.findViewById(R.id.body) as TextView
-//        body.text = title
-//        val yesBtn = dialog.findViewById(R.id.yesBtn) as Button
-//        val noBtn = dialog.findViewById(R.id.noBtn) as TextView
-//        yesBtn.setOnClickListener {
-//            dialog.dismiss()
-//        }
-//        noBtn.setOnClickListener { dialog.dismiss() }
-//        dialog.show()
-//
-//    }
 

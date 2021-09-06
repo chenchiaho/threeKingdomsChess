@@ -73,10 +73,11 @@ object ChessGame {
                 return
             } else {
                 when (it.player) {
-                    Player.GREEN -> greenScore - 1
-                    Player.BLACK -> blackScore - 1
-                    Player.RED -> redScore - 1
+                    Player.GREEN -> greenScore -= 1
+                    Player.BLACK -> blackScore -= 1
+                    Player.RED -> redScore -= 1
                 }
+                Log.d("playerScore", "$greenScore")
                 pieceSet.remove(it)
             }
         }
@@ -298,14 +299,17 @@ object ChessGame {
         return null
     }
 
-    fun onGameEnd() {
+    fun onGameEnd(): String? {
+        var winner: String? = null
         if (greenScore == 0 && blackScore == 0) {
-            MainFragment().gameEndDialog("RED")
+            winner = "RED"
         } else if (blackScore == 0 && redScore == 0) {
-            MainFragment().gameEndDialog("GREEN")
+            winner = "GREEN"
         } else if (redScore == 0 && greenScore == 0) {
-            MainFragment().gameEndDialog("BLACK")
+            winner = "BLACK"
         }
+
+        return winner
     }
 
 
