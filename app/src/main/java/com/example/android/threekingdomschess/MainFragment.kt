@@ -3,27 +3,20 @@ package com.example.android.threekingdomschess
 import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
-import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.example.android.threekingdomschess.databinding.FragmentMainBinding
-import com.example.android.threekingdomschess.model.Player
 import com.example.android.threekingdomschess.model.Square
-import com.example.android.threekingdomschess.pieces.ChessPiece
+import com.example.android.threekingdomschess.model.ChessPiece
 import kotlinx.android.synthetic.main.fragment_main.*
-import java.util.*
-import kotlin.properties.Delegates
 
 
 class MainFragment : Fragment(), ChessDelegate {
@@ -101,7 +94,7 @@ class MainFragment : Fragment(), ChessDelegate {
 
         )
 
-        binding.toggle.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
+        binding.toggle.setOnClickListener() {
             styleSwap(binding)
         }
 

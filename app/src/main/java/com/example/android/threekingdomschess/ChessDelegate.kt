@@ -1,7 +1,7 @@
 package com.example.android.threekingdomschess
 
 import com.example.android.threekingdomschess.model.Square
-import com.example.android.threekingdomschess.pieces.ChessPiece
+import com.example.android.threekingdomschess.model.ChessPiece
 
 //Interface defines a function without its body
 interface ChessDelegate {

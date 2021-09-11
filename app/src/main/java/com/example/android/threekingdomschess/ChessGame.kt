@@ -1,16 +1,11 @@
 package com.example.android.threekingdomschess
 
 import android.util.Log
-import android.view.View
-import android.widget.ImageView
-import androidx.core.view.isVisible
-import androidx.databinding.DataBindingUtil
 import com.example.android.threekingdomschess.model.Player
 import com.example.android.threekingdomschess.model.Square
-import com.example.android.threekingdomschess.pieces.ChessPiece
+import com.example.android.threekingdomschess.model.ChessPiece
 import com.example.android.threekingdomschess.pieces.ChessType
 import com.example.android.threekingdomschess.pieces.PieceLogic
-import kotlinx.android.synthetic.main.fragment_main.*
 
 
 object ChessGame {
@@ -84,7 +79,6 @@ object ChessGame {
         pieceSet.remove(movingPiece)
         addPiece(movingPiece.copy(col = toCol, row = toRow))
         currentPlayer = nextPlayer(movingPiece)
-
 
 
 //        val animate = TranslateAnimation(R.drawable.chess_k1.getX, toCol-fromCol.toFloat(), movingPiece.row.toFloat(), toRow-fromRow.toFloat())
@@ -202,71 +196,65 @@ object ChessGame {
     }
 
     fun switchStyle() {
-
+        var newList = mutableListOf<ChessPiece>()
         if (isWestern) {
 
-            Log.d("isWestern", "$isWestern")
             for (piece in pieceSet) {
 
-                when (piece.cType) {
-                    ChessType.KING1 -> piece.resId = R.drawable.g_general_c1
-                    ChessType.KING2 -> piece.resId = R.drawable.g_general_c2
-                    ChessType.PAWN1 -> piece.resId = R.drawable.g_pawn_c1
-                    ChessType.PAWN2 -> piece.resId = R.drawable.g_pawn_c2
-                    ChessType.GUARD -> when (piece.player) {
-                        Player.BLACK -> piece.resId = R.drawable.b_guard_c
-                        else -> piece.resId = R.drawable.r_guard_c
+                when (piece.resId) {
+
+                    R.drawable.g_general_w -> {
+                        if (piece.cType == ChessType.KING1) {
+                            piece.resId = R.drawable.g_general_c1
+                        } else piece.resId = R.drawable.g_general_c2
+
                     }
-                    ChessType.ADVISER -> when (piece.player) {
-                        Player.BLACK -> piece.resId = R.drawable.b_elephant_c
-                        else -> piece.resId = R.drawable.r_elephant_c
-                    }
-                    ChessType.HORSE -> when (piece.player) {
-                        Player.BLACK -> piece.resId = R.drawable.b_horse_c
-                        else -> piece.resId = R.drawable.r_horse_c
-                    }
-                    ChessType.ROOK -> when (piece.player) {
-                        Player.BLACK -> piece.resId = R.drawable.b_rook_c
-                        else -> piece.resId = R.drawable.r_rook_c
-                    }
-                    ChessType.CANNON -> when (piece.player) {
-                        Player.BLACK -> piece.resId = R.drawable.b_cannon_c
-                        else -> piece.resId = R.drawable.r_cannon_c
-                    }
+
+                    R.drawable.g_pawn_w -> piece.resId = R.drawable.g_pawn_c1
+
+                    R.drawable.b_guard_w -> piece.resId = R.drawable.b_guard_c
+                    R.drawable.r_guard_w -> piece.resId = R.drawable.r_guard_c
+                    R.drawable.b_elephant_w -> piece.resId = R.drawable.b_elephant_c
+                    R.drawable.r_elephant_w -> piece.resId = R.drawable.r_elephant_c
+                    R.drawable.b_horse_w -> piece.resId = R.drawable.b_horse_c
+                    R.drawable.r_horse_w -> piece.resId = R.drawable.r_horse_c
+                    R.drawable.b_rook_w -> piece.resId = R.drawable.b_rook_c
+                    R.drawable.r_rook_w -> piece.resId = R.drawable.r_rook_c
+                    R.drawable.b_cannon_w -> piece.resId = R.drawable.b_cannon_c
+                    R.drawable.r_cannon_w -> piece.resId = R.drawable.r_cannon_c
+
                 }
+                newList.add(piece)
             }
+
+
         } else  {
 
-            Log.d("isWestern", "$isWestern")
             for (piece in pieceSet) {
-                when (piece.cType) {
-                    ChessType.KING1 -> piece.resId = R.drawable.g_general_w
-                    ChessType.KING2 -> piece.resId = R.drawable.g_general_w
-                    ChessType.PAWN1 -> piece.resId = R.drawable.g_pawn_w
-                    ChessType.PAWN2 -> piece.resId = R.drawable.g_pawn_w
-                    ChessType.GUARD -> when (piece.player) {
-                        Player.BLACK -> piece.resId = R.drawable.b_guard_w
-                        else -> piece.resId = R.drawable.r_guard_w
-                    }
-                    ChessType.ADVISER -> when (piece.player) {
-                        Player.BLACK -> piece.resId = R.drawable.b_elephant_w
-                        else -> piece.resId = R.drawable.r_elephant_w
-                    }
-                    ChessType.HORSE -> when (piece.player) {
-                        Player.BLACK -> piece.resId = R.drawable.b_horse_w
-                        else -> piece.resId = R.drawable.r_horse_w
-                    }
-                    ChessType.ROOK -> when (piece.player) {
-                        Player.BLACK -> piece.resId = R.drawable.b_rook_w
-                        else -> piece.resId = R.drawable.r_rook_w
-                    }
-                    ChessType.CANNON -> when (piece.player) {
-                        Player.BLACK -> piece.resId = R.drawable.b_cannon_w
-                        else -> piece.resId = R.drawable.r_cannon_w
-                    }
+
+                when (piece.resId) {
+
+                    R.drawable.g_general_c1 -> piece.resId = R.drawable.g_general_w
+                    R.drawable.g_general_c2 -> piece.resId = R.drawable.g_general_w
+                    R.drawable.g_pawn_c1 -> piece.resId = R.drawable.g_pawn_w
+
+                    R.drawable.b_guard_c -> piece.resId = R.drawable.b_guard_w
+                    R.drawable.r_guard_c -> piece.resId = R.drawable.r_guard_w
+                    R.drawable.b_elephant_c -> piece.resId = R.drawable.b_elephant_w
+                    R.drawable.r_elephant_c -> piece.resId = R.drawable.r_elephant_w
+                    R.drawable.b_horse_c -> piece.resId = R.drawable.b_horse_w
+                    R.drawable.r_horse_c -> piece.resId = R.drawable.r_horse_w
+                    R.drawable.b_rook_c -> piece.resId = R.drawable.b_rook_w
+                    R.drawable.r_rook_c -> piece.resId = R.drawable.r_rook_w
+                    R.drawable.b_cannon_c -> piece.resId = R.drawable.b_cannon_w
+                    R.drawable.r_cannon_c -> piece.resId = R.drawable.r_cannon_w
                 }
+                newList.add(piece)
             }
         }
+        pieceSet.clear()
+        pieceSet.addAll(newList)
+        Log.d("intheset", "$pieceSet")
         isWestern = !isWestern
     }
 

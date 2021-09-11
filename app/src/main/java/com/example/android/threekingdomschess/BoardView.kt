@@ -1,19 +1,12 @@
 package com.example.android.threekingdomschess
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import androidx.core.graphics.alpha
-import androidx.core.view.isVisible
-import com.example.android.threekingdomschess.databinding.FragmentMainBinding
-import com.example.android.threekingdomschess.model.Player
 import com.example.android.threekingdomschess.model.Square
-import com.example.android.threekingdomschess.pieces.ChessPiece
-import kotlinx.android.synthetic.main.fragment_main.view.*
+import com.example.android.threekingdomschess.model.ChessPiece
 
 
 class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
@@ -86,7 +79,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         }
     }
 
-    private fun drawPieces(canvas: Canvas?) {
+    fun drawPieces(canvas: Canvas?) {
 
         for (row in 0..4) {
             for (col in 0..8) {
