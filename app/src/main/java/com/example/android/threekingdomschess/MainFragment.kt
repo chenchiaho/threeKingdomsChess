@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.android.threekingdomschess.databinding.FragmentMainBinding
 import com.example.android.threekingdomschess.model.Square
 import com.example.android.threekingdomschess.model.ChessPiece
+import com.example.android.threekingdomschess.model.Player
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
@@ -35,8 +36,6 @@ class MainFragment : Fragment(), ChessDelegate {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.boardView.chessDelegate = this
 
-
-
         binding.boardView.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 event ?: return false
@@ -50,22 +49,8 @@ class MainFragment : Fragment(), ChessDelegate {
                 if (pieceSelected && event.action == MotionEvent.ACTION_UP) {
 
                     binding.boardView.onSecondTouchEvent(event)
-
-                    val number = ChessGame.nextTurn()
-                    when (number) {
-                        1 -> {
-                            binding.zhou1.isVisible = true
-                            zhou3.isVisible = false
-                        }
-                        2 -> {
-                            binding.zhou2.isVisible = true
-                            zhou1.isVisible = false
-                        }
-                        3 -> {
-                            binding.zhou3.isVisible = true
-                            zhou2.isVisible = false
-                        }
-                    }
+                    val next = ChessGame.nextTurn()
+                    playerIndicator(next)
 
                     pieceSelected = false
 
@@ -99,7 +84,10 @@ class MainFragment : Fragment(), ChessDelegate {
         }
 
         binding.restart.setOnClickListener {
+
             onGameClicked(binding)
+            val next = ChessGame.nextTurn()
+            playerIndicator(next)
         }
         binding.intro.setOnClickListener {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToInfoFragment())
@@ -125,6 +113,27 @@ class MainFragment : Fragment(), ChessDelegate {
 
     override fun movePiece(from: Square, to: Square) {
         ChessGame.movePiece(from, to)
+    }
+
+
+    fun playerIndicator(next: Player) {
+        when (next) {
+            Player.GREEN -> {
+                zhou1.isVisible = true
+                zhou2.isVisible = false
+                zhou3.isVisible = false
+            }
+            Player.BLACK -> {
+                zhou2.isVisible = true
+                zhou1.isVisible = false
+                zhou3.isVisible = false
+            }
+            Player.RED -> {
+                zhou3.isVisible = true
+                zhou1.isVisible = false
+                zhou2.isVisible = false
+            }
+        }
     }
 
 }

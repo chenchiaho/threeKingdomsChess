@@ -80,12 +80,7 @@ object ChessGame {
         addPiece(movingPiece.copy(col = toCol, row = toRow))
         currentPlayer = nextPlayer(movingPiece)
 
-
-//        val animate = TranslateAnimation(R.drawable.chess_k1.getX, toCol-fromCol.toFloat(), movingPiece.row.toFloat(), toRow-fromRow.toFloat())
-//        animate.duration = 1000
-//        animate.start()
     }
-
 
     private fun nextPlayer(piece: ChessPiece): Player {
 
@@ -96,14 +91,8 @@ object ChessGame {
         }
     }
 
-    fun nextTurn(): Int {
-
-        return when (currentPlayer) {
-
-            Player.GREEN -> 1
-            Player.BLACK -> 2
-            Player.RED ->  3
-        }
+    fun nextTurn(): Player {
+        return currentPlayer
     }
 
 
@@ -174,7 +163,7 @@ object ChessGame {
                 26, 27 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.HORSE,
                         if (isWestern) {
                             R.drawable.r_horse_w
-                        } else R.drawable.r_horse_w
+                        } else R.drawable.r_horse_c
                 ))
                 28, 29 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.ROOK,
                         if (isWestern) {
@@ -193,10 +182,12 @@ object ChessGame {
         blackScore = 10
         redScore = 10
         currentPlayer = Player.GREEN
+
+
     }
 
     fun switchStyle() {
-        var newList = mutableListOf<ChessPiece>()
+        val newList = mutableListOf<ChessPiece>()
         if (isWestern) {
 
             for (piece in pieceSet) {
@@ -207,10 +198,13 @@ object ChessGame {
                         if (piece.cType == ChessType.KING1) {
                             piece.resId = R.drawable.g_general_c1
                         } else piece.resId = R.drawable.g_general_c2
-
                     }
 
-                    R.drawable.g_pawn_w -> piece.resId = R.drawable.g_pawn_c1
+                    R.drawable.g_pawn_w -> {
+                        if (piece.cType == ChessType.PAWN1) {
+                            piece.resId = R.drawable.g_pawn_c1
+                        } else piece.resId = R.drawable.g_pawn_c2
+                    }
 
                     R.drawable.b_guard_w -> piece.resId = R.drawable.b_guard_c
                     R.drawable.r_guard_w -> piece.resId = R.drawable.r_guard_c
@@ -226,8 +220,6 @@ object ChessGame {
                 }
                 newList.add(piece)
             }
-
-
         } else  {
 
             for (piece in pieceSet) {
@@ -237,7 +229,7 @@ object ChessGame {
                     R.drawable.g_general_c1 -> piece.resId = R.drawable.g_general_w
                     R.drawable.g_general_c2 -> piece.resId = R.drawable.g_general_w
                     R.drawable.g_pawn_c1 -> piece.resId = R.drawable.g_pawn_w
-
+                    R.drawable.g_pawn_c2 -> piece.resId = R.drawable.g_pawn_w
                     R.drawable.b_guard_c -> piece.resId = R.drawable.b_guard_w
                     R.drawable.r_guard_c -> piece.resId = R.drawable.r_guard_w
                     R.drawable.b_elephant_c -> piece.resId = R.drawable.b_elephant_w
@@ -254,7 +246,6 @@ object ChessGame {
         }
         pieceSet.clear()
         pieceSet.addAll(newList)
-        Log.d("intheset", "$pieceSet")
         isWestern = !isWestern
     }
 

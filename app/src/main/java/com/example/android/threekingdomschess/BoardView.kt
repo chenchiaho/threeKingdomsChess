@@ -21,7 +21,8 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             R.drawable.b_rook_w, R.drawable.r_rook_w,
             R.drawable.b_cannon_w, R.drawable.r_cannon_w,
             R.drawable.b_elephant_w, R.drawable.r_elephant_w,
-//            R.drawable.select_square, R.drawable.chess_back
+//            R.drawable.select_square,
+            R.drawable.covered,
             R.drawable.g_general_c1, R.drawable.g_general_c2,
             R.drawable.g_pawn_c1, R.drawable.g_pawn_c2,
             R.drawable.b_guard_c, R.drawable.r_guard_c,
@@ -35,6 +36,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     private var movingPiece: ChessPiece? = null
     private var fromCol: Int = -1
     private var fromRow: Int = -1
+    private var selectIndicator = true
 
     var chessDelegate: ChessDelegate? = null
 
@@ -44,7 +46,9 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
     override fun onDraw(canvas: Canvas?) {
         drawBoard(canvas)
+        drawSelection(canvas)
         drawPieces(canvas)
+
     }
 
     fun onFirstTouchEvent(event: MotionEvent?) {
@@ -53,7 +57,12 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             fromRow = ((event.y - originalY) / rectDimen).toInt()
             chessDelegate?.assignPiecePosition(Square(fromCol, fromRow))?.let {
                 movingPiece = it
+
             }
+        selectIndicator = false
+        returnSquare()
+        invalidate()
+
 
     }
 
@@ -62,21 +71,64 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             val col = ((event!!.x - originalX) / rectDimen).toInt()
             val row = ((event.y - originalY) / rectDimen).toInt()
             if (fromCol != col || fromRow != row) {
-
+                returnSquare()
                 chessDelegate?.movePiece(Square(fromCol, fromRow), Square(col, row))
+
                 invalidate()
             }
+
+
+        selectIndicator = true
             movingPiece = null
 
     }
-
-
 
     private fun decodeBitmap() {
         imageId.forEach {
             bitmaps[it] = BitmapFactory.decodeResource(resources, it)
 
         }
+    }
+
+    fun returnSquare(): Pair<Int, Int> {
+        return Pair(fromCol, fromRow)
+    }
+
+    fun drawSelection(canvas: Canvas?) {
+
+        if (selectIndicator) {
+
+            paint.color = Color.YELLOW
+            paint.style = Paint.Style.FILL
+
+            selection(canvas)
+
+            paint.color = Color.GRAY
+            paint.style = Paint.Style.STROKE
+            paint.strokeWidth = 10f
+            paint.strokeJoin = Paint.Join.ROUND
+            selection(canvas)
+        } else if (!selectIndicator){
+            paint.color = Color.BLACK
+            paint.style = Paint.Style.FILL
+
+            selection(canvas)
+
+            paint.color = Color.TRANSPARENT
+            paint.style = Paint.Style.STROKE
+            paint.strokeWidth = 10f
+            paint.strokeJoin = Paint.Join.ROUND
+            selection(canvas)
+        }
+    }
+
+    fun selection (canvas: Canvas?) {
+        returnSquare()
+        canvas?.drawRoundRect(
+            originalX + fromCol.toFloat() * rectDimen,
+            originalY + fromRow.toFloat() * rectDimen,
+            originalX + (fromCol.toFloat() + 1) * rectDimen,
+            originalY + (fromRow.toFloat() + 1) * rectDimen, 10f, 10f, paint)
     }
 
     fun drawPieces(canvas: Canvas?) {
@@ -127,5 +179,6 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                         originalY + (j + 1) * rectDimen, 10f, 10f, paint)
             }
         }
+
     }
 }
