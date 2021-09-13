@@ -55,13 +55,14 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
             fromCol = ((event!!.x - originalX) / rectDimen).toInt()
             fromRow = ((event.y - originalY) / rectDimen).toInt()
-            chessDelegate?.assignPiecePosition(Square(fromCol, fromRow))?.let {
-                movingPiece = it
+//            chessDelegate?.assignPiecePosition(Square(fromCol, fromRow))?.let {
+//                movingPiece = it
+//
+//            }
 
-            }
-        selectIndicator = false
-        returnSquare()
+//        returnSquare()
         invalidate()
+        selectIndicator = true
 
 
     }
@@ -78,8 +79,8 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             }
 
 
-        selectIndicator = true
-            movingPiece = null
+        selectIndicator = false
+//            movingPiece = null
 
     }
 
@@ -103,22 +104,24 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
             selection(canvas)
 
-            paint.color = Color.GRAY
-            paint.style = Paint.Style.STROKE
-            paint.strokeWidth = 10f
-            paint.strokeJoin = Paint.Join.ROUND
-            selection(canvas)
-        } else if (!selectIndicator){
             paint.color = Color.BLACK
-            paint.style = Paint.Style.FILL
-
-            selection(canvas)
-
-            paint.color = Color.TRANSPARENT
             paint.style = Paint.Style.STROKE
             paint.strokeWidth = 10f
             paint.strokeJoin = Paint.Join.ROUND
             selection(canvas)
+
+//
+//        } else if (!selectIndicator){
+//            paint.color = Color.TRANSPARENT
+//            paint.style = Paint.Style.FILL
+//
+//            selection(canvas)
+//
+//            paint.color = Color.YELLOW
+//            paint.style = Paint.Style.STROKE
+//            paint.strokeWidth = 10f
+//            paint.strokeJoin = Paint.Join.ROUND
+//            selection(canvas)
         }
     }
 
