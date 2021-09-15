@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.android.threekingdomschess.databinding.FragmentMainBinding
 import com.example.android.threekingdomschess.model.Square
 import com.example.android.threekingdomschess.model.ChessPiece
+import com.example.android.threekingdomschess.model.Cover
 import com.example.android.threekingdomschess.model.Player
 import kotlinx.android.synthetic.main.fragment_main.*
 
@@ -42,6 +43,7 @@ class MainFragment : Fragment(), ChessDelegate {
 
                 if (!pieceSelected && event.action == MotionEvent.ACTION_UP) {
                     binding.boardView.onFirstTouchEvent(event)
+
                     pieceSelected = true
                     return true
                 }
@@ -97,7 +99,7 @@ class MainFragment : Fragment(), ChessDelegate {
         return binding.root
     }
 
-    fun styleSwap(binding: FragmentMainBinding) {
+    private fun styleSwap(binding: FragmentMainBinding) {
         ChessGame.switchStyle()
         binding.boardView.invalidate()
     }
@@ -105,6 +107,10 @@ class MainFragment : Fragment(), ChessDelegate {
     private fun onGameClicked(binding: FragmentMainBinding) {
         ChessGame.reset()
         binding.boardView.invalidate()
+    }
+
+    override fun assignCoverPosition(square: Square): Cover? {
+        return ChessGame.coverPosition(square)
     }
 
     override fun assignPiecePosition(square: Square): ChessPiece? {

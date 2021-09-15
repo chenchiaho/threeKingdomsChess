@@ -1,9 +1,11 @@
 package com.example.android.threekingdomschess
 
+import android.graphics.RectF
 import android.util.Log
 import com.example.android.threekingdomschess.model.Player
 import com.example.android.threekingdomschess.model.Square
 import com.example.android.threekingdomschess.model.ChessPiece
+import com.example.android.threekingdomschess.model.Cover
 import com.example.android.threekingdomschess.pieces.ChessType
 import com.example.android.threekingdomschess.pieces.PieceLogic
 
@@ -12,6 +14,7 @@ object ChessGame {
 
     private val pieceLogic = PieceLogic()
     private var pieceSet = mutableSetOf<ChessPiece>()
+    private var coverSet = mutableSetOf<Cover>()
     private var greenScore = 12
     private var blackScore = 10
     private var redScore = 10
@@ -32,6 +35,10 @@ object ChessGame {
         pieceSet.add(piece)
     }
 
+    private fun addCover(cover: Cover) {
+        coverSet.add(cover)
+    }
+
     private fun legalMove(from: Square, to: Square): Boolean {
         if (from.col == to.col && from.row == to.row){
             return false
@@ -48,6 +55,13 @@ object ChessGame {
             ChessType.PAWN2 -> pieceLogic.pawnLegal(from, to)
             ChessType.GUARD -> pieceLogic.guardLegal(from, to)
             ChessType.CANNON -> pieceLogic.cannonLegal(from, to)
+        }
+    }
+
+    fun turnPiece(fromCol: Int, fromRow: Int) {
+        val selectedPiece = checkPiecePosition(fromCol, fromRow)
+        if (selectedPiece?.resId == R.drawable.cover) {
+
         }
     }
 
@@ -103,81 +117,130 @@ object ChessGame {
         for (i in 0..31) {
 
             when(i) {
-                0 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.KING1,
+                0 -> {
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.KING1,
                         if (isWestern) {
                             R.drawable.g_general_w
                         } else R.drawable.g_general_c1
                 ))
-                1 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.KING2,
-                        if (isWestern) {
-                            R.drawable.g_general_w
-                        } else R.drawable.g_general_c2
-                ))
-                in 2..6 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.PAWN1,
-                        if (isWestern) {
-                            R.drawable.g_pawn_w
-                        } else R.drawable.g_pawn_c1
-                ))
-                in 7..11 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.PAWN2,
-                        if (isWestern) {
-                            R.drawable.g_pawn_w
-                        } else R.drawable.g_pawn_c2
-                        ))
+//                    addCover(Cover(0, 0, R.drawable.cover))
+                }
+                1 -> {
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.KING2,
+                            if (isWestern) {
+                                R.drawable.g_general_w
+                            } else R.drawable.g_general_c2
+                    ))
+//                    addCover(Cover(0, 1, R.drawable.cover))
+                }
+                in 2..6 -> {
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.PAWN1,
+                            if (isWestern) {
+                                R.drawable.g_pawn_w
+                            } else R.drawable.g_pawn_c1
+                    ))
+//                    addCover(Cover(0, 2, R.drawable.cover))
+                }
+                in 7..11 -> {
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.PAWN2,
+                            if (isWestern) {
+                                R.drawable.g_pawn_w
+                            } else R.drawable.g_pawn_c2
+                    ))
+//                    addCover(Cover(0, 3, R.drawable.cover))
+                }
 
-                12, 13 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.GUARD,
-                        if (isWestern) {
-                            R.drawable.b_guard_w
-                        } else R.drawable.b_guard_c
-                ))
-                14, 15 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.ADVISER,
-                        if (isWestern) {
-                            R.drawable.b_elephant_w
-                        } else R.drawable.b_elephant_c
-                ))
-                16, 17 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.HORSE,
-                        if (isWestern) {
-                            R.drawable.b_horse_w
-                        } else R.drawable.b_horse_c
-                ))
-                18, 19 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.ROOK,
-                        if (isWestern) {
-                            R.drawable.b_rook_w
-                        } else R.drawable.b_rook_c
-                ))
-                20, 21 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.CANNON,
-                        if (isWestern) {
-                            R.drawable.b_cannon_w
-                        } else R.drawable.b_cannon_c
-                ))
+                12, 13 -> {
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.GUARD,
+                            if (isWestern) {
+                                R.drawable.b_guard_w
+                            } else R.drawable.b_guard_c
+                    ))
+//                    addCover(Cover(1, 0, R.drawable.cover))
+                }
+                14, 15 -> {
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.ADVISER,
+                            if (isWestern) {
+                                R.drawable.b_elephant_w
+                            } else R.drawable.b_elephant_c
+                    ))
+//                    addCover(Cover(1, 1, R.drawable.cover))
+                }
+                16, 17 -> {
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.HORSE,
+                            if (isWestern) {
+                                R.drawable.b_horse_w
+                            } else R.drawable.b_horse_c
+                    ))
+//                    addCover(Cover(1, 2, R.drawable.cover))
+                }
+                18, 19 -> {
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.ROOK,
+                            if (isWestern) {
+                                R.drawable.b_rook_w
+                            } else R.drawable.b_rook_c
+                    ))
+//                    addCover(Cover(1, 3, R.drawable.cover))
+                }
+                20, 21 -> {
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.CANNON,
+                            if (isWestern) {
+                                R.drawable.b_cannon_w
+                            } else R.drawable.b_cannon_c
+                    ))
+//                    addCover(Cover(0, 0, R.drawable.cover))
+                }
 
-                22, 23 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.GUARD,
-                        if (isWestern) {
-                            R.drawable.r_guard_w
-                        } else R.drawable.r_guard_c
-                ))
-                24, 25 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.ADVISER,
-                        if (isWestern) {
-                            R.drawable.r_elephant_w
-                        } else R.drawable.r_elephant_c
-                ))
-                26, 27 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.HORSE,
-                        if (isWestern) {
-                            R.drawable.r_horse_w
-                        } else R.drawable.r_horse_c
-                ))
-                28, 29 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.ROOK,
-                        if (isWestern) {
-                            R.drawable.r_rook_w
-                        } else R.drawable.r_rook_c
-                ))
-                30, 31 -> addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.CANNON,
-                        if (isWestern) {
-                            R.drawable.r_cannon_w
-                        } else R.drawable.r_cannon_c
-                ))
+                22, 23 -> {
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.GUARD,
+                            if (isWestern) {
+                                R.drawable.r_guard_w
+                            } else R.drawable.r_guard_c
+                    ))
+//                    addCover(Cover(0, 0, R.drawable.cover))
+                }
+                24, 25 -> {
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.ADVISER,
+                            if (isWestern) {
+                                R.drawable.r_elephant_w
+                            } else R.drawable.r_elephant_c
+                    ))
+//                    addCover(Cover(0, 0, R.drawable.cover))
+                }
+                26, 27 -> {
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.HORSE,
+                            if (isWestern) {
+                                R.drawable.r_horse_w
+                            } else R.drawable.r_horse_c
+                    ))
+//                    addCover(Cover(0, 0, R.drawable.cover))
+                }
+                28, 29 -> {
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.ROOK,
+                            if (isWestern) {
+                                R.drawable.r_rook_w
+                            } else R.drawable.r_rook_c
+                    ))
+//                    addCover(Cover(0, 0, R.drawable.cover))
+                }
+                30, 31 -> {
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.CANNON,
+                            if (isWestern) {
+                                R.drawable.r_cannon_w
+                            } else R.drawable.r_cannon_c
+                    ))
+//                    addCover(Cover(0, 0, R.drawable.cover))
+                }
+            }
 
+        }
+
+        (0..4).filter { it !=2 }.forEach { row ->
+            (0..8).filter { it != 4 }.forEach { col ->
+                addCover(Cover(row, col, R.drawable.cover))
             }
         }
+
         greenScore = 12
         blackScore = 10
         redScore = 10
@@ -185,6 +248,8 @@ object ChessGame {
 
 
     }
+
+
 
     fun switchStyle() {
         val newList = mutableListOf<ChessPiece>()
@@ -273,6 +338,19 @@ object ChessGame {
         for (piece in pieceSet) {
             if (col == piece.col && row == piece.row) {
                 return piece
+            }
+        }
+        return null
+    }
+
+    fun coverPosition(square: Square): Cover? {
+        return checkCoverPosition(square.col, square.row)
+    }
+
+    private fun checkCoverPosition(col: Int, row: Int): Cover? {
+        for (cover in coverSet) {
+            if (col == cover.col && row == cover.row) {
+                return cover
             }
         }
         return null

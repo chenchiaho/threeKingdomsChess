@@ -22,7 +22,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             R.drawable.b_cannon_w, R.drawable.r_cannon_w,
             R.drawable.b_elephant_w, R.drawable.r_elephant_w,
 //            R.drawable.select_square,
-            R.drawable.covered,
+            R.drawable.cover,
             R.drawable.g_general_c1, R.drawable.g_general_c2,
             R.drawable.g_pawn_c1, R.drawable.g_pawn_c2,
             R.drawable.b_guard_c, R.drawable.r_guard_c,
@@ -48,6 +48,11 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         drawBoard(canvas)
         drawSelection(canvas)
         drawPieces(canvas)
+        drawCover(canvas)
+
+    }
+
+    fun onTurnPiece(event: MotionEvent?) {
 
     }
 
@@ -91,11 +96,11 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         }
     }
 
-    fun returnSquare(): Pair<Int, Int> {
+    private fun returnSquare(): Pair<Int, Int> {
         return Pair(fromCol, fromRow)
     }
 
-    fun drawSelection(canvas: Canvas?) {
+    private fun drawSelection(canvas: Canvas?) {
 
         if (selectIndicator) {
 
@@ -125,7 +130,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         }
     }
 
-    fun selection (canvas: Canvas?) {
+    private fun selection (canvas: Canvas?) {
         returnSquare()
         canvas?.drawRoundRect(
             originalX + fromCol.toFloat() * rectDimen,
@@ -134,7 +139,39 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             originalY + (fromRow.toFloat() + 1) * rectDimen, 10f, 10f, paint)
     }
 
-    fun drawPieces(canvas: Canvas?) {
+    private fun drawCover(canvas: Canvas?) {
+
+        val bitmap = bitmaps[R.drawable.cover]!!
+
+        (0..4).filter { it !=2 }.forEach { row ->
+            (0..8).filter { it != 4 }.forEach { col ->
+
+                chessDelegate?.assignCoverPosition(Square(col, row))?.let {
+
+                    canvas?.drawBitmap(bitmap, null, RectF(
+                            originalX + col * rectDimen,
+                            originalY + row * rectDimen,
+                            originalX + (col + 1) * rectDimen,
+                            originalY + (row + 1) * rectDimen), paint)
+
+                }
+            }
+        }
+
+//        val bitmap = bitmaps[resId]!!
+//        (0..4).filter { it !=2 }.forEach { row ->
+//            (0..8).filter { it != 4 }.forEach { col ->
+//                canvas?.drawBitmap(bitmap, null, RectF(
+//                        originalX + col * rectDimen,
+//                        originalY + row * rectDimen,
+//                        originalX + (col + 1) * rectDimen,
+//                        originalY + (row + 1) * rectDimen), paint)
+//            }
+//        }
+
+    }
+
+    private fun drawPieces(canvas: Canvas?) {
 
         for (row in 0..4) {
             for (col in 0..8) {
