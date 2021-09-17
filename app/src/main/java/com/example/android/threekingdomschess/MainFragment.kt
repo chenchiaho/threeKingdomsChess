@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment(), ChessDelegate {
 
-
     private var pieceSelected = false
     var winner: String? = null
 
@@ -42,9 +41,21 @@ class MainFragment : Fragment(), ChessDelegate {
                 event ?: return false
 
                 if (!pieceSelected && event.action == MotionEvent.ACTION_UP) {
-                    binding.boardView.onFirstTouchEvent(event)
 
-                    pieceSelected = true
+                    val isCovered = binding.boardView.isCovered(event)
+
+                    if (isCovered) {
+                        binding.boardView.onInitialTouchEvent(event)
+                        val next = ChessGame.nextTurn()
+                        playerIndicator(next)
+                        pieceSelected = false
+
+                    } else if (!isCovered) {
+                        binding.boardView.onFirstTouchEvent(event)
+                        val col = binding.boardView.returnSquare().first
+                        val row = binding.boardView.returnSquare().second
+                        pieceSelected = assignPiecePosition(Square(col, row)) != null
+                    }
                     return true
                 }
 
@@ -111,6 +122,10 @@ class MainFragment : Fragment(), ChessDelegate {
 
     override fun assignCoverPosition(square: Square): Cover? {
         return ChessGame.coverPosition(square)
+    }
+
+    override fun removeCover(fromCol: Int, fromRow: Int) {
+        ChessGame.turnPiece(fromCol, fromRow)
     }
 
     override fun assignPiecePosition(square: Square): ChessPiece? {

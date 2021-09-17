@@ -52,20 +52,28 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
     }
 
-    fun onTurnPiece(event: MotionEvent?) {
+    fun isCovered(event: MotionEvent?): Boolean {
+        fromCol = ((event!!.x - originalX) / rectDimen).toInt()
+        fromRow = ((event.y - originalY) / rectDimen).toInt()
+        return ChessGame.checkCoverPosition(fromCol, fromRow)?.resId == R.drawable.cover
+    }
+
+    fun onInitialTouchEvent(event: MotionEvent?) {
+
+        fromCol = ((event!!.x - originalX) / rectDimen).toInt()
+        fromRow = ((event.y - originalY) / rectDimen).toInt()
+
+        chessDelegate?.removeCover(fromCol, fromRow)
+        invalidate()
+        selectIndicator = false
 
     }
 
     fun onFirstTouchEvent(event: MotionEvent?) {
 
-            fromCol = ((event!!.x - originalX) / rectDimen).toInt()
-            fromRow = ((event.y - originalY) / rectDimen).toInt()
-//            chessDelegate?.assignPiecePosition(Square(fromCol, fromRow))?.let {
-//                movingPiece = it
-//
-//            }
-
-//        returnSquare()
+        fromCol = ((event!!.x - originalX) / rectDimen).toInt()
+        fromRow = ((event.y - originalY) / rectDimen).toInt()
+        returnSquare()
         invalidate()
         selectIndicator = true
 
@@ -96,7 +104,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         }
     }
 
-    private fun returnSquare(): Pair<Int, Int> {
+    fun returnSquare(): Pair<Int, Int> {
         return Pair(fromCol, fromRow)
     }
 

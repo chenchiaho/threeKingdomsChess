@@ -10,4 +10,5 @@ enum class ChessType {
     HORSE,
     ROOK,
     CANNON,
+    COVER
 }

@@ -14,7 +14,7 @@ object ChessGame {
 
     private val pieceLogic = PieceLogic()
     private var pieceSet = mutableSetOf<ChessPiece>()
-    private var coverSet = mutableSetOf<Cover>()
+    var coverSet = mutableSetOf<Cover>()
     private var greenScore = 12
     private var blackScore = 10
     private var redScore = 10
@@ -55,13 +55,15 @@ object ChessGame {
             ChessType.PAWN2 -> pieceLogic.pawnLegal(from, to)
             ChessType.GUARD -> pieceLogic.guardLegal(from, to)
             ChessType.CANNON -> pieceLogic.cannonLegal(from, to)
+            ChessType.COVER -> false
         }
     }
 
     fun turnPiece(fromCol: Int, fromRow: Int) {
-        val selectedPiece = checkPiecePosition(fromCol, fromRow)
+        val selectedPiece = checkCoverPosition(fromCol, fromRow)
         if (selectedPiece?.resId == R.drawable.cover) {
-
+            coverSet.remove(selectedPiece)
+            currentPlayer = nextPlayerByPlayer(currentPlayer)
         }
     }
 
@@ -86,7 +88,7 @@ object ChessGame {
                     Player.BLACK -> blackScore -= 1
                     Player.RED -> redScore -= 1
                 }
-                Log.d("playerScore", "$greenScore")
+
                 pieceSet.remove(it)
             }
         }
@@ -97,13 +99,17 @@ object ChessGame {
     }
 
     private fun nextPlayer(piece: ChessPiece): Player {
+        return nextPlayerByPlayer(piece.player)
+    }
 
-        return when (piece.player) {
+    private fun nextPlayerByPlayer(player: Player): Player {
+        return when (player) {
             Player.GREEN -> if (blackScore == 0) {Player.RED} else Player.BLACK
             Player.BLACK -> if (redScore == 0) {Player.GREEN} else Player.RED
             Player.RED -> if (greenScore == 0) {Player.BLACK} else Player.GREEN
         }
     }
+
 
     fun nextTurn(): Player {
         return currentPlayer
@@ -237,7 +243,7 @@ object ChessGame {
 
         (0..4).filter { it !=2 }.forEach { row ->
             (0..8).filter { it != 4 }.forEach { col ->
-                addCover(Cover(row, col, R.drawable.cover))
+                addCover(Cover(row, col, ChessType.COVER, R.drawable.cover))
             }
         }
 
@@ -347,7 +353,7 @@ object ChessGame {
         return checkCoverPosition(square.col, square.row)
     }
 
-    private fun checkCoverPosition(col: Int, row: Int): Cover? {
+    fun checkCoverPosition(col: Int, row: Int): Cover? {
         for (cover in coverSet) {
             if (col == cover.col && row == cover.row) {
                 return cover
