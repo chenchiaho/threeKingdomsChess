@@ -7,9 +7,8 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -136,23 +135,37 @@ class MainFragment : Fragment(), ChessDelegate {
         ChessGame.movePiece(from, to)
     }
 
+    private fun fadeInAnimate(imageView: ImageView) {
+        imageView.animate().apply {
+            duration = 600
+            alpha(1.0f)
+
+        }.start()
+    }
+    private fun fadeOutAnimate(imageView: ImageView) {
+        imageView.animate().apply {
+            duration = 600
+            alpha(0.0f)
+        }.start()
+    }
+
 
     fun playerIndicator(next: Player) {
         when (next) {
             Player.GREEN -> {
-                zhou1.isVisible = true
-                zhou2.isVisible = false
-                zhou3.isVisible = false
+                fadeInAnimate(zhou1)
+                fadeOutAnimate(zhou2)
+                fadeOutAnimate(zhou3)
             }
             Player.BLACK -> {
-                zhou2.isVisible = true
-                zhou1.isVisible = false
-                zhou3.isVisible = false
+                fadeInAnimate(zhou2)
+                fadeOutAnimate(zhou1)
+                fadeOutAnimate(zhou3)
             }
             Player.RED -> {
-                zhou3.isVisible = true
-                zhou1.isVisible = false
-                zhou2.isVisible = false
+                fadeInAnimate(zhou3)
+                fadeOutAnimate(zhou1)
+                fadeOutAnimate(zhou2)
             }
         }
     }
