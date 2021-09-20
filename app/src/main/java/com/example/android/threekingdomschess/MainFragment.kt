@@ -18,6 +18,7 @@ import com.example.android.threekingdomschess.model.ChessPiece
 import com.example.android.threekingdomschess.model.Cover
 import com.example.android.threekingdomschess.model.Player
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_main.view.*
 
 
 class MainFragment : Fragment(), ChessDelegate {
@@ -34,6 +35,8 @@ class MainFragment : Fragment(), ChessDelegate {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.boardView.chessDelegate = this
+
+
 
         binding.boardView.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
@@ -72,7 +75,9 @@ class MainFragment : Fragment(), ChessDelegate {
                                 .setTitle("")
                                 .setMessage("$winner WON!")
                                 .setPositiveButton("GG") { dialogInterface: DialogInterface, i: Int ->
-                                    ChessGame.reset()
+                                    onGameClicked(binding)
+                                    val nextPlay = ChessGame.nextTurn()
+                                    playerIndicator(nextPlay)
                                 }
                                 .setNegativeButton("Dismiss") { dialogInterface: DialogInterface, i: Int ->
 
@@ -91,15 +96,26 @@ class MainFragment : Fragment(), ChessDelegate {
 
         )
 
-        binding.toggle.setOnClickListener() {
+        binding.toggle.setOnClickListener {
             styleSwap(binding)
         }
 
         binding.restart.setOnClickListener {
 
-            onGameClicked(binding)
-            val next = ChessGame.nextTurn()
-            playerIndicator(next)
+            val builder = AlertDialog.Builder(requireContext())
+                    .setTitle("")
+                    .setMessage("Restart the game?")
+                    .setPositiveButton("Yes") { dialogInterface: DialogInterface, i: Int ->
+                        onGameClicked(binding)
+                        val next = ChessGame.nextTurn()
+                        playerIndicator(next)
+                    }
+                    .setNegativeButton("Cancel") { dialogInterface: DialogInterface, i: Int ->
+
+                    }.create()
+            builder.show()
+
+
         }
         binding.intro.setOnClickListener {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToInfoFragment())

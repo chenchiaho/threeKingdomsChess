@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="main"
-            type="com.example.android.threekingdomschess.MainFragment" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,9 +26,9 @@
             android:id="@+id/zhou1"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginEnd="8dp"
-            android:contentDescription="@string/player_indicator"
+            android:layout_marginEnd="40dp"
             android:alpha="1.0"
+            android:contentDescription="@string/player_indicator"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
@@ -48,7 +42,7 @@
             android:id="@+id/zhou2"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="40dp"
             android:contentDescription="@string/player_indicator"
 
             app:layout_constraintBottom_toBottomOf="parent"
@@ -66,7 +60,7 @@
             android:id="@+id/zhou3"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="40dp"
             android:contentDescription="@string/player_indicator"
 
             app:layout_constraintBottom_toBottomOf="parent"
