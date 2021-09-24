@@ -80,17 +80,18 @@ object ChessGame {
         val movingPiece = checkPiecePosition(fromCol, fromRow) ?: return
 
         checkPiecePosition(toCol, toRow)?.let {
-            if (it.player == movingPiece.player) {
+            if (it.player == movingPiece.player || checkCoverPosition(toCol, toRow)?.resId != null) {
                 return
-            } else {
-                when (it.player) {
-                    Player.GREEN -> greenScore -= 1
-                    Player.BLACK -> blackScore -= 1
-                    Player.RED -> redScore -= 1
+            } else if (checkCoverPosition(toCol, toRow)?.resId == null) {
+                    when (it.player) {
+                        Player.GREEN -> greenScore -= 1
+
+                        Player.BLACK -> blackScore -= 1
+                        Player.RED -> redScore -= 1
+                    }
+                    pieceSet.remove(it)
                 }
 
-                pieceSet.remove(it)
-            }
         }
         pieceSet.remove(movingPiece)
         addPiece(movingPiece.copy(col = toCol, row = toRow))

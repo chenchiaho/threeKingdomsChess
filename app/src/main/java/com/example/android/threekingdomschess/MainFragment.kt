@@ -2,7 +2,9 @@ package com.example.android.threekingdomschess
 
 import android.annotation.SuppressLint
 import android.content.DialogInterface
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -23,19 +25,21 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
 
 class MainFragment : Fragment(), ChessDelegate {
 
+
     private var pieceSelected = false
     var winner: String? = null
+
 
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
+
         val binding: FragmentMainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.boardView.chessDelegate = this
-
 
 
         binding.boardView.setOnTouchListener(object : View.OnTouchListener {
@@ -125,6 +129,12 @@ class MainFragment : Fragment(), ChessDelegate {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        val nextPlayer = ChessGame.nextTurn()
+        playerIndicator(nextPlayer)
+    }
+
     private fun styleSwap(binding: FragmentMainBinding) {
         ChessGame.switchStyle()
         binding.boardView.invalidate()
@@ -165,23 +175,47 @@ class MainFragment : Fragment(), ChessDelegate {
         }.start()
     }
 
+//    fun initialColor (colorCode: Int) {
+//        when (colorCode) {
+//            1 -> {
+//                fadeInAnimate(zhou1)
+//                fadeOutAnimate(zhou2)
+//                fadeOutAnimate(zhou3)
+//            }
+//            2 -> {
+//                fadeInAnimate(zhou2)
+//                fadeOutAnimate(zhou1)
+//                fadeOutAnimate(zhou3)
+//            }
+//            3 -> {
+//                fadeInAnimate(zhou3)
+//                fadeOutAnimate(zhou1)
+//                fadeOutAnimate(zhou2)
+//            }
+//        }
+//    }
 
     fun playerIndicator(next: Player) {
         when (next) {
             Player.GREEN -> {
+
                 fadeInAnimate(zhou1)
                 fadeOutAnimate(zhou2)
                 fadeOutAnimate(zhou3)
+
             }
             Player.BLACK -> {
+
                 fadeInAnimate(zhou2)
                 fadeOutAnimate(zhou1)
                 fadeOutAnimate(zhou3)
+
             }
             Player.RED -> {
                 fadeInAnimate(zhou3)
                 fadeOutAnimate(zhou1)
                 fadeOutAnimate(zhou2)
+
             }
         }
     }
