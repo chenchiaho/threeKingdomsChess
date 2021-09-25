@@ -5,24 +5,24 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import com.example.android.threekingdomschess.model.Square
+import androidx.core.content.ContextCompat
 import com.example.android.threekingdomschess.model.ChessPiece
+import com.example.android.threekingdomschess.model.Square
 
 
 class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
-    private val originalY = 60f
-    private val originalX = 250f
-    private val rectDimen = 160f
+    private val originalY = 5f
+    private val originalX = 5f
+    private val rectDimen = 163f
     private val imageId = setOf(
+            R.drawable.cover,
             R.drawable.g_general_w, R.drawable.g_pawn_w,
             R.drawable.b_guard_w, R.drawable.r_guard_w,
             R.drawable.b_horse_w, R.drawable.r_horse_w,
             R.drawable.b_rook_w, R.drawable.r_rook_w,
             R.drawable.b_cannon_w, R.drawable.r_cannon_w,
             R.drawable.b_elephant_w, R.drawable.r_elephant_w,
-//            R.drawable.select_square,
-            R.drawable.cover,
             R.drawable.g_general_c1, R.drawable.g_general_c2,
             R.drawable.g_pawn_c1, R.drawable.g_pawn_c2,
             R.drawable.b_guard_c, R.drawable.r_guard_c,
@@ -93,7 +93,6 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
 
         selectIndicator = false
-//            movingPiece = null
 
     }
 
@@ -112,7 +111,8 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
         if (selectIndicator) {
 
-            paint.color = Color.YELLOW
+            val orangeColor = ContextCompat.getColor(context, R.color.orange)
+            paint.color = orangeColor
             paint.style = Paint.Style.FILL
 
             selection(canvas)
@@ -123,28 +123,18 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             paint.strokeJoin = Paint.Join.ROUND
             selection(canvas)
 
-//
-//        } else if (!selectIndicator){
-//            paint.color = Color.TRANSPARENT
-//            paint.style = Paint.Style.FILL
-//
-//            selection(canvas)
-//
-//            paint.color = Color.YELLOW
-//            paint.style = Paint.Style.STROKE
-//            paint.strokeWidth = 10f
-//            paint.strokeJoin = Paint.Join.ROUND
-//            selection(canvas)
         }
     }
 
-    private fun selection (canvas: Canvas?) {
+    private fun selection(canvas: Canvas?) {
         returnSquare()
-        canvas?.drawRoundRect(
-            originalX + fromCol.toFloat() * rectDimen,
-            originalY + fromRow.toFloat() * rectDimen,
-            originalX + (fromCol.toFloat() + 1) * rectDimen,
-            originalY + (fromRow.toFloat() + 1) * rectDimen, 10f, 10f, paint)
+        if (fromCol in 0..8 && fromRow in 0..4) {
+            canvas?.drawRoundRect(
+                    originalX + fromCol.toFloat() * rectDimen,
+                    originalY + fromRow.toFloat() * rectDimen,
+                    originalX + (fromCol.toFloat() + 1) * rectDimen,
+                    originalY + (fromRow.toFloat() + 1) * rectDimen, 10f, 10f, paint)
+        }
     }
 
     private fun drawCover(canvas: Canvas?) {
@@ -157,25 +147,14 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 chessDelegate?.assignCoverPosition(Square(col, row))?.let {
 
                     canvas?.drawBitmap(bitmap, null, RectF(
-                            originalX + col * rectDimen,
-                            originalY + row * rectDimen,
-                            originalX + (col + 1) * rectDimen,
-                            originalY + (row + 1) * rectDimen), paint)
+                            originalX + (col + 0.03f) * rectDimen,
+                            originalY + (row + 0.03f) * rectDimen,
+                            originalX + (col + 0.97f) * rectDimen,
+                            originalY + (row + 0.97f) * rectDimen), paint)
 
                 }
             }
         }
-
-//        val bitmap = bitmaps[resId]!!
-//        (0..4).filter { it !=2 }.forEach { row ->
-//            (0..8).filter { it != 4 }.forEach { col ->
-//                canvas?.drawBitmap(bitmap, null, RectF(
-//                        originalX + col * rectDimen,
-//                        originalY + row * rectDimen,
-//                        originalX + (col + 1) * rectDimen,
-//                        originalY + (row + 1) * rectDimen), paint)
-//            }
-//        }
 
     }
 
@@ -198,15 +177,15 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         val bitmap = bitmaps[resId]!!
 
         canvas?.drawBitmap(bitmap, null, RectF(
-                originalX + col * rectDimen,
-                originalY + row * rectDimen,
-                originalX + (col + 1) * rectDimen,
-                originalY + (row + 1) * rectDimen), paint)
+                originalX + (col + 0.03f) * rectDimen,
+                originalY + (row + 0.03f) * rectDimen,
+                originalX + (col + 0.97f) * rectDimen,
+                originalY + (row + 0.97f) * rectDimen), paint)
     }
 
     private fun drawBoard(canvas: Canvas?) {
 
-        paint.color = Color.WHITE
+        paint.color = Color.TRANSPARENT
         paint.style = Paint.Style.FILL
         board(canvas)
 
@@ -217,7 +196,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         board(canvas)
     }
 
-    private fun board (canvas: Canvas?) {
+    private fun board(canvas: Canvas?) {
         for (i in 0..8) {
             for (j in 0..4) {
                 canvas?.drawRoundRect(

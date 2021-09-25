@@ -2,9 +2,7 @@ package com.example.android.threekingdomschess
 
 import android.annotation.SuppressLint
 import android.content.DialogInterface
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -20,7 +18,6 @@ import com.example.android.threekingdomschess.model.ChessPiece
 import com.example.android.threekingdomschess.model.Cover
 import com.example.android.threekingdomschess.model.Player
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.fragment_main.view.*
 
 
 class MainFragment : Fragment(), ChessDelegate {
@@ -100,7 +97,7 @@ class MainFragment : Fragment(), ChessDelegate {
 
         )
 
-        binding.toggle.setOnClickListener {
+        binding.styleSwitch.setOnClickListener {
             styleSwap(binding)
         }
 
@@ -175,46 +172,28 @@ class MainFragment : Fragment(), ChessDelegate {
         }.start()
     }
 
-//    fun initialColor (colorCode: Int) {
-//        when (colorCode) {
-//            1 -> {
-//                fadeInAnimate(zhou1)
-//                fadeOutAnimate(zhou2)
-//                fadeOutAnimate(zhou3)
-//            }
-//            2 -> {
-//                fadeInAnimate(zhou2)
-//                fadeOutAnimate(zhou1)
-//                fadeOutAnimate(zhou3)
-//            }
-//            3 -> {
-//                fadeInAnimate(zhou3)
-//                fadeOutAnimate(zhou1)
-//                fadeOutAnimate(zhou2)
-//            }
-//        }
-//    }
+
 
     fun playerIndicator(next: Player) {
         when (next) {
             Player.GREEN -> {
 
-                fadeInAnimate(zhou1)
-                fadeOutAnimate(zhou2)
-                fadeOutAnimate(zhou3)
+                fadeInAnimate(indicator_1)
+                fadeOutAnimate(indicator_2)
+                fadeOutAnimate(indicator_3)
 
             }
             Player.BLACK -> {
 
-                fadeInAnimate(zhou2)
-                fadeOutAnimate(zhou1)
-                fadeOutAnimate(zhou3)
+                fadeInAnimate(indicator_2)
+                fadeOutAnimate(indicator_1)
+                fadeOutAnimate(indicator_3)
 
             }
             Player.RED -> {
-                fadeInAnimate(zhou3)
-                fadeOutAnimate(zhou1)
-                fadeOutAnimate(zhou2)
+                fadeInAnimate(indicator_3)
+                fadeOutAnimate(indicator_1)
+                fadeOutAnimate(indicator_2)
 
             }
         }

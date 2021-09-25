@@ -5,123 +5,106 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
-<!--        <ImageView-->
-<!--            android:id="@+id/imageView6"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_marginEnd="70dp"-->
-<!--            android:alpha="0.4"-->
-<!--            android:scaleType="fitXY"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toStartOf="@+id/zhou1"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:srcCompat="@drawable/background2" />-->
-
-        <ImageView
-            android:id="@+id/zhou1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginEnd="40dp"
-            android:alpha="1.0"
-            android:contentDescription="@string/player_indicator"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            app:srcCompat="@drawable/zhou1"
-            app:tint="#4D9561" />
-
-        <ImageView
-            android:id="@+id/zhou2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginEnd="40dp"
-            android:contentDescription="@string/player_indicator"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            app:srcCompat="@drawable/zhou1"
-            app:tint="#191919"
-            android:alpha="0.0"
-            />
-
-        <ImageView
-            android:id="@+id/zhou3"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginEnd="40dp"
-            android:contentDescription="@string/player_indicator"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            app:srcCompat="@drawable/zhou1"
-            android:alpha="0.0"
-            app:tint="#c82f21" />
-
-
-        <Button
-            android:id="@+id/restart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:gravity="center_vertical"
-            android:text="@string/restart"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/board_view"
-            app:layout_constraintHorizontal_bias="0.4"
-
-            />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/toggle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:text="@string/toggle"
-            app:layout_constraintBaseline_toBaselineOf="@+id/restart"
-            app:layout_constraintStart_toEndOf="@+id/restart" />
-
-        <Button
-            android:id="@+id/intro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:text="@string/introduction"
-            app:layout_constraintBaseline_toBaselineOf="@+id/toggle"
-            app:layout_constraintStart_toEndOf="@+id/toggle"
-
-            />
 
         <com.example.android.threekingdomschess.BoardView
             android:id="@+id/board_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="100dp"
-            android:layout_marginBottom="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="12dp"
             android:foregroundGravity="center_vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/zhou1"
-            app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/indicator_1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="1.0"
+            android:contentDescription="@string/player_indicator"
+            app:layout_constraintBottom_toBottomOf="@+id/board_view"
+            app:layout_constraintEnd_toEndOf="@+id/board_view"
+            app:layout_constraintStart_toStartOf="@+id/board_view"
+            app:layout_constraintTop_toTopOf="@+id/board_view"
+            app:layout_constraintHorizontal_bias="0.93"
+            app:layout_constraintVertical_bias="0.35"
+            app:layout_constraintHeight_percent="0.25"
+            app:layout_constraintWidth_percent="0.25"
+            app:srcCompat="@drawable/indicator_ring"
+            app:tint="#4D9561" />
+
+        <ImageView
+            android:id="@+id/indicator_2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.0"
+            android:contentDescription="@string/player_indicator"
+            app:layout_constraintStart_toStartOf="@+id/indicator_1"
+            app:layout_constraintTop_toTopOf="@+id/indicator_1"
+            app:layout_constraintHeight_percent="0.25"
+            app:layout_constraintWidth_percent="0.25"
+            app:srcCompat="@drawable/indicator_ring"
+            app:tint="#191919" />
+
+        <ImageView
+            android:id="@+id/indicator_3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.0"
+            android:contentDescription="@string/player_indicator"
+            app:layout_constraintStart_toStartOf="@+id/indicator_1"
+            app:layout_constraintTop_toTopOf="@+id/indicator_1"
+            app:layout_constraintHeight_percent="0.25"
+            app:layout_constraintWidth_percent="0.25"
+            app:srcCompat="@drawable/indicator_ring"
+            app:tint="#c82f21" />
+
+        <Button
+            android:id="@+id/intro"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="50dp"
+            android:background="@drawable/ic_outline_info_24"
+            app:layout_constraintBottom_toBottomOf="@+id/board_view"
+            app:layout_constraintStart_toStartOf="@+id/board_view"
+            app:layout_constraintTop_toTopOf="@+id/board_view"
+            app:layout_constraintVertical_bias="0.9"
+            app:layout_constraintWidth_percent="0.07"
+            app:layout_constraintHeight_percent="0.13"
+            />
+
+        <Button
+            android:id="@+id/restart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="40dp"
+            android:background="@drawable/custom_button_standard"
+            android:gravity="center_vertical"
+            android:text="@string/restart"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="@+id/intro"
+            app:layout_constraintStart_toEndOf="@+id/intro"
+            app:layout_constraintTop_toTopOf="@+id/intro"
+            app:layout_constraintHeight_percent="0.13"
+            app:layout_constraintWidth_percent="0.25"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/style_switch"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="36dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="@+id/restart"
+            app:layout_constraintStart_toEndOf="@+id/restart"
+            app:layout_constraintTop_toTopOf="@+id/restart"
+            app:srcCompat="@drawable/style_button"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintWidth_percent="0.20"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
