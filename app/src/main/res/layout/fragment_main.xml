@@ -33,7 +33,7 @@
             app:layout_constraintHeight_percent="0.25"
             app:layout_constraintWidth_percent="0.25"
             app:srcCompat="@drawable/indicator_ring"
-            app:tint="#4D9561" />
+            app:tint="#8DFF9A" />
 
         <ImageView
             android:id="@+id/indicator_2"
@@ -46,7 +46,7 @@
             app:layout_constraintHeight_percent="0.25"
             app:layout_constraintWidth_percent="0.25"
             app:srcCompat="@drawable/indicator_ring"
-            app:tint="#191919" />
+            app:tint="#9A8DFF" />
 
         <ImageView
             android:id="@+id/indicator_3"
@@ -59,7 +59,7 @@
             app:layout_constraintHeight_percent="0.25"
             app:layout_constraintWidth_percent="0.25"
             app:srcCompat="@drawable/indicator_ring"
-            app:tint="#c82f21" />
+            app:tint="#FF9A8D" />
 
         <Button
             android:id="@+id/intro"
@@ -81,7 +81,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="40dp"
             android:background="@drawable/custom_button_standard"
-            android:gravity="center_vertical"
+            android:gravity="center_vertical|top"
             android:text="@string/restart"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="@+id/intro"

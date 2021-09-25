@@ -130,15 +130,13 @@ object ChessGame {
                             R.drawable.g_general_w
                         } else R.drawable.g_general_c1
                 ))
-//                    addCover(Cover(0, 0, R.drawable.cover))
                 }
                 1 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.KING2,
                             if (isWestern) {
-                                R.drawable.g_general_w
+                                R.drawable.g_queen_w
                             } else R.drawable.g_general_c2
                     ))
-//                    addCover(Cover(0, 1, R.drawable.cover))
                 }
                 in 2..6 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.PAWN1,
@@ -146,7 +144,6 @@ object ChessGame {
                                 R.drawable.g_pawn_w
                             } else R.drawable.g_pawn_c1
                     ))
-//                    addCover(Cover(0, 2, R.drawable.cover))
                 }
                 in 7..11 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.PAWN2,
@@ -154,7 +151,6 @@ object ChessGame {
                                 R.drawable.g_pawn_w
                             } else R.drawable.g_pawn_c2
                     ))
-//                    addCover(Cover(0, 3, R.drawable.cover))
                 }
 
                 12, 13 -> {
@@ -163,7 +159,6 @@ object ChessGame {
                                 R.drawable.b_guard_w
                             } else R.drawable.b_guard_c
                     ))
-//                    addCover(Cover(1, 0, R.drawable.cover))
                 }
                 14, 15 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.ADVISER,
@@ -171,7 +166,6 @@ object ChessGame {
                                 R.drawable.b_elephant_w
                             } else R.drawable.b_elephant_c
                     ))
-//                    addCover(Cover(1, 1, R.drawable.cover))
                 }
                 16, 17 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.HORSE,
@@ -179,7 +173,6 @@ object ChessGame {
                                 R.drawable.b_horse_w
                             } else R.drawable.b_horse_c
                     ))
-//                    addCover(Cover(1, 2, R.drawable.cover))
                 }
                 18, 19 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.ROOK,
@@ -187,7 +180,6 @@ object ChessGame {
                                 R.drawable.b_rook_w
                             } else R.drawable.b_rook_c
                     ))
-//                    addCover(Cover(1, 3, R.drawable.cover))
                 }
                 20, 21 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.CANNON,
@@ -195,7 +187,6 @@ object ChessGame {
                                 R.drawable.b_cannon_w
                             } else R.drawable.b_cannon_c
                     ))
-//                    addCover(Cover(0, 0, R.drawable.cover))
                 }
 
                 22, 23 -> {
@@ -204,7 +195,6 @@ object ChessGame {
                                 R.drawable.r_guard_w
                             } else R.drawable.r_guard_c
                     ))
-//                    addCover(Cover(0, 0, R.drawable.cover))
                 }
                 24, 25 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.ADVISER,
@@ -212,7 +202,6 @@ object ChessGame {
                                 R.drawable.r_elephant_w
                             } else R.drawable.r_elephant_c
                     ))
-//                    addCover(Cover(0, 0, R.drawable.cover))
                 }
                 26, 27 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.HORSE,
@@ -220,7 +209,6 @@ object ChessGame {
                                 R.drawable.r_horse_w
                             } else R.drawable.r_horse_c
                     ))
-//                    addCover(Cover(0, 0, R.drawable.cover))
                 }
                 28, 29 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.ROOK,
@@ -228,7 +216,6 @@ object ChessGame {
                                 R.drawable.r_rook_w
                             } else R.drawable.r_rook_c
                     ))
-//                    addCover(Cover(0, 0, R.drawable.cover))
                 }
                 30, 31 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.CANNON,
@@ -236,7 +223,6 @@ object ChessGame {
                                 R.drawable.r_cannon_w
                             } else R.drawable.r_cannon_c
                     ))
-//                    addCover(Cover(0, 0, R.drawable.cover))
                 }
             }
 
@@ -267,9 +253,11 @@ object ChessGame {
                 when (piece.resId) {
 
                     R.drawable.g_general_w -> {
-                        if (piece.cType == ChessType.KING1) {
-                            piece.resId = R.drawable.g_general_c1
-                        } else piece.resId = R.drawable.g_general_c2
+                        piece.resId = R.drawable.g_general_c1
+                    }
+
+                    R.drawable.g_queen_w -> {
+                        piece.resId = R.drawable.g_general_c2
                     }
 
                     R.drawable.g_pawn_w -> {
