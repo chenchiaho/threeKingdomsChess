@@ -1,19 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragment_container_view"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="com.example.android.threekingdomschess.InfoFragment">
+    android:fillViewport="true">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/fragment_container_view"
+    android:name="com.example.android.threekingdomschess.InfoFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/designer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="About"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Inductiveload, Public domain, via Wikimedia Commons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Chinese dark chess is a popular version of Banqi, a variation of Chinese chess that only uses half of the board,
+        also called dark chess, half chess or blind chess. It is played in oriental countries where Chinese chess is played,
+        but with much more players. Most people playing Chinese chess play Chinese dark chess. A lot more people can
+        play Chinese dark chess while not able to play Chinese chess"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/designer" />
+
+    <TextView
+        android:id="@+id/player1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Player 1"
+        app:layout_constraintBaseline_toBaselineOf="@+id/player2"
+        app:layout_constraintEnd_toEndOf="@+id/indicator_1"
+        app:layout_constraintStart_toStartOf="@+id/indicator_1" />
+
+    <TextView
+        android:id="@+id/player2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Player 2"
+        app:layout_constraintBottom_toTopOf="@+id/indicator_2"
+        app:layout_constraintEnd_toEndOf="@+id/indicator_2"
+        app:layout_constraintStart_toStartOf="@+id/indicator_2" />
+
+    <TextView
+        android:id="@+id/player3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Player 3"
+        app:layout_constraintBaseline_toBaselineOf="@+id/player2"
+        app:layout_constraintEnd_toEndOf="@+id/indicator_3"
+        app:layout_constraintStart_toStartOf="@+id/indicator_3" />
+
+    <ImageView
+        android:id="@+id/indicator_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginEnd="100dp"
+        android:alpha="1.0"
+        android:contentDescription="@string/player_indicator"
+        app:layout_constraintBottom_toBottomOf="@+id/indicator_2"
+        app:layout_constraintEnd_toStartOf="@+id/indicator_2"
+        app:layout_constraintTop_toTopOf="@+id/indicator_2"
+        app:srcCompat="@drawable/indicator_ring_s"
+        app:tint="#8DFF9A" />
+
+    <ImageView
+        android:id="@+id/indicator_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+
+        android:alpha="1.0"
+        android:contentDescription="@string/player_indicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/summary"
+        app:srcCompat="@drawable/indicator_ring_s"
+        app:tint="#9A8DFF" />
+
+    <ImageView
+        android:id="@+id/indicator_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+
+        android:alpha="1.0"
+        android:contentDescription="@string/player_indicator"
+        app:layout_constraintBottom_toBottomOf="@+id/indicator_2"
+        app:layout_constraintStart_toEndOf="@+id/indicator_2"
+        app:layout_constraintTop_toTopOf="@+id/indicator_2"
+        app:srcCompat="@drawable/indicator_ring_s"
+        app:tint="#FF9A8D" />
+
+    <ImageView
+        android:id="@+id/arrow1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/indicator_2"
+        app:layout_constraintEnd_toStartOf="@+id/indicator_2"
+        app:layout_constraintStart_toEndOf="@+id/indicator_1"
+        app:layout_constraintTop_toTopOf="@+id/indicator_2"
+        app:srcCompat="@drawable/ic_baseline_arrow" />
+
+    <ImageView
+        android:id="@+id/arrow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/indicator_2"
+        app:layout_constraintEnd_toStartOf="@+id/indicator_3"
+        app:layout_constraintStart_toEndOf="@+id/indicator_2"
+        app:layout_constraintTop_toTopOf="@+id/indicator_2"
+        app:srcCompat="@drawable/ic_baseline_arrow" />
+
+    <ImageView
+        android:id="@+id/g_set_w"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/indicator_1"
+        app:layout_constraintStart_toStartOf="@+id/indicator_1"
+        app:layout_constraintTop_toBottomOf="@+id/indicator_1"
+        app:srcCompat="@drawable/g_set_w" />
+
+    <ImageView
+        android:id="@+id/b_set_w"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/indicator_2"
+        app:layout_constraintStart_toStartOf="@+id/indicator_2"
+        app:layout_constraintTop_toBottomOf="@+id/indicator_2"
+        app:srcCompat="@drawable/b_set_w" />
+
+    <ImageView
+        android:id="@+id/r_set_c"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/r_set_w"
+        app:layout_constraintStart_toStartOf="@+id/r_set_w"
+        app:layout_constraintTop_toBottomOf="@+id/or3"
+        app:srcCompat="@drawable/r_set_c" />
+
+    <ImageView
+        android:id="@+id/r_set_w"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/indicator_3"
+        app:layout_constraintStart_toStartOf="@+id/indicator_3"
+        app:layout_constraintTop_toBottomOf="@+id/indicator_3"
+        app:srcCompat="@drawable/r_set_w" />
+
+    <ImageView
+        android:id="@+id/b_set_c"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/b_set_w"
+        app:layout_constraintStart_toStartOf="@+id/b_set_w"
+        app:layout_constraintTop_toBottomOf="@+id/or2"
+        app:srcCompat="@drawable/b_set_c" />
+
+    <ImageView
+        android:id="@+id/g_set_c"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/g_set_w"
+        app:layout_constraintStart_toStartOf="@+id/g_set_w"
+        app:layout_constraintTop_toBottomOf="@+id/or1"
+        app:srcCompat="@drawable/g_set_c" />
+
+    <TextView
+        android:id="@+id/or1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="or"
+        app:layout_constraintEnd_toEndOf="@+id/g_set_w"
+        app:layout_constraintStart_toStartOf="@+id/g_set_w"
+        app:layout_constraintTop_toBottomOf="@+id/g_set_w" />
+
+    <TextView
+        android:id="@+id/or2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="or"
+        app:layout_constraintEnd_toEndOf="@+id/b_set_w"
+        app:layout_constraintStart_toStartOf="@+id/b_set_w"
+        app:layout_constraintTop_toBottomOf="@+id/b_set_w" />
+
+    <TextView
+        android:id="@+id/or3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="or"
+        app:layout_constraintEnd_toEndOf="@+id/r_set_w"
+        app:layout_constraintStart_toStartOf="@+id/r_set_w"
+        app:layout_constraintTop_toBottomOf="@+id/r_set_w" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

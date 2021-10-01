@@ -160,14 +160,14 @@ class MainFragment : Fragment(), ChessDelegate {
 
     private fun fadeInAnimate(imageView: ImageView) {
         imageView.animate().apply {
-            duration = 600
+            duration = 500
             alpha(1.0f)
 
         }.start()
     }
     private fun fadeOutAnimate(imageView: ImageView) {
         imageView.animate().apply {
-            duration = 600
+            duration = 500
             alpha(0.0f)
         }.start()
     }

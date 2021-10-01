@@ -14,7 +14,7 @@ class InfoFragment : Fragment(){
         savedInstanceState: Bundle?): View? {
 
         val binding = FragmentInfoBinding.inflate(inflater)
-        binding.textView
+
 
         return binding.root
     }

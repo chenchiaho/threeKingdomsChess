@@ -51,7 +51,7 @@ class PieceLogic {
         if (abs(from.col - to.col) == 2 &&
                 abs(to.row - from.row) == 2) {
             return true
-        } else if (guardLegal(from, to)) return true
+        }
         return false
     }
 

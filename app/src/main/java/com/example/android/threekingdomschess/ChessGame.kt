@@ -242,8 +242,6 @@ object ChessGame {
 
     }
 
-
-
     fun switchStyle() {
         val newList = mutableListOf<ChessPiece>()
         if (isWestern) {
@@ -287,7 +285,7 @@ object ChessGame {
                 when (piece.resId) {
 
                     R.drawable.g_general_c1 -> piece.resId = R.drawable.g_general_w
-                    R.drawable.g_general_c2 -> piece.resId = R.drawable.g_general_w
+                    R.drawable.g_general_c2 -> piece.resId = R.drawable.g_queen_w
                     R.drawable.g_pawn_c1 -> piece.resId = R.drawable.g_pawn_w
                     R.drawable.g_pawn_c2 -> piece.resId = R.drawable.g_pawn_w
                     R.drawable.b_guard_c -> piece.resId = R.drawable.b_guard_w

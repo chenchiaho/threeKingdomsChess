@@ -16,7 +16,7 @@ class BoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     private val originalX = 5f
     private val rectDimen = 163f
     private val imageId = setOf(
-            R.drawable.cover,
+            R.drawable.cover, R.drawable.g_queen_w,
             R.drawable.g_general_w, R.drawable.g_pawn_w,
             R.drawable.b_guard_w, R.drawable.r_guard_w,
             R.drawable.b_horse_w, R.drawable.r_horse_w,
