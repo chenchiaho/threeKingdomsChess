@@ -9,28 +9,35 @@
         android:id="@+id/titleImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/ruleImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ruleImage"
-        app:srcCompat="@drawable/g_set_w" />
+        app:srcCompat="@drawable/title_king" />
 
     <TextView
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintHorizontal_bias="0.15"
         android:text="King / Queen\nCommander / General "
+        android:textSize="11sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/titleImage"
+        app:layout_constraintEnd_toStartOf="@+id/ruleImage"
         app:layout_constraintStart_toEndOf="@+id/titleImage"
         app:layout_constraintTop_toTopOf="@+id/titleImage" />
 
     <ImageView
         android:id="@+id/ruleImage"
-        android:layout_width="286dp"
-        android:layout_height="182dp"
-        android:layout_marginEnd="56dp"
+        android:layout_width="280dp"
+        android:layout_height="175dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/titleText"
+        app:layout_constraintHorizontal_bias="0.65"
+        app:layout_constraintStart_toEndOf="@+id/titleImage"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/king_rule" />
 </androidx.constraintlayout.widget.ConstraintLayout>

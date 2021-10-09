@@ -19,30 +19,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Inductiveload, Public domain, via Wikimedia Commons"
+        android:text="@string/designer"
+        android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/summary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Chinese dark chess is a popular version of Banqi, a variation of Chinese chess that only uses half of the board,
-        also called dark chess, half chess or blind chess. It is played in oriental countries where Chinese chess is played,
-        but with much more players. Most people playing Chinese chess play Chinese dark chess. A lot more people can
-        play Chinese dark chess while not able to play Chinese chess"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/designer" />
 
     <TextView
         android:id="@+id/player1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Player 1"
+        android:text="@string/player_1"
         app:layout_constraintBaseline_toBaselineOf="@+id/player2"
         app:layout_constraintEnd_toEndOf="@+id/indicator_1"
         app:layout_constraintStart_toStartOf="@+id/indicator_1" />
@@ -52,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="Player 2"
+        android:text="@string/player_2"
         app:layout_constraintBottom_toTopOf="@+id/indicator_2"
         app:layout_constraintEnd_toEndOf="@+id/indicator_2"
         app:layout_constraintStart_toStartOf="@+id/indicator_2" />
@@ -61,7 +47,7 @@
         android:id="@+id/player3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Player 3"
+        android:text="@string/player_3"
         app:layout_constraintBaseline_toBaselineOf="@+id/player2"
         app:layout_constraintEnd_toEndOf="@+id/indicator_3"
         app:layout_constraintStart_toStartOf="@+id/indicator_3" />
@@ -70,13 +56,12 @@
         android:id="@+id/indicator_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:layout_marginEnd="100dp"
+        android:layout_marginTop="80dp"
         android:alpha="1.0"
         android:contentDescription="@string/player_indicator"
-        app:layout_constraintBottom_toBottomOf="@+id/indicator_2"
         app:layout_constraintEnd_toStartOf="@+id/indicator_2"
-        app:layout_constraintTop_toTopOf="@+id/indicator_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/designer"
         app:srcCompat="@drawable/indicator_ring_s"
         app:tint="#8DFF9A" />
 
@@ -84,13 +69,13 @@
         android:id="@+id/indicator_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-
         android:alpha="1.0"
+        app:layout_constraintHorizontal_bias="0.45"
         android:contentDescription="@string/player_indicator"
+        app:layout_constraintBottom_toBottomOf="@+id/indicator_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/summary"
+        app:layout_constraintTop_toTopOf="@+id/indicator_1"
         app:srcCompat="@drawable/indicator_ring_s"
         app:tint="#9A8DFF" />
 
@@ -98,11 +83,11 @@
         android:id="@+id/indicator_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-
         android:alpha="1.0"
+        app:layout_constraintHorizontal_bias="0.40"
         android:contentDescription="@string/player_indicator"
         app:layout_constraintBottom_toBottomOf="@+id/indicator_2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/indicator_2"
         app:layout_constraintTop_toTopOf="@+id/indicator_2"
         app:srcCompat="@drawable/indicator_ring_s"
@@ -112,6 +97,7 @@
         android:id="@+id/arrow1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/arrow"
         app:layout_constraintBottom_toBottomOf="@+id/indicator_2"
         app:layout_constraintEnd_toStartOf="@+id/indicator_2"
         app:layout_constraintStart_toEndOf="@+id/indicator_1"
@@ -122,6 +108,7 @@
         android:id="@+id/arrow2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/arrow"
         app:layout_constraintBottom_toBottomOf="@+id/indicator_2"
         app:layout_constraintEnd_toStartOf="@+id/indicator_3"
         app:layout_constraintStart_toEndOf="@+id/indicator_2"
@@ -130,9 +117,10 @@
 
     <ImageView
         android:id="@+id/g_set_w"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="90dp"
         android:layout_marginTop="32dp"
+        android:contentDescription="@string/chess_set"
         app:layout_constraintEnd_toEndOf="@+id/indicator_1"
         app:layout_constraintStart_toStartOf="@+id/indicator_1"
         app:layout_constraintTop_toBottomOf="@+id/indicator_1"
@@ -140,9 +128,10 @@
 
     <ImageView
         android:id="@+id/b_set_w"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="90dp"
         android:layout_marginTop="32dp"
+        android:contentDescription="@string/chess_set"
         app:layout_constraintEnd_toEndOf="@+id/indicator_2"
         app:layout_constraintStart_toStartOf="@+id/indicator_2"
         app:layout_constraintTop_toBottomOf="@+id/indicator_2"
@@ -150,9 +139,10 @@
 
     <ImageView
         android:id="@+id/r_set_c"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="180dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@string/chess_set"
         app:layout_constraintEnd_toEndOf="@+id/r_set_w"
         app:layout_constraintStart_toStartOf="@+id/r_set_w"
         app:layout_constraintTop_toBottomOf="@+id/or3"
@@ -160,9 +150,10 @@
 
     <ImageView
         android:id="@+id/r_set_w"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="90dp"
         android:layout_marginTop="32dp"
+        android:contentDescription="@string/chess_set"
         app:layout_constraintEnd_toEndOf="@+id/indicator_3"
         app:layout_constraintStart_toStartOf="@+id/indicator_3"
         app:layout_constraintTop_toBottomOf="@+id/indicator_3"
@@ -170,9 +161,10 @@
 
     <ImageView
         android:id="@+id/b_set_c"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="180dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@string/chess_set"
         app:layout_constraintEnd_toEndOf="@+id/b_set_w"
         app:layout_constraintStart_toStartOf="@+id/b_set_w"
         app:layout_constraintTop_toBottomOf="@+id/or2"
@@ -180,9 +172,10 @@
 
     <ImageView
         android:id="@+id/g_set_c"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="180dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@string/chess_set"
         app:layout_constraintEnd_toEndOf="@+id/g_set_w"
         app:layout_constraintStart_toStartOf="@+id/g_set_w"
         app:layout_constraintTop_toBottomOf="@+id/or1"
@@ -192,8 +185,8 @@
         android:id="@+id/or1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="or"
+        android:layout_marginTop="12dp"
+        android:text="@string/or"
         app:layout_constraintEnd_toEndOf="@+id/g_set_w"
         app:layout_constraintStart_toStartOf="@+id/g_set_w"
         app:layout_constraintTop_toBottomOf="@+id/g_set_w" />
@@ -202,8 +195,8 @@
         android:id="@+id/or2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="or"
+        android:layout_marginTop="12dp"
+        android:text="@string/or"
         app:layout_constraintEnd_toEndOf="@+id/b_set_w"
         app:layout_constraintStart_toStartOf="@+id/b_set_w"
         app:layout_constraintTop_toBottomOf="@+id/b_set_w" />
@@ -212,8 +205,8 @@
         android:id="@+id/or3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="or"
+        android:layout_marginTop="12dp"
+        android:text="@string/or"
         app:layout_constraintEnd_toEndOf="@+id/r_set_w"
         app:layout_constraintStart_toStartOf="@+id/r_set_w"
         app:layout_constraintTop_toBottomOf="@+id/r_set_w" />
@@ -222,42 +215,57 @@
         android:id="@+id/clickToReveal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Click to reveal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="40dp"
+        android:text="@string/click_to_reveal_piece"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/b_set_c"
+        app:layout_constraintStart_toStartOf="@+id/b_set_c"
         app:layout_constraintTop_toBottomOf="@+id/b_set_c" />
 
     <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="172dp"
-        android:layout_height="81dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/clickToRevealImage1"
+        android:layout_width="170dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/click_to_reveal_piece"
+        app:layout_constraintEnd_toStartOf="@+id/arrow3"
         app:layout_constraintTop_toBottomOf="@+id/clickToReveal"
         app:srcCompat="@drawable/unrevealed" />
 
     <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="164dp"
-        android:layout_height="77dp"
-        android:layout_marginStart="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
-        app:layout_constraintStart_toEndOf="@+id/imageView10"
-        app:layout_constraintTop_toTopOf="@+id/imageView10"
+        android:id="@+id/arrow3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/arrow"
+        app:layout_constraintBottom_toBottomOf="@+id/clickToRevealImage1"
+        app:layout_constraintEnd_toEndOf="@+id/clickToReveal"
+        app:layout_constraintStart_toStartOf="@+id/clickToReveal"
+        app:layout_constraintTop_toTopOf="@+id/clickToRevealImage1"
+        app:srcCompat="@drawable/ic_baseline_arrow" />
+
+    <ImageView
+        android:id="@+id/clickToRevealImage2"
+        android:layout_width="170dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="10dp"
+        android:contentDescription="@string/click_to_reveal_piece"
+        app:layout_constraintBottom_toBottomOf="@+id/clickToRevealImage1"
+        app:layout_constraintStart_toEndOf="@+id/arrow3"
+        app:layout_constraintTop_toTopOf="@+id/clickToRevealImage1"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/revealed" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rule_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
+        android:nestedScrollingEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView10"
-        android:nestedScrollingEnabled="false"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/clickToRevealImage1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
