@@ -20,7 +20,7 @@ class InfoFragment : Fragment(){
     lateinit var ruleId: Array<Int>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+        savedInstanceState: Bundle?): View {
 
         val binding = FragmentInfoBinding.inflate(inflater)
 

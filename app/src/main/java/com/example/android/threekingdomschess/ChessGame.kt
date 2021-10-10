@@ -1,11 +1,9 @@
 package com.example.android.threekingdomschess
 
-import android.graphics.RectF
-import android.util.Log
 import com.example.android.threekingdomschess.model.Player
 import com.example.android.threekingdomschess.model.Square
 import com.example.android.threekingdomschess.model.ChessPiece
-import com.example.android.threekingdomschess.model.Cover
+import com.example.android.threekingdomschess.model.CoveredPiece
 import com.example.android.threekingdomschess.pieces.ChessType
 import com.example.android.threekingdomschess.pieces.PieceLogic
 
@@ -14,7 +12,7 @@ object ChessGame {
 
     private val pieceLogic = PieceLogic()
     private var pieceSet = mutableSetOf<ChessPiece>()
-    var coverSet = mutableSetOf<Cover>()
+    var coverSet = mutableSetOf<CoveredPiece>()
     private var greenScore = 12
     private var blackScore = 10
     private var redScore = 10
@@ -35,8 +33,8 @@ object ChessGame {
         pieceSet.add(piece)
     }
 
-    private fun addCover(cover: Cover) {
-        coverSet.add(cover)
+    private fun addCover(coveredPiece: CoveredPiece) {
+        coverSet.add(coveredPiece)
     }
 
     private fun legalMove(from: Square, to: Square): Boolean {
@@ -230,7 +228,7 @@ object ChessGame {
 
         (0..4).filter { it !=2 }.forEach { row ->
             (0..8).filter { it != 4 }.forEach { col ->
-                addCover(Cover(row, col, ChessType.COVER, R.drawable.cover))
+                addCover(CoveredPiece(row, col, ChessType.COVER, R.drawable.cover))
             }
         }
 
@@ -336,11 +334,11 @@ object ChessGame {
         return null
     }
 
-    fun coverPosition(square: Square): Cover? {
+    fun coverPosition(square: Square): CoveredPiece? {
         return checkCoverPosition(square.col, square.row)
     }
 
-    fun checkCoverPosition(col: Int, row: Int): Cover? {
+    fun checkCoverPosition(col: Int, row: Int): CoveredPiece? {
         for (cover in coverSet) {
             if (col == cover.col && row == cover.row) {
                 return cover

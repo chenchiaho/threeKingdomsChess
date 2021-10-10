@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.android.threekingdomschess.databinding.FragmentMainBinding
 import com.example.android.threekingdomschess.model.Square
 import com.example.android.threekingdomschess.model.ChessPiece
-import com.example.android.threekingdomschess.model.Cover
+import com.example.android.threekingdomschess.model.CoveredPiece
 import com.example.android.threekingdomschess.model.Player
 import kotlinx.android.synthetic.main.fragment_main.*
 
@@ -142,7 +142,7 @@ class MainFragment : Fragment(), ChessDelegate {
         binding.boardView.invalidate()
     }
 
-    override fun assignCoverPosition(square: Square): Cover? {
+    override fun assignCoverPosition(square: Square): CoveredPiece? {
         return ChessGame.coverPosition(square)
     }
 

@@ -2,7 +2,7 @@ package com.example.android.threekingdomschess.model
 
 import com.example.android.threekingdomschess.pieces.ChessType
 
-data class Cover(
+data class CoveredPiece(
         val row: Int,
         val col: Int,
         val cType: ChessType,
