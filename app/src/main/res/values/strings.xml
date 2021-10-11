@@ -3,9 +3,8 @@
     <string name="restart">Restart</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="player_indicator">Player indicator</string>
-    <string name="designer">Chess piece design by Inductiveload, Public domain, via Wikimedia Commons</string>
+    <string name="designer_info">Chess piece design by Inductiveload, Public domain, via Wikimedia Commons</string>
     <string name="player_1">Player 1</string>
     <string name="player_2">Player 2</string>
     <string name="player_3">Player 3</string>
@@ -13,5 +12,9 @@
     <string name="chess_set">chess set</string>
     <string name="or">or</string>
     <string name="click_to_reveal_piece">Click to reveal pieces</string>
+    <string name="chess_type">Chess type</string>
+    <string name="default_chess_type">King\nQueen\nCommander\nGeneral</string>
+    <string name="chess_rules">legal moves for each piece</string>
+    <string name="winner_red">RED</string>
 
 </resources>

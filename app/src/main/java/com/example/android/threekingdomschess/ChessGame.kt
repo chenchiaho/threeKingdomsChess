@@ -1,5 +1,6 @@
 package com.example.android.threekingdomschess
 
+import android.provider.Settings.Global.getString
 import com.example.android.threekingdomschess.model.Player
 import com.example.android.threekingdomschess.model.Square
 import com.example.android.threekingdomschess.model.ChessPiece
@@ -14,7 +15,7 @@ object ChessGame {
     private var pieceSet = mutableSetOf<ChessPiece>()
     var coverSet = mutableSetOf<CoveredPiece>()
     private var greenScore = 12
-    private var blackScore = 10
+    private var purpleScore = 10
     private var redScore = 10
     var isWestern = true
 
@@ -38,12 +39,12 @@ object ChessGame {
     }
 
     private fun legalMove(from: Square, to: Square): Boolean {
-        if (from.col == to.col && from.row == to.row){
+        if (from.col == to.col && from.row == to.row) {
             return false
         } else if (to.col < 0 || to.col > 8 || to.row < 0 || to.row > 4)
             return false
         val assignLegalMove = piecePositionSquare(from) ?: return false
-        return when(assignLegalMove.cType) {
+        return when (assignLegalMove.cType) {
             ChessType.HORSE -> pieceLogic.horseLegal(from, to)
             ChessType.ROOK -> pieceLogic.rookLegal(from, to)
             ChessType.KING1 -> pieceLogic.rookLegal(from, to)
@@ -67,8 +68,8 @@ object ChessGame {
 
     fun movePiece(from: Square, to: Square) {
         if (legalMove(from, to) && piecePositionSquare(from)?.player == currentPlayer) {
-        movePieceLogic(from.col, from.row, to.col, to.row)
-        onGameEnd()
+            movePieceLogic(from.col, from.row, to.col, to.row)
+            onGameEnd()
         }
     }
 
@@ -81,16 +82,16 @@ object ChessGame {
             if (it.player == movingPiece.player || checkCoverPosition(toCol, toRow)?.resId != null) {
                 return
             } else if (checkCoverPosition(toCol, toRow)?.resId == null) {
-                    when (it.player) {
-                        Player.GREEN -> greenScore -= 1
+                when (it.player) {
 
-                        Player.BLACK -> blackScore -= 1
-                        Player.RED -> redScore -= 1
-                    }
-                    pieceSet.remove(it)
+                    Player.GREEN -> greenScore -= 1
+                    Player.PURPLE -> purpleScore -= 1
+                    Player.RED -> redScore -= 1
                 }
-
+                pieceSet.remove(it)
+            }
         }
+
         pieceSet.remove(movingPiece)
         addPiece(movingPiece.copy(col = toCol, row = toRow))
         currentPlayer = nextPlayer(movingPiece)
@@ -103,127 +104,109 @@ object ChessGame {
 
     private fun nextPlayerByPlayer(player: Player): Player {
         return when (player) {
-            Player.GREEN -> if (blackScore == 0) {Player.RED} else Player.BLACK
-            Player.BLACK -> if (redScore == 0) {Player.GREEN} else Player.RED
-            Player.RED -> if (greenScore == 0) {Player.BLACK} else Player.GREEN
+            Player.GREEN -> if (purpleScore == 0) {Player.RED} else Player.PURPLE
+            Player.PURPLE -> if (redScore == 0) {Player.GREEN} else Player.RED
+            Player.RED -> if (greenScore == 0) {Player.PURPLE} else Player.GREEN
         }
     }
-
 
     fun nextTurn(): Player {
         return currentPlayer
     }
-
 
     fun reset() {
         val position = initPosition()
         clear()
 
         for (i in 0..31) {
-
-            when(i) {
+            when (i) {
                 0 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.KING1,
-                        if (isWestern) {
-                            R.drawable.g_general_w
-                        } else R.drawable.g_general_c1
-                ))
+                            if (isWestern) {
+                                R.drawable.g_general_w
+                            } else R.drawable.g_general_c1))
                 }
                 1 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.KING2,
                             if (isWestern) {
                                 R.drawable.g_queen_w
-                            } else R.drawable.g_general_c2
-                    ))
+                            } else R.drawable.g_general_c2))
                 }
                 in 2..6 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.PAWN1,
                             if (isWestern) {
                                 R.drawable.g_pawn_w
-                            } else R.drawable.g_pawn_c1
-                    ))
+                            } else R.drawable.g_pawn_c1))
                 }
                 in 7..11 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.GREEN, ChessType.PAWN2,
                             if (isWestern) {
                                 R.drawable.g_pawn_w
-                            } else R.drawable.g_pawn_c2
-                    ))
+                            } else R.drawable.g_pawn_c2))
                 }
 
                 12, 13 -> {
-                    addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.GUARD,
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.PURPLE, ChessType.GUARD,
                             if (isWestern) {
                                 R.drawable.b_guard_w
-                            } else R.drawable.b_guard_c
-                    ))
+                            } else R.drawable.b_guard_c))
                 }
                 14, 15 -> {
-                    addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.ADVISER,
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.PURPLE, ChessType.ADVISER,
                             if (isWestern) {
                                 R.drawable.b_elephant_w
-                            } else R.drawable.b_elephant_c
-                    ))
+                            } else R.drawable.b_elephant_c))
                 }
                 16, 17 -> {
-                    addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.HORSE,
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.PURPLE, ChessType.HORSE,
                             if (isWestern) {
                                 R.drawable.b_horse_w
-                            } else R.drawable.b_horse_c
-                    ))
+                            } else R.drawable.b_horse_c))
                 }
                 18, 19 -> {
-                    addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.ROOK,
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.PURPLE, ChessType.ROOK,
                             if (isWestern) {
                                 R.drawable.b_rook_w
-                            } else R.drawable.b_rook_c
-                    ))
+                            } else R.drawable.b_rook_c))
                 }
                 20, 21 -> {
-                    addPiece(ChessPiece(position[i].col, position[i].row, Player.BLACK, ChessType.CANNON,
+                    addPiece(ChessPiece(position[i].col, position[i].row, Player.PURPLE, ChessType.CANNON,
                             if (isWestern) {
                                 R.drawable.b_cannon_w
-                            } else R.drawable.b_cannon_c
-                    ))
+                            } else R.drawable.b_cannon_c))
                 }
 
                 22, 23 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.GUARD,
                             if (isWestern) {
                                 R.drawable.r_guard_w
-                            } else R.drawable.r_guard_c
-                    ))
+                            } else R.drawable.r_guard_c))
                 }
                 24, 25 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.ADVISER,
                             if (isWestern) {
                                 R.drawable.r_elephant_w
-                            } else R.drawable.r_elephant_c
-                    ))
+                            } else R.drawable.r_elephant_c))
                 }
                 26, 27 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.HORSE,
                             if (isWestern) {
                                 R.drawable.r_horse_w
-                            } else R.drawable.r_horse_c
-                    ))
+                            } else R.drawable.r_horse_c))
                 }
                 28, 29 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.ROOK,
                             if (isWestern) {
                                 R.drawable.r_rook_w
-                            } else R.drawable.r_rook_c
-                    ))
+                            } else R.drawable.r_rook_c))
                 }
                 30, 31 -> {
                     addPiece(ChessPiece(position[i].col, position[i].row, Player.RED, ChessType.CANNON,
                             if (isWestern) {
                                 R.drawable.r_cannon_w
-                            } else R.drawable.r_cannon_c
-                    ))
+                            } else R.drawable.r_cannon_c))
                 }
             }
-
         }
 
         (0..4).filter { it !=2 }.forEach { row ->
@@ -233,7 +216,7 @@ object ChessGame {
         }
 
         greenScore = 12
-        blackScore = 10
+        purpleScore = 10
         redScore = 10
         currentPlayer = Player.GREEN
 
@@ -243,24 +226,16 @@ object ChessGame {
     fun switchStyle() {
         val newList = mutableListOf<ChessPiece>()
         if (isWestern) {
-
             for (piece in pieceSet) {
-
                 when (piece.resId) {
 
-                    R.drawable.g_general_w -> {
-                        piece.resId = R.drawable.g_general_c1
-                    }
+                    R.drawable.g_general_w -> piece.resId = R.drawable.g_general_c1
+                    R.drawable.g_queen_w -> piece.resId = R.drawable.g_general_c2
 
-                    R.drawable.g_queen_w -> {
-                        piece.resId = R.drawable.g_general_c2
-                    }
-
-                    R.drawable.g_pawn_w -> {
+                    R.drawable.g_pawn_w ->
                         if (piece.cType == ChessType.PAWN1) {
                             piece.resId = R.drawable.g_pawn_c1
                         } else piece.resId = R.drawable.g_pawn_c2
-                    }
 
                     R.drawable.b_guard_w -> piece.resId = R.drawable.b_guard_c
                     R.drawable.r_guard_w -> piece.resId = R.drawable.r_guard_c
@@ -272,16 +247,12 @@ object ChessGame {
                     R.drawable.r_rook_w -> piece.resId = R.drawable.r_rook_c
                     R.drawable.b_cannon_w -> piece.resId = R.drawable.b_cannon_c
                     R.drawable.r_cannon_w -> piece.resId = R.drawable.r_cannon_c
-
                 }
                 newList.add(piece)
             }
-        } else  {
-
+        } else {
             for (piece in pieceSet) {
-
                 when (piece.resId) {
-
                     R.drawable.g_general_c1 -> piece.resId = R.drawable.g_general_w
                     R.drawable.g_general_c2 -> piece.resId = R.drawable.g_queen_w
                     R.drawable.g_pawn_c1 -> piece.resId = R.drawable.g_pawn_w
@@ -305,14 +276,12 @@ object ChessGame {
         isWestern = !isWestern
     }
 
-
     private fun initPosition(): MutableList<Square> {
 
         val randomPiece = mutableListOf<Square>()
 
-        (0..4).filter { it !=2 }.forEach { row ->
+        (0..4).filter { it != 2 }.forEach { row ->
             (0..8).filter { it != 4 }.forEach { col ->
-
                 randomPiece.add(Square(col, row))
             }
         }
@@ -349,12 +318,12 @@ object ChessGame {
 
     fun onGameEnd(): String? {
         var winner: String? = null
-        if (greenScore == 0 && blackScore == 0) {
-            winner = "RED"
-        } else if (blackScore == 0 && redScore == 0) {
-            winner = "GREEN"
+        if (greenScore == 0 && purpleScore == 0) {
+            winner = "Red"
+        } else if (purpleScore == 0 && redScore == 0) {
+            winner = "Green"
         } else if (redScore == 0 && greenScore == 0) {
-            winner = "BLACK"
+            winner = "Purple"
         }
 
         return winner

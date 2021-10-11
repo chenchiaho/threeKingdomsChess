@@ -6,6 +6,6 @@ import kotlinx.android.parcel.Parcelize
 
 enum class Player{
     GREEN,
-    BLACK,
+    PURPLE,
     RED
     }

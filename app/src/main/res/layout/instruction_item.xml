@@ -14,7 +14,8 @@
         app:layout_constraintHorizontal_bias="0.10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ruleImage"
-        app:srcCompat="@drawable/title_king" />
+        app:srcCompat="@drawable/title_king"
+        android:contentDescription="@string/chess_type" />
 
     <TextView
         android:id="@+id/titleText"
@@ -22,13 +23,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         app:layout_constraintHorizontal_bias="0.15"
-        android:text="King / Queen\nCommander / General "
+        android:text="@string/default_chess_type"
         android:textSize="11sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/titleImage"
         app:layout_constraintEnd_toStartOf="@+id/ruleImage"
         app:layout_constraintStart_toEndOf="@+id/titleImage"
-        app:layout_constraintTop_toTopOf="@+id/titleImage" />
+        app:layout_constraintTop_toTopOf="@+id/titleImage"
+        android:contentDescription="@string/chess_type"
+        tools:ignore="SmallSp" />
 
     <ImageView
         android:id="@+id/ruleImage"
@@ -39,5 +42,6 @@
         app:layout_constraintHorizontal_bias="0.65"
         app:layout_constraintStart_toEndOf="@+id/titleImage"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/king_rule" />
+        app:srcCompat="@drawable/king_rule"
+        android:contentDescription="@string/chess_rules" />
 </androidx.constraintlayout.widget.ConstraintLayout>

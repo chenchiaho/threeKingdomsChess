@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.instruction_item.view.*
 class InstructionAdapter(private val instructionList: ArrayList<Instructions>)
     : RecyclerView.Adapter<InstructionAdapter.InstructionViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InstructionAdapter.InstructionViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InstructionViewHolder {
 
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.instruction_item,
         parent, false)
@@ -20,7 +20,7 @@ class InstructionAdapter(private val instructionList: ArrayList<Instructions>)
         return InstructionViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: InstructionAdapter.InstructionViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: InstructionViewHolder, position: Int) {
         val currentItem = instructionList[position]
         holder.titleImage.setImageResource(currentItem.title)
         holder.titleText.text = currentItem.name

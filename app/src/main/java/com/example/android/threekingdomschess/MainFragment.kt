@@ -22,22 +22,17 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment(), ChessDelegate {
 
-
     private var pieceSelected = false
     var winner: String? = null
-
-
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-
         val binding: FragmentMainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.boardView.chessDelegate = this
-
 
         binding.boardView.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
@@ -67,14 +62,13 @@ class MainFragment : Fragment(), ChessDelegate {
                     binding.boardView.onSecondTouchEvent(event)
                     val next = ChessGame.nextTurn()
                     playerIndicator(next)
-
                     pieceSelected = false
 
                     if (ChessGame.onGameEnd() != null) {
                         winner = ChessGame.onGameEnd()
                         val builder = AlertDialog.Builder(requireContext())
                                 .setTitle("")
-                                .setMessage("$winner WON!")
+                                .setMessage("$winner is victorious!")
                                 .setPositiveButton("GG") { dialogInterface: DialogInterface, i: Int ->
                                     onGameClicked(binding)
                                     val nextPlay = ChessGame.nextTurn()
@@ -85,16 +79,11 @@ class MainFragment : Fragment(), ChessDelegate {
                                 }.create()
                         builder.show()
                     }
-
                     return true
                 }
                 return true
-
             }
-
         }
-
-
         )
 
         binding.styleSwitch.setOnClickListener {
@@ -105,7 +94,7 @@ class MainFragment : Fragment(), ChessDelegate {
 
             val builder = AlertDialog.Builder(requireContext())
                     .setTitle("")
-                    .setMessage("Restart the game?")
+                    .setMessage("Draw, restart the game?")
                     .setPositiveButton("Yes") { dialogInterface: DialogInterface, i: Int ->
                         onGameClicked(binding)
                         val next = ChessGame.nextTurn()
@@ -115,13 +104,10 @@ class MainFragment : Fragment(), ChessDelegate {
 
                     }.create()
             builder.show()
-
-
         }
         binding.intro.setOnClickListener {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToInfoFragment())
         }
-
 
         return binding.root
     }
@@ -162,7 +148,6 @@ class MainFragment : Fragment(), ChessDelegate {
         imageView.animate().apply {
             duration = 500
             alpha(1.0f)
-
         }.start()
     }
     private fun fadeOutAnimate(imageView: ImageView) {
@@ -172,32 +157,24 @@ class MainFragment : Fragment(), ChessDelegate {
         }.start()
     }
 
-
-
     fun playerIndicator(next: Player) {
         when (next) {
             Player.GREEN -> {
-
                 fadeInAnimate(indicator_1)
                 fadeOutAnimate(indicator_2)
                 fadeOutAnimate(indicator_3)
-
             }
-            Player.BLACK -> {
-
+            Player.PURPLE -> {
                 fadeInAnimate(indicator_2)
                 fadeOutAnimate(indicator_1)
                 fadeOutAnimate(indicator_3)
-
             }
             Player.RED -> {
                 fadeInAnimate(indicator_3)
                 fadeOutAnimate(indicator_1)
                 fadeOutAnimate(indicator_2)
-
             }
         }
     }
-
 }
 

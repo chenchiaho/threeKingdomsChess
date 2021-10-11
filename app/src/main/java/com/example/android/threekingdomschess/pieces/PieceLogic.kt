@@ -106,7 +106,6 @@ class PieceLogic {
                 count += if (ChessGame.checkPiecePosition(col, fromRow) == null) 0 else 1
             }
         }
-
         return count == 1
     }
 
