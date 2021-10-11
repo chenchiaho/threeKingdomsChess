@@ -3,18 +3,27 @@
     <string name="restart">Restart</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="player_indicator">Player indicator</string>
-    <string name="designer_info">Chess piece design by Inductiveload, Public domain, via Wikimedia Commons</string>
+    <string name="player_indicator" translatable="false">Player indicator</string>
+    <string name="designer_info" translatable="false">Chess piece design by Inductiveload, Public domain, via Wikimedia Commons</string>
     <string name="player_1">Player 1</string>
     <string name="player_2">Player 2</string>
     <string name="player_3">Player 3</string>
-    <string name="arrow">arrow</string>
-    <string name="chess_set">chess set</string>
+    <string name="arrow" translatable="false">arrow</string>
+    <string name="chess_set" translatable="false">chess set</string>
     <string name="or">or</string>
     <string name="click_to_reveal_piece">Click to reveal pieces</string>
-    <string name="chess_type">Chess type</string>
-    <string name="default_chess_type">King\nQueen\nCommander\nGeneral</string>
-    <string name="chess_rules">legal moves for each piece</string>
+    <string name="chess_type" translatable="false">Chess type</string>
+    <string name="default_chess_type" translatable="false">King\nQueen\nCommander\nGeneral</string>
+    <string name="chess_rules" translatable="false">legal moves for each piece</string>
+    <string name="winner_green">GREEN</string>
+    <string name="winner_purple">PURPLE</string>
     <string name="winner_red">RED</string>
+    <string name="winner_victory">\'S VICTORY!</string>
+    <string name="good_game">GG</string>
+    <string name="dismiss">dismiss</string>
+    <string name="restart_game">Restart the game?</string>
+    <string name="restart_confirm">Yes</string>
+    <string name="cancel">Cancel</string>
+
 
 </resources>

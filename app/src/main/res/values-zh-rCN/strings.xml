@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">三国象棋</string>
+    <string name="player_1">玩家 1</string>
+    <string name="player_2">玩家 2</string>
+    <string name="player_3">玩家 3</string>
+    <string name="or">或</string>
+    <string name="click_to_reveal_piece">点一下翻开棋子</string>
+    <string name="restart">重来</string>
+    <string name="winner_green">绿色</string>
+    <string name="winner_purple">紫色</string>
+    <string name="winner_red">红色</string>
+    <string name="winner_victory">胜利</string>
+    <string name="good_game">再玩一次</string>
+    <string name="dismiss">取消</string>
+    <string name="restart_game">真的吗?</string>
+    <string name="cancel">取消</string>
+    <string name="restart_confirm">确定</string>
+</resources>

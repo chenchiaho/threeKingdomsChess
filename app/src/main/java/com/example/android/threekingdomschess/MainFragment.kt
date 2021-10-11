@@ -65,16 +65,20 @@ class MainFragment : Fragment(), ChessDelegate {
                     pieceSelected = false
 
                     if (ChessGame.onGameEnd() != null) {
-                        winner = ChessGame.onGameEnd()
+                        winner = when (ChessGame.onGameEnd()) {
+                            1 -> getString(R.string.winner_green)
+                            2 -> getString(R.string.winner_purple)
+                            else -> getString(R.string.winner_red)
+                        }
                         val builder = AlertDialog.Builder(requireContext())
                                 .setTitle("")
-                                .setMessage("$winner is victorious!")
-                                .setPositiveButton("GG") { dialogInterface: DialogInterface, i: Int ->
+                                .setMessage("$winner" + getString(R.string.winner_victory))
+                                .setPositiveButton(getString(R.string.good_game)) { dialogInterface: DialogInterface, i: Int ->
                                     onGameClicked(binding)
                                     val nextPlay = ChessGame.nextTurn()
                                     playerIndicator(nextPlay)
                                 }
-                                .setNegativeButton("Dismiss") { dialogInterface: DialogInterface, i: Int ->
+                                .setNegativeButton(getString(R.string.dismiss)) { dialogInterface: DialogInterface, i: Int ->
 
                                 }.create()
                         builder.show()
@@ -94,13 +98,13 @@ class MainFragment : Fragment(), ChessDelegate {
 
             val builder = AlertDialog.Builder(requireContext())
                     .setTitle("")
-                    .setMessage("Draw, restart the game?")
-                    .setPositiveButton("Yes") { dialogInterface: DialogInterface, i: Int ->
+                    .setMessage(getString(R.string.restart_game))
+                    .setPositiveButton(getString(R.string.restart_confirm)) { dialogInterface: DialogInterface, i: Int ->
                         onGameClicked(binding)
                         val next = ChessGame.nextTurn()
                         playerIndicator(next)
                     }
-                    .setNegativeButton("Cancel") { dialogInterface: DialogInterface, i: Int ->
+                    .setNegativeButton(getString(R.string.cancel)) { dialogInterface: DialogInterface, i: Int ->
 
                     }.create()
             builder.show()

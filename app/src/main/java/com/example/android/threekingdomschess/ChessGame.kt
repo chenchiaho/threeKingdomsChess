@@ -316,17 +316,16 @@ object ChessGame {
         return null
     }
 
-    fun onGameEnd(): String? {
-        var winner: String? = null
+    fun onGameEnd(): Int? {
+        var winnerCode: Int? = null
         if (greenScore == 0 && purpleScore == 0) {
-            winner = "Red"
+            winnerCode = 3
         } else if (purpleScore == 0 && redScore == 0) {
-            winner = "Green"
+            winnerCode = 1
         } else if (redScore == 0 && greenScore == 0) {
-            winner = "Purple"
+            winnerCode = 2
         }
-
-        return winner
+        return winnerCode
     }
 
 
