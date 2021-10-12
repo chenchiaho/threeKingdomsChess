@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">三国チェス</string>
+    <string name="restart">リスタート</string>
+    <string name="player_1">プレーヤー 1 (みどり)</string>
+    <string name="player_2">プレーヤー 2 (紫)</string>
+    <string name="player_3">プレーヤー 3 (レッド)</string>
+    <string name="or">または</string>
+    <string name="winner_green">みどりの勝利！</string>
+    <string name="winner_purple">紫の勝利！</string>
+    <string name="winner_red">レッドの勝利！</string>
+    <string name="good_game">もう一度する</string>
+    <string name="cancel">キャンセル</string>
+    <string name="restart_confirm">はい</string>
+    <string name="restart_game">再開しますか？</string>
+    <string name="click_to_reveal_piece">クリックで駒を表示する</string>
+    <string name="dismiss">キャンセル</string>
+</resources>

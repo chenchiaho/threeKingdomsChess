@@ -72,7 +72,7 @@ class MainFragment : Fragment(), ChessDelegate {
                         }
                         val builder = AlertDialog.Builder(requireContext())
                                 .setTitle("")
-                                .setMessage("$winner" + getString(R.string.winner_victory))
+                                .setMessage(winner)
                                 .setPositiveButton(getString(R.string.good_game)) { dialogInterface: DialogInterface, i: Int ->
                                     onGameClicked(binding)
                                     val nextPlay = ChessGame.nextTurn()
