@@ -34,13 +34,13 @@ class InfoFragment : Fragment(){
                 R.drawable.title_elephant
         )
         titleText = arrayOf(
-                "King\nQueen\nCommander\nGeneral",
-                "Pawns",
-                "Rooks\nChariots",
-                "Knights\nHorses",
-                "Cannons",
-                "Guards",
-                "Bishops\nElephants"
+                getString(R.string.king_set),
+                getString(R.string.pawn_set),
+                getString(R.string.rook_set),
+                getString(R.string.knight_set),
+                getString(R.string.cannon_set),
+                getString(R.string.guard_set),
+                getString(R.string.bishop_set)
         )
         ruleId = arrayOf(
                 R.drawable.king_rule,

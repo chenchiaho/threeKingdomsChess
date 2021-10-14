@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">三國象棋</string>
-    <string name="player_1">玩家 1 (綠色)</string>
-    <string name="player_2">玩家 2 (紫色)</string>
-    <string name="player_3">玩家 3 (紅色)</string>
+    <string name="player_1">玩家 1  (綠色)</string>
+    <string name="player_2">玩家 2  (紫色)</string>
+    <string name="player_3">玩家 3  (紅色)</string>
     <string name="or">或</string>
     <string name="click_to_reveal_piece">點一下翻開棋子</string>
     <string name="restart">重來</string>
@@ -15,4 +15,11 @@
     <string name="restart_game">真的嗎?</string>
     <string name="cancel">取消</string>
     <string name="restart_confirm">確定</string>
+    <string name="king_set">國王\n皇后\n帥\n將</string>
+    <string name="pawn_set">卒兵</string>
+    <string name="rook_set">城堡\n車</string>
+    <string name="knight_set">騎士\n馬</string>
+    <string name="cannon_set">砲/炮</string>
+    <string name="guard_set">士/仕</string>
+    <string name="bishop_set">主教\n象/相</string>
 </resources>

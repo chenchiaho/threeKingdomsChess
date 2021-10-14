@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">3 Kingdoms Chess</string>
+    <string name="king_set">King\nQueen\nCommander\nGeneral</string>
+    <string name="pawn_set">Pawns</string>
+    <string name="rook_set">Rooks\nChariots</string>
+    <string name="knight_set">Knights\nHorses</string>
+    <string name="cannon_set">Cannons</string>
+    <string name="bishop_set">Bishops\nElephants</string>
+    <string name="guard_set">Guards</string>
+
+    <string name="restart">เริ่มใหม่</string>
+    <string name="player_1">ผู้เล่น 1 (เขียว)</string>
+    <string name="player_2">ผู้เล่น 2 (ม่วง)</string>
+    <string name="player_3">ผู้เล่น 3 (แดง)</string>
+    <string name="or">หรือ</string>
+    <string name="click_to_reveal_piece">คลิกเพื่อแสดง</string>
+
+    <string name="winner_green">ฝ่ายเขียวชนะ!</string>
+    <string name="winner_purple">ฝ่ายม่วงชนะ!</string>
+    <string name="winner_red">ฝ่ายแดงชนะ!</string>
+    <string name="good_game">เล่นใหม่อีกครั้ง</string>
+    <string name="dismiss">ปิดหน้าต่าง</string>
+    <string name="restart_game">เริ่มใหม่อีกครั้ง</string>
+    <string name="restart_confirm">ตกลง</string>
+    <string name="cancel">ยกเลิก</string>
+</resources>

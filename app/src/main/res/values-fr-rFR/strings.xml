@@ -2,17 +2,24 @@
 <resources>
     <string name="app_name">Échecs des 3 Royaumes</string>
     <string name="restart">Redémarrage</string>
-    <string name="player_1">Joueur 1 (Verte)</string>
-    <string name="player_2">Joueur 2 (Violette)</string>
-    <string name="player_3">Joueur 3 (Rouge)</string>
+    <string name="player_1">Joueur 1  (Verte)</string>
+    <string name="player_2">Joueur 2  (Violette)</string>
+    <string name="player_3">Joueur 3  (Rouge)</string>
     <string name="or">OU</string>
     <string name="click_to_reveal_piece">Cliquez pour révéler les pièces</string>
     <string name="winner_green">LA VICTOIRE DES VERTS !</string>
     <string name="winner_red">LA VICTOIRE DES ROUGES !</string>
     <string name="winner_purple">LA VICTOIRE DE VIOLETTE !</string>
     <string name="good_game">Rejouer</string>
-    <string name="dismiss">Rejeter</string>
+    <string name="dismiss">annulé</string>
     <string name="restart_game">Redémarrer le jeu ?</string>
     <string name="restart_confirm">Oui</string>
     <string name="cancel">Annuler</string>
+    <string name="king_set">roi\ndame\ngénéral</string>
+    <string name="pawn_set">pion</string>
+    <string name="knight_set">cavalier</string>
+    <string name="rook_set">tour</string>
+    <string name="bishop_set">fou\néléphants</string>
+    <string name="guard_set">gardes</string>
+    <string name="cannon_set">canons</string>
 </resources>

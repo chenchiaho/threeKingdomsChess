@@ -5,9 +5,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="player_indicator" translatable="false">Player indicator</string>
     <string name="designer_info" translatable="false">Chess piece design by Inductiveload, Public domain, via Wikimedia Commons</string>
-    <string name="player_1">Player 1 (Green)</string>
-    <string name="player_2">Player 2 (Purple)</string>
-    <string name="player_3">Player 3 (Red)</string>
+    <string name="player_1">Player 1  (Green)</string>
+    <string name="player_2">Player 2  (Purple)</string>
+    <string name="player_3">Player 3  (Red)</string>
     <string name="arrow" translatable="false">arrow</string>
     <string name="chess_set" translatable="false">chess set</string>
     <string name="or">OR</string>
@@ -23,6 +23,11 @@
     <string name="restart_game">Restart the game?</string>
     <string name="restart_confirm">Yes</string>
     <string name="cancel">Cancel</string>
-
-
+    <string name="king_set">King\nQueen\nCommander\nGeneral</string>
+    <string name="pawn_set">Pawns</string>
+    <string name="rook_set">Rooks\nChariots</string>
+    <string name="knight_set">Knights\nHorses</string>
+    <string name="cannon_set">Cannons</string>
+    <string name="guard_set">Guards</string>
+    <string name="bishop_set">Bishops\nElephants</string>
 </resources>
